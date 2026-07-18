@@ -348,12 +348,12 @@
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-          <div class="product-visual" style="cursor:pointer;" onclick="window.open('artikel.html?id=${p.id}','_blank')" title="Details ansehen"><span class="icon-wrap" style="display:contents;">${ICONS[p.icon]}</span><img class="product-photo" src="produktbilder/${p.id}.jpg" alt="${p.name}" onload="photoLoaded(this)" onerror="photoError(this,'${p.id}')" />${badge}</div>
+          <div class="product-visual" style="cursor:pointer;" onclick="location.href='artikel.html?id=${p.id}'" title="Details ansehen"><span class="icon-wrap" style="display:contents;">${ICONS[p.icon]}</span><img class="product-photo" src="produktbilder/${p.id}.jpg" alt="${p.name}" onload="photoLoaded(this)" onerror="photoError(this,'${p.id}')" />${badge}</div>
           <div class="product-body">
             <div class="product-brand">${p.brand}</div>
-            <a class="product-name" href="artikel.html?id=${p.id}" target="_blank">${p.name}</a>
+            <a class="product-name" href="artikel.html?id=${p.id}">${p.name}</a>
             <p class="product-desc">${p.desc}</p>
-            <a class="product-details-link" href="artikel.html?id=${p.id}" target="_blank">Mehr Infos & großes Bild →</a>
+            <a class="product-details-link" href="artikel.html?id=${p.id}">Mehr Infos & großes Bild →</a>
             <div class="product-meta">
               <div class="product-price">${fmt(p.price)}<small>inkl. MwSt.</small></div>
               <div class="product-stocktext">${stockText}</div>
