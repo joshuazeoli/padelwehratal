@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artikel – The Cube Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #041832; color: #e2eaf4; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --brand-blue:   #004aab;
+      --dark-bg:      #041832;
+      --card-bg:      #0a3266;
+      --cyan:         #e6ff53;
+      --cyan-light:   #f2ff8f;
+      --white:        #ffffff;
+      --text-muted:   #7a9cbf;
+      --border:       rgba(230,255,83,0.2);
+      --border-strong:rgba(230,255,83,0.4);
+      --radius:       16px;
+    }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 80px; overflow: visible;
+      background: rgba(4,24,50,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; height: 80px; }
+    .nav-logo { display: flex; align-items: flex-start; flex-shrink: 0; }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+    .nav-back { color: var(--text-muted); font-size: 0.88rem; font-weight: 600; transition: color .2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-cta { background: var(--cyan); color: #002b63; padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; transition: all .25s; box-shadow: 0 4px 18px rgba(230,255,83,0.3); }
+    .nav-cta:hover { background: var(--cyan-light); transform: translateY(-1px); }
+
+    .bg-watermark {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background-image: url('cube-racket.png');
+      background-repeat: repeat; background-size: 72px auto; opacity: 0.03;
+    }
+
+    /* ── ARTIKEL ── */
+    .article-section { padding: 130px 0 96px; position: relative; }
+    .breadcrumb { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--cyan); }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+    .article-visual {
+      aspect-ratio: 1/1; border-radius: var(--radius); overflow: hidden; position: relative;
+      background: linear-gradient(160deg, #0b4a94, #0a3266); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-visual svg { width: 52%; height: auto; filter: drop-shadow(0 12px 32px rgba(0,0,0,0.4)); }
+    .article-visual .icon-wrap img { width: 34% !important; }
+    .product-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    .stock-badge { position: absolute; top: 16px; right: 16px; padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; z-index: 2; }
+    .stock-badge.ok   { background: rgba(230,255,83,0.15); border: 1px solid rgba(230,255,83,0.4); color: var(--cyan); }
+    .stock-badge.low  { background: rgba(255,170,60,0.15); border: 1px solid rgba(255,170,60,0.45); color: #ffc83d; }
+    .stock-badge.out  { background: rgba(255,90,90,0.14); border: 1px solid rgba(255,90,90,0.4); color: #ff8a8a; }
+    .photo-hint { position: absolute; bottom: 14px; left: 14px; right: 14px; text-align: center; font-size: 0.72rem; color: rgba(226,234,244,0.45); }
+
+    .article-brand { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+    .article-name { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .article-price { font-size: 2rem; font-weight: 900; color: var(--white); margin-bottom: 4px; }
+    .article-price small { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-left: 8px; }
+    .article-stocktext { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 22px; }
+    .article-longdesc { font-size: 0.95rem; color: #b8cfe6; line-height: 1.75; margin-bottom: 22px; }
+    .article-details { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+    .article-details li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: #b8cfe6; }
+    .article-details li .check { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
+
+    .buy-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; }
+    .buy-box h3 { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .buy-row { display: flex; gap: 10px; margin-bottom: 12px; }
+    .size-select, .qty-input {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px;
+      color: var(--white); font-family: inherit; font-size: 0.9rem; padding: 11px 13px; outline: none;
+    }
+    .size-select:focus, .qty-input:focus { border-color: var(--cyan); }
+    .size-select { flex: 1; }
+    .size-select option { background: #0a3266; }
+    .qty-input { width: 70px; text-align: center; }
+    .buy-box input[type=text], .buy-box input[type=email], .buy-box input[type=tel], .buy-box textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px;
+      padding: 11px 14px; font-size: 0.88rem; color: var(--white); font-family: inherit; outline: none; margin-bottom: 10px;
+    }
+    .buy-box input:focus, .buy-box textarea:focus { border-color: var(--cyan); }
+    .buy-box textarea { height: 56px; resize: vertical; }
+    .btn-order {
+      width: 100%; padding: 14px; background: var(--cyan); color: #002b63; border: none; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all .25s; font-family: inherit;
+      box-shadow: 0 8px 28px rgba(230,255,83,0.3);
+    }
+    .btn-order:hover:not(:disabled) { background: var(--cyan-light); transform: translateY(-2px); }
+    .btn-order:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); cursor: not-allowed; box-shadow: none; }
+    .buy-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; text-align: center; }
+    .order-status { margin-top: 12px; font-size: 0.85rem; line-height: 1.5; display: none; padding: 12px 14px; border-radius: 10px; }
+    .order-status.ok { display: block; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.35); color: var(--cyan); }
+    .order-status.err { display: block; background: rgba(255,90,90,0.1); border: 1px solid rgba(255,90,90,0.35); color: #ff8a8a; }
+
+    .notfound { text-align: center; padding: 60px 0; }
+    .notfound h2 { color: var(--white); font-weight: 800; margin-bottom: 12px; }
+    .notfound a { color: var(--cyan); font-weight: 700; }
+
+    footer { background: #020f21; border-top: 1px solid var(--border); padding: 32px 0 24px; margin-top: 60px; }
+    .footer-copy { font-size: 0.78rem; color: #26507f; text-align: center; }
+    .footer-copy a { color: var(--text-muted); }
+    .footer-copy a:hover { color: var(--cyan); }
+
+    @media (max-width: 900px) {
+      .article-grid { grid-template-columns: 1fr; gap: 28px; }
+      .article-section { padding: 110px 0 60px; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .nav-logo img { height: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-watermark"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="cube-logo.png" alt="The Cube – Padelarena Wehr" />
+      </a>
+      <div class="nav-right">
+        <a href="shop.html" class="nav-back">← Zurück zum Shop</a>
+        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="nav-cta">Jetzt buchen →</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="article-section">
+    <div class="container" id="articleContainer">
+      <!-- wird per JavaScript gefüllt -->
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-copy">© 2026 The Cube – Padelarena Wehratal · <a href="shop.html">Shop</a> · <a href="index.html">Startseite</a></div>
+    </div>
+  </footer>
+
+  <script src="produkte.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const artId = params.get('id');
+    const P = PRODUCTS.find(x => x.id === artId);
+    const wrap = document.getElementById('articleContainer');
+
+    const CAT_NAMES = { shirts: 'Shirts', hosen: 'Hosen', schlaeger: 'Schläger', baelle: 'Bälle' };
+
+    function availableFor(p, size) {
+      if (typeof p.stock === 'number') return p.stock;
+      if (size) return p.stock[size];
+      return totalStock(p);
+    }
+
+    function renderArticle() {
+      if (!P) {
+        wrap.innerHTML = `<div class="notfound"><h2>Artikel nicht gefunden</h2><p><a href="shop.html">→ Zurück zum Shop</a></p></div>`;
+        return;
+      }
+      document.title = P.brand + ' ' + P.name + ' – The Cube Shop';
+      const avail = availableFor(P);
+      const badge = avail <= 0 ? '<span class="stock-badge out">Ausverkauft</span>'
+                  : avail <= 3 ? `<span class="stock-badge low">Nur noch ${avail}</span>`
+                  : '<span class="stock-badge ok">Auf Lager</span>';
+      const hasSizes = typeof P.stock === 'object';
+      const sizeOpts = hasSizes
+        ? '<option value="" disabled selected>Größe wählen</option>' + Object.entries(P.stock).map(([s, n]) =>
+            `<option value="${s}" ${n <= 0 ? 'disabled' : ''}>${s}${n <= 0 ? ' – ausverkauft' : ` (${n} verfügbar)`}</option>`).join('')
+        : '';
+      const stockText = hasSizes
+        ? Object.entries(P.stock).map(([s, n]) => `${s}: ${n}`).join(' · ') + ' Stück auf Lager'
+        : (avail > 0 ? `${avail} Stück auf Lager` : 'zurzeit nicht verfügbar');
+
+      wrap.innerHTML = `
+        <div class="breadcrumb"><a href="shop.html">Shop</a> › <a href="shop.html#${P.cat}">${CAT_NAMES[P.cat] || ''}</a> › ${P.name}</div>
+        <div class="article-grid">
+          <div class="article-visual">
+            <span class="icon-wrap" style="display:contents;">${ICONS[P.icon]}</span>
+            <img class="product-photo" src="produktbilder/${P.id}.jpg" alt="${P.name}" onload="photoLoaded(this)" onerror="photoError(this,'${P.id}')" />
+            ${badge}
+          </div>
+          <div>
+            <div class="article-brand">${P.brand}</div>
+            <h1 class="article-name">${P.name}</h1>
+            <div class="article-price">${fmt(P.price)}<small>inkl. MwSt.</small></div>
+            <div class="article-stocktext">${stockText}</div>
+            <p class="article-longdesc">${P.longDesc || P.desc}</p>
+            ${P.details ? `<ul class="article-details">${P.details.map(d => `<li><span class="check">✓</span><span>${d}</span></li>`).join('')}</ul>` : ''}
+            <div class="buy-box">
+              <h3>Jetzt reservieren – abholen &amp; bezahlen in der Arena</h3>
+              <form id="reserveForm">
+                <div class="buy-row">
+                  ${hasSizes ? `<select class="size-select" id="artSize">${sizeOpts}</select>` : ''}
+                  <input class="qty-input" id="artQty" type="number" min="1" value="1" ${avail <= 0 ? 'disabled' : ''} />
+                </div>
+                <input type="text" id="custName" placeholder="Dein Name *" required />
+                <input type="email" id="custEmail" placeholder="Deine E-Mail *" required />
+                <input type="tel" id="custPhone" placeholder="Telefon (optional)" />
+                <button type="submit" class="btn-order" id="btnOrder" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : 'Jetzt reservieren'}</button>
+                <div class="buy-note">Unverbindliche Reservierung · Stadionweg 14, 79664 Wehr</div>
+                <div class="order-status" id="orderStatus"></div>
+              </form>
+            </div>
+          </div>
+        </div>`;
+
+      document.getElementById('reserveForm').addEventListener('submit', submitReservation);
+    }
+
+    async function submitReservation(e) {
+      e.preventDefault();
+      const hasSizes = typeof P.stock === 'object';
+      const size = hasSizes ? document.getElementById('artSize').value : null;
+      if (hasSizes && !size) { alert('Bitte zuerst eine Größe wählen.'); return; }
+      const qty = Math.max(1, parseInt(document.getElementById('artQty').value || '1', 10));
+      const avail = availableFor(P, size);
+      if (qty > avail) { alert(`Nur noch ${avail} Stück verfügbar.`); return; }
+
+      const btn = document.getElementById('btnOrder');
+      const status = document.getElementById('orderStatus');
+      btn.disabled = true; btn.textContent = 'Wird gesendet…';
+      status.className = 'order-status';
+
+      const line = `${qty}x ${P.brand} ${P.name}${size ? ' (Größe ' + size + ')' : ''} – je ${fmt(P.price)} = ${fmt(P.price * qty)}`;
+      const payload = {
+        _subject: '🛒 Neue Shop-Bestellung – The Cube',
+        _template: 'table',
+        _captcha: 'false',
+        Bestellung: line,
+        Gesamtsumme: fmt(P.price * qty),
+        Name: document.getElementById('custName').value,
+        'E-Mail': document.getElementById('custEmail').value,
+        Telefon: document.getElementById('custPhone').value || '–',
+        Abwicklung: 'Abholung & Bezahlung in der Arena',
+      };
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        status.className = 'order-status ok';
+        status.innerHTML = '✅ <b>Reservierung eingegangen!</b> Wir melden uns bei dir, sobald der Artikel zur Abholung bereitliegt.';
+        btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
+        document.getElementById('reserveForm').reset();
+      } catch (err) {
+        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + line + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload['E-Mail'] + '\nTelefon: ' + payload.Telefon);
+        status.className = 'order-status err';
+        status.innerHTML = '⚠️ Der automatische Versand hat nicht geklappt. <a style="color:var(--cyan);text-decoration:underline;" href="mailto:' + ORDER_EMAIL + '?subject=Shop-Bestellung%20The%20Cube&body=' + body + '">Hier klicken</a>, um die Reservierung per E-Mail zu senden.';
+        btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
+      }
+    }
+
+    renderArticle();
+    loadStockFromSheet().then(ok => { if (ok) renderArticle(); });
+  </script>
+</body>
+</html>

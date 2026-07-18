@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop – The Cube – Padelarena Wehratal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #041832; color: #e2eaf4; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --brand-blue:   #004aab;
+      --dark-bg:      #041832;
+      --card-bg:      #0a3266;
+      --cyan:         #e6ff53;
+      --cyan-light:   #f2ff8f;
+      --white:        #ffffff;
+      --text-muted:   #7a9cbf;
+      --border:       rgba(230,255,83,0.2);
+      --border-strong:rgba(230,255,83,0.4);
+      --radius:       16px;
+    }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAVIGATION (wie Hauptseite) ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 80px; overflow: visible;
+      background: rgba(4,24,50,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; height: 80px; gap: 0; }
+    .nav-logo { display: flex; align-items: flex-start; flex-shrink: 0; }
+    .nav-logo img { height: 44px; width: auto; position: relative; z-index: 101; }
+    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; flex: 1; justify-content: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--cyan); }
+    .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+    .nav-cta { background: var(--cyan); color: #002b63; padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; transition: all .25s; box-shadow: 0 4px 18px rgba(230,255,83,0.3); }
+    .nav-cta:hover { background: var(--cyan-light); transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 110; }
+    .nav-hamburger span { display: block; width: 28px; height: 2.5px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 105;
+      background: rgba(4,24,50,0.98); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu a { font-size: 1.3rem; font-weight: 700; color: var(--text-muted); padding: 12px 24px; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--white); }
+
+    /* ── BACKGROUND WATERMARK ── */
+    .bg-watermark {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background-image: url('cube-racket.png');
+      background-repeat: repeat;
+      background-size: 72px auto;
+      background-position: 0 0;
+      opacity: 0.03;
+    }
+
+    /* ── SHOP HERO ── */
+    .shop-hero { padding: 150px 0 40px; position: relative; overflow: hidden; }
+    .shop-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 70% 20%, rgba(0,74,171,0.55) 0%, transparent 60%), linear-gradient(180deg, #041832 0%, #06264e 100%); }
+    .shop-hero .container { position: relative; z-index: 1; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+    .shop-title { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 900; line-height: 1.12; color: var(--white); margin-bottom: 16px; }
+    .shop-title .accent { color: var(--cyan); }
+    .shop-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; }
+
+    /* Ablauf-Banner */
+    .how-banner { background: linear-gradient(135deg, var(--brand-blue) 0%, #003c8f 100%); border: 1px solid rgba(230,255,83,0.25); border-radius: var(--radius); padding: 22px 28px; margin-top: 32px; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
+    .how-step { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px; }
+    .how-num { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--cyan); color: #002b63; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .how-step p { font-size: 0.85rem; color: rgba(255,255,255,0.85); line-height: 1.45; }
+    .how-step p b { color: var(--white); }
+
+    /* ── FILTER ── */
+    .shop-section { padding: 48px 0 96px; }
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+    .filter-btn {
+      background: transparent; border: 1px solid rgba(230,255,83,0.25); color: var(--text-muted);
+      padding: 9px 22px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      transition: all .2s; font-family: inherit;
+    }
+    .filter-btn:hover { border-color: var(--cyan); color: var(--white); }
+    .filter-btn.active { background: var(--cyan); border-color: var(--cyan); color: #002b63; }
+
+    /* ── PRODUKTE ── */
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .product-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; position: relative; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,74,171,0.4); }
+    .product-visual { aspect-ratio: 4/3; background: linear-gradient(160deg, #0b4a94, #0a3266); display: flex; align-items: center; justify-content: center; position: relative; }
+    .product-visual svg { width: 45%; height: auto; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35)); }
+    .product-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    .stock-badge { z-index: 2; }
+    .stock-badge { position: absolute; top: 14px; right: 14px; padding: 5px 14px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .stock-badge.ok   { background: rgba(230,255,83,0.15); border: 1px solid rgba(230,255,83,0.4); color: var(--cyan); }
+    .stock-badge.low  { background: rgba(255,170,60,0.15); border: 1px solid rgba(255,170,60,0.45); color: #ffc83d; }
+    .stock-badge.out  { background: rgba(255,90,90,0.14); border: 1px solid rgba(255,90,90,0.4); color: #ff8a8a; }
+    .product-body { padding: 22px 24px 26px; display: flex; flex-direction: column; flex: 1; }
+    .product-brand { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .product-name { font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 6px; display: block; transition: color .2s; }
+    a.product-name:hover { color: var(--cyan); }
+    .product-details-link { font-size: 0.78rem; color: var(--cyan); font-weight: 700; margin-bottom: 14px; display: inline-block; }
+    .product-details-link:hover { text-decoration: underline; }
+    .product-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+    .product-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .product-price { font-size: 1.45rem; font-weight: 900; color: var(--white); }
+    .product-price small { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); display: block; margin-top: -2px; }
+    .product-stocktext { font-size: 0.78rem; color: var(--text-muted); text-align: right; }
+    .product-controls { display: flex; gap: 10px; }
+    .size-select, .qty-input {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px;
+      color: var(--white); font-family: inherit; font-size: 0.85rem; padding: 10px 12px; outline: none;
+    }
+    .size-select:focus, .qty-input:focus { border-color: var(--cyan); }
+    .size-select { flex: 1; }
+    .size-select option { background: #0a3266; }
+    .qty-input { width: 64px; text-align: center; }
+    .btn-add {
+      margin-top: 12px; width: 100%; padding: 12px; border: none; border-radius: 50px;
+      background: var(--cyan); color: #002b63; font-family: inherit; font-size: 0.88rem; font-weight: 800;
+      cursor: pointer; transition: all .25s;
+    }
+    .btn-add:hover:not(:disabled) { background: var(--cyan-light); transform: translateY(-2px); }
+    .btn-add:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); cursor: not-allowed; }
+
+    /* ── WARENKORB ── */
+    .cart-fab {
+      position: fixed; bottom: 26px; right: 26px; z-index: 500;
+      background: var(--cyan); color: #002b63; border: none; border-radius: 50px;
+      padding: 16px 26px; font-family: inherit; font-size: 0.95rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 12px 40px rgba(230,255,83,0.35); transition: transform .2s; display: flex; align-items: center; gap: 10px;
+    }
+    .cart-fab:hover { transform: translateY(-3px); }
+    .cart-count { background: #002b63; color: var(--cyan); width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 900; }
+    .cart-overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(2,10,22,0.7); backdrop-filter: blur(4px); }
+    .cart-overlay.active { display: block; }
+    .cart-panel {
+      position: fixed; top: 0; right: -480px; width: 460px; max-width: 96vw; height: 100vh; z-index: 950;
+      background: #06264e; border-left: 1px solid var(--border-strong);
+      transition: right .35s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column;
+    }
+    .cart-panel.active { right: 0; }
+    .cart-head { padding: 24px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .cart-head h3 { font-size: 1.15rem; font-weight: 800; color: var(--white); }
+    .cart-close { background: none; border: 1px solid var(--border); color: var(--text-muted); width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; transition: all .2s; }
+    .cart-close:hover { border-color: var(--cyan); color: var(--white); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 14px; }
+    .cart-empty { color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-top: 40px; }
+    .cart-item { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .cart-item .ci-name { font-size: 0.88rem; font-weight: 700; color: var(--white); }
+    .cart-item .ci-detail { font-size: 0.75rem; color: var(--text-muted); }
+    .cart-item .ci-price { font-size: 0.9rem; font-weight: 800; color: var(--cyan); white-space: nowrap; }
+    .ci-remove { background: none; border: none; color: #ff8a8a; cursor: pointer; font-size: 1rem; padding: 4px; }
+    .cart-form { padding: 20px 28px 28px; border-top: 1px solid var(--border); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 900; color: var(--white); margin-bottom: 6px; }
+    .cart-note { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 16px; }
+    .cart-form input, .cart-form textarea {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px;
+      padding: 11px 14px; font-size: 0.88rem; color: var(--white); font-family: inherit; outline: none; margin-bottom: 10px;
+    }
+    .cart-form input:focus, .cart-form textarea:focus { border-color: var(--cyan); }
+    .cart-form textarea { height: 64px; resize: vertical; }
+    .btn-order {
+      width: 100%; padding: 14px; background: var(--cyan); color: #002b63; border: none; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all .25s; font-family: inherit;
+      box-shadow: 0 8px 28px rgba(230,255,83,0.3);
+    }
+    .btn-order:hover:not(:disabled) { background: var(--cyan-light); transform: translateY(-2px); }
+    .btn-order:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); cursor: not-allowed; box-shadow: none; }
+    .order-status { margin-top: 12px; font-size: 0.85rem; line-height: 1.5; display: none; padding: 12px 14px; border-radius: 10px; }
+    .order-status.ok { display: block; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.35); color: var(--cyan); }
+    .order-status.err { display: block; background: rgba(255,90,90,0.1); border: 1px solid rgba(255,90,90,0.35); color: #ff8a8a; }
+
+    /* ── FOOTER ── */
+    footer { background: #020f21; border-top: 1px solid var(--border); padding: 40px 0 28px; margin-top: 40px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .footer-brand .fname { font-size: 1rem; font-weight: 800; color: var(--white); }
+    .footer-brand .fsub { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); transition: color .2s; }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy { font-size: 0.78rem; color: #26507f; margin-top: 24px; text-align: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .how-banner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .nav-logo img { height: 34px; }
+      .shop-hero { padding: 120px 0 24px; }
+      .cart-panel { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-watermark"></div>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="cube-logo.png" alt="The Cube – Padelarena Wehr" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="index.html#about">Über uns</a></li>
+        <li><a href="index.html#booking">Buchen</a></li>
+        <li><a href="index.html#pricing">Mitgliedschaft</a></li>
+        <li><a href="index.html#training">Training</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="index.html#contact">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="nav-cta">Jetzt buchen →</a>
+      </div>
+      <div class="nav-hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#news" onclick="closeMobile()">News</a>
+    <a href="index.html#about" onclick="closeMobile()">Über uns</a>
+    <a href="index.html#booking" onclick="closeMobile()">Buchen</a>
+    <a href="index.html#training" onclick="closeMobile()">Training</a>
+    <a href="shop.html" onclick="closeMobile()" style="color:var(--cyan);">Shop</a>
+    <a href="index.html#contact" onclick="closeMobile()">Kontakt</a>
+  </div>
+
+  <!-- ═══ SHOP HERO ═══ -->
+  <header class="shop-hero">
+    <div class="shop-hero-bg"></div>
+    <div class="container">
+      <div class="section-label">The Cube Shop</div>
+      <h1 class="shop-title">Babolat Ausrüstung –<br/>direkt in der <span class="accent">Arena</span></h1>
+      <p class="shop-sub">Shirts, Hosen, Schläger und Bälle von Babolat. Online reservieren, in der Padelarena Wehratal anprobieren, abholen und bezahlen.</p>
+      <div class="how-banner">
+        <div class="how-step"><div class="how-num">1</div><p><b>Auswählen</b><br/>Produkte mit Größe &amp; Menge in den Warenkorb legen.</p></div>
+        <div class="how-step"><div class="how-num">2</div><p><b>Reservieren</b><br/>Bestellung absenden – unverbindlich, keine Online-Zahlung.</p></div>
+        <div class="how-step"><div class="how-num">3</div><p><b>Abholen</b><br/>Wir melden uns – Abholung &amp; Bezahlung in der Arena.</p></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ PRODUKTE ═══ -->
+  <section class="shop-section">
+    <div class="container">
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-cat="alle">Alle</button>
+        <button class="filter-btn" data-cat="shirts">Shirts</button>
+        <button class="filter-btn" data-cat="hosen">Hosen</button>
+        <button class="filter-btn" data-cat="schlaeger">Schläger</button>
+        <button class="filter-btn" data-cat="baelle">Bälle</button>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══ WARENKORB ═══ -->
+  <button class="cart-fab" id="cartFab" onclick="openCart()">🛒 Warenkorb <span class="cart-count" id="cartCount">0</span></button>
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-panel" id="cartPanel">
+    <div class="cart-head">
+      <h3>Deine Reservierung</h3>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"><p class="cart-empty">Dein Warenkorb ist noch leer.</p></div>
+    <form class="cart-form" id="orderForm">
+      <div class="cart-total"><span>Gesamt</span><span id="cartTotal">€ 0,00</span></div>
+      <p class="cart-note">Unverbindliche Reservierung · Abholung &amp; Bezahlung in der Arena (Stadionweg 14, 79664 Wehr)</p>
+      <input type="text" id="custName" placeholder="Dein Name *" required />
+      <input type="email" id="custEmail" placeholder="Deine E-Mail *" required />
+      <input type="tel" id="custPhone" placeholder="Telefon (optional)" />
+      <textarea id="custNote" placeholder="Bemerkung (optional)"></textarea>
+      <button type="submit" class="btn-order" id="btnOrder" disabled>Bestellung absenden</button>
+      <div class="order-status" id="orderStatus"></div>
+    </form>
+  </aside>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="fname">The Cube – Padelarena Wehratal</div>
+          <div class="fsub">Padel. Leidenschaft. Community.</div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Startseite</a>
+          <a href="index.html#contact">Kontakt</a>
+          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank">Playtomic</a>
+        </div>
+      </div>
+      <div class="footer-copy">© 2026 The Cube – Padelarena Wehratal. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script src="produkte.js"></script>
+  <script>
+    /* ── Hilfsfunktionen ── */
+    const cart = [];  // { id, size, qty }
+    const reserved = (id, size) => cart.filter(c => c.id === id && c.size === size).reduce((a,c) => a+c.qty, 0);
+    const reservedTotal = id => cart.filter(c => c.id === id).reduce((a,c) => a+c.qty, 0);
+
+    function availableFor(p, size) {
+      if (typeof p.stock === 'number') return p.stock - reservedTotal(p.id);
+      if (size) return p.stock[size] - reserved(p.id, size);
+      return totalStock(p) - reservedTotal(p.id);
+    }
+
+    /* ── Produkt-Karten rendern ── */
+    function renderProducts(cat) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      PRODUCTS.filter(p => cat === 'alle' || p.cat === cat).forEach(p => {
+        const avail = availableFor(p);
+        const badge = avail <= 0 ? '<span class="stock-badge out">Ausverkauft</span>'
+                    : avail <= 3 ? `<span class="stock-badge low">Nur noch ${avail}</span>`
+                    : `<span class="stock-badge ok">Auf Lager</span>`;
+        const hasSizes = typeof p.stock === 'object';
+        const sizeOpts = hasSizes
+          ? '<option value="" disabled selected>Größe wählen</option>' + Object.entries(p.stock).map(([s, n]) => {
+              const rest = n - reserved(p.id, s);
+              return `<option value="${s}" ${rest <= 0 ? 'disabled' : ''}>${s}${rest <= 0 ? ' – ausverkauft' : ` (${rest} verfügbar)`}</option>`;
+            }).join('')
+          : '';
+        const stockText = hasSizes
+          ? `${avail} Stück gesamt`
+          : (avail > 0 ? `${avail} verfügbar` : 'zurzeit nicht verfügbar');
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-visual" style="cursor:pointer;" onclick="window.open('artikel.html?id=${p.id}','_blank')" title="Details ansehen"><span class="icon-wrap" style="display:contents;">${ICONS[p.icon]}</span><img class="product-photo" src="produktbilder/${p.id}.jpg" alt="${p.name}" onload="photoLoaded(this)" onerror="photoError(this,'${p.id}')" />${badge}</div>
+          <div class="product-body">
+            <div class="product-brand">${p.brand}</div>
+            <a class="product-name" href="artikel.html?id=${p.id}" target="_blank">${p.name}</a>
+            <p class="product-desc">${p.desc}</p>
+            <a class="product-details-link" href="artikel.html?id=${p.id}" target="_blank">Mehr Infos & großes Bild →</a>
+            <div class="product-meta">
+              <div class="product-price">${fmt(p.price)}<small>inkl. MwSt.</small></div>
+              <div class="product-stocktext">${stockText}</div>
+            </div>
+            <div class="product-controls">
+              ${hasSizes ? `<select class="size-select" id="size-${p.id}">${sizeOpts}</select>` : ''}
+              <input class="qty-input" id="qty-${p.id}" type="number" min="1" value="1" ${avail <= 0 ? 'disabled' : ''} />
+            </div>
+            <button class="btn-add" onclick="addToCart('${p.id}')" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : 'In den Warenkorb'}</button>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ── Filter ── */
+    let currentCat = 'alle';
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentCat = btn.dataset.cat;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+        renderProducts(currentCat);
+      });
+    });
+    /* QR-Deep-Links: shop.html#shirts / #hosen / #schlaeger / #baelle */
+    const hashCat = location.hash.replace('#', '');
+    if (['shirts','hosen','schlaeger','baelle'].includes(hashCat)) {
+      currentCat = hashCat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === hashCat));
+    }
+
+    /* ── Warenkorb ── */
+    function addToCart(id) {
+      const p = PRODUCTS.find(x => x.id === id);
+      const hasSizes = typeof p.stock === 'object';
+      const size = hasSizes ? document.getElementById('size-' + id).value : null;
+      if (hasSizes && !size) { alert('Bitte zuerst eine Größe wählen.'); return; }
+      const qty = Math.max(1, parseInt(document.getElementById('qty-' + id).value || '1', 10));
+      const avail = availableFor(p, size);
+      if (qty > avail) { alert(`Nur noch ${avail} Stück verfügbar.`); return; }
+      const existing = cart.find(c => c.id === id && c.size === size);
+      if (existing) existing.qty += qty; else cart.push({ id, size, qty });
+      updateCart();
+      openCart();
+      renderProducts(currentCat);
+    }
+
+    function removeFromCart(i) { cart.splice(i, 1); updateCart(); renderProducts(currentCat); }
+
+    function updateCart() {
+      const wrap = document.getElementById('cartItems');
+      const count = cart.reduce((a,c) => a+c.qty, 0);
+      document.getElementById('cartCount').textContent = count;
+      document.getElementById('btnOrder').disabled = count === 0;
+      if (!cart.length) { wrap.innerHTML = '<p class="cart-empty">Dein Warenkorb ist noch leer.</p>'; document.getElementById('cartTotal').textContent = fmt(0); return; }
+      let total = 0;
+      wrap.innerHTML = cart.map((c, i) => {
+        const p = PRODUCTS.find(x => x.id === c.id);
+        total += p.price * c.qty;
+        return `<div class="cart-item">
+          <div><div class="ci-name">${p.brand} ${p.name}</div>
+          <div class="ci-detail">${c.size ? 'Größe ' + c.size + ' · ' : ''}${c.qty} × ${fmt(p.price)}</div></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="ci-price">${fmt(p.price * c.qty)}</span>
+            <button type="button" class="ci-remove" onclick="removeFromCart(${i})" title="Entfernen">✕</button>
+          </div></div>`;
+      }).join('');
+      document.getElementById('cartTotal').textContent = fmt(total);
+    }
+
+    function openCart() { document.getElementById('cartPanel').classList.add('active'); document.getElementById('cartOverlay').classList.add('active'); }
+    function closeCart() { document.getElementById('cartPanel').classList.remove('active'); document.getElementById('cartOverlay').classList.remove('active'); }
+
+    /* ── Bestellung absenden (FormSubmit.co → E-Mail) ── */
+    document.getElementById('orderForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!cart.length) return;
+      const btn = document.getElementById('btnOrder');
+      const status = document.getElementById('orderStatus');
+      btn.disabled = true; btn.textContent = 'Wird gesendet…';
+      status.className = 'order-status';
+
+      let total = 0;
+      const lines = cart.map(c => {
+        const p = PRODUCTS.find(x => x.id === c.id);
+        total += p.price * c.qty;
+        return `${c.qty}x ${p.brand} ${p.name}${c.size ? ' (Größe ' + c.size + ')' : ''} – je ${fmt(p.price)} = ${fmt(p.price * c.qty)}`;
+      });
+      const payload = {
+        _subject: '🛒 Neue Shop-Bestellung – The Cube',
+        _template: 'table',
+        _captcha: 'false',
+        Bestellung: lines.join('\n'),
+        Gesamtsumme: fmt(total),
+        Name: document.getElementById('custName').value,
+        'E-Mail': document.getElementById('custEmail').value,
+        Telefon: document.getElementById('custPhone').value || '–',
+        Bemerkung: document.getElementById('custNote').value || '–',
+        Abwicklung: 'Abholung & Bezahlung in der Arena',
+      };
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        status.className = 'order-status ok';
+        status.innerHTML = '✅ <b>Bestellung eingegangen!</b> Wir melden uns bei dir, sobald die Ware zur Abholung bereitliegt.';
+        cart.length = 0; updateCart(); renderProducts(currentCat);
+        document.getElementById('orderForm').reset();
+        btn.textContent = 'Bestellung absenden';
+      } catch (err) {
+        /* Fallback: E-Mail-Programm öffnen, falls der Versand fehlschlägt */
+        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + lines.join('\n') + '\n\nGesamt: ' + fmt(total) + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload['E-Mail'] + '\nTelefon: ' + payload.Telefon + '\nBemerkung: ' + payload.Bemerkung);
+        status.className = 'order-status err';
+        status.innerHTML = '⚠️ Der automatische Versand hat nicht geklappt. <a style="color:var(--cyan);text-decoration:underline;" href="mailto:' + ORDER_EMAIL + '?subject=Shop-Bestellung%20The%20Cube&body=' + body + '">Hier klicken</a>, um die Bestellung per E-Mail zu senden.';
+        btn.disabled = false; btn.textContent = 'Bestellung absenden';
+      }
+    });
+
+    /* ── Mobile Menü ── */
+    function toggleMobile() {
+      document.querySelector('.nav-hamburger').classList.toggle('active');
+      document.getElementById('mobileMenu').classList.toggle('active');
+    }
+    function closeMobile() {
+      document.querySelector('.nav-hamburger').classList.remove('active');
+      document.getElementById('mobileMenu').classList.remove('active');
+    }
+
+    renderProducts(currentCat);
+    updateCart();
+    loadStockFromSheet().then(ok => { if (ok) renderProducts(currentCat); });
+  </script>
+</body>
+</html>
