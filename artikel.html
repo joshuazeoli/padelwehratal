@@ -75,7 +75,7 @@
     .article-details li .check { color: var(--cyan); flex-shrink: 0; margin-top: 2px; }
 
     /* Technische Daten */
-    .specs-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 28px; }
+    .specs-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 24px; }
     .specs-panel h3 { font-size: 0.95rem; font-weight: 800; color: var(--white); margin-bottom: 16px; }
     .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
     .spec-tile { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
@@ -92,7 +92,7 @@
     .avail-note { display: flex; gap: 10px; align-items: flex-start; background: rgba(255,170,60,0.1); border: 1px solid rgba(255,170,60,0.4); color: #ffc83d; border-radius: 12px; padding: 13px 16px; margin-bottom: 22px; font-size: 0.9rem; line-height: 1.5; }
     .avail-note b { color: #ffd98a; }
 
-    .buy-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; }
+    .buy-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; margin-top: 24px; }
     .buy-box h3 { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 14px; }
     .buy-row { display: flex; gap: 10px; margin-bottom: 12px; }
     .size-select, .qty-input {
@@ -206,33 +206,12 @@
       wrap.innerHTML = `
         <div class="breadcrumb"><a href="shop.html">Shop</a> › <a href="shop.html#${P.cat}">${CAT_NAMES[P.cat] || ''}</a> › ${P.name}</div>
         <div class="article-grid">
-          <div class="article-visual">
-            <span class="icon-wrap" style="display:contents;">${ICONS[P.icon]}</span>
-            <img class="product-photo" src="produktbilder/${P.id}.jpg" alt="${P.name}" onload="photoLoaded(this)" onerror="photoError(this,'${P.id}')" />
-            ${badge}
-          </div>
           <div>
-            <div class="article-brand">${P.brand}</div>
-            <h1 class="article-name">${P.name}</h1>
-            <div class="article-price">${fmt(P.price)}<small>inkl. MwSt.</small></div>
-            <div class="article-stocktext">${stockText}</div>
-            ${P.availableFrom ? `<div class="avail-note"><span>⏳</span><span><b>Verfügbar ab ${P.availableFrom}.</b> Dieser Artikel ist aktuell noch nicht erhältlich – du kannst ihn aber bereits unverbindlich vorbestellen.</span></div>` : ''}
-            <p class="article-longdesc">${P.longDesc || P.desc}</p>
-            ${P.details ? `<ul class="article-details">${P.details.map(d => `<li><span class="check">✓</span><span>${d}</span></li>`).join('')}</ul>` : ''}
-            ${P.specs ? `<div class="specs-panel"><h3>📐 Technische Daten</h3>
-              <div class="specs-grid">
-                <div class="spec-tile"><div class="sl">Gewicht</div><div class="sv">${P.specs.gewicht}</div></div>
-                <div class="spec-tile"><div class="sl">Form</div><div class="sv">${P.specs.form}</div></div>
-                <div class="spec-tile"><div class="sl">Balance</div><div class="sv">${P.specs.balance}</div></div>
-                <div class="spec-tile"><div class="sl">Kern</div><div class="sv">${P.specs.kern}</div></div>
-                <div class="spec-tile"><div class="sl">Oberfläche</div><div class="sv">${P.specs.oberflaeche}</div></div>
-                <div class="spec-tile"><div class="sl">Spielertyp</div><div class="sv">${P.specs.level}</div></div>
-              </div>
-              <div class="spec-bars">
-                <div class="spec-bar-row"><span class="bl">Power</span><div class="spec-bar"><span style="width:${P.specs.power*10}%"></span></div><span class="bv">${P.specs.power}</span></div>
-                <div class="spec-bar-row"><span class="bl">Kontrolle</span><div class="spec-bar"><span style="width:${P.specs.kontrolle*10}%"></span></div><span class="bv">${P.specs.kontrolle}</span></div>
-              </div>
-            </div>` : ''}
+            <div class="article-visual">
+              <span class="icon-wrap" style="display:contents;">${ICONS[P.icon]}</span>
+              <img class="product-photo" src="produktbilder/${P.id}.jpg" alt="${P.name}" onload="photoLoaded(this)" onerror="photoError(this,'${P.id}')" />
+              ${badge}
+            </div>
             <div class="buy-box">
               <h3>Jetzt reservieren – abholen &amp; bezahlen in der Arena</h3>
               <form id="reserveForm">
@@ -248,6 +227,30 @@
                 <div class="order-status" id="orderStatus"></div>
               </form>
             </div>
+          </div>
+          <div>
+            <div class="article-brand">${P.brand}</div>
+            <h1 class="article-name">${P.name}</h1>
+            <div class="article-price">${fmt(P.price)}<small>inkl. MwSt.</small></div>
+            <div class="article-stocktext">${stockText}</div>
+            ${P.availableFrom ? `<div class="avail-note"><span>⏳</span><span><b>Verfügbar ab ${P.availableFrom}.</b> Dieser Artikel ist aktuell noch nicht erhältlich – du kannst ihn aber bereits unverbindlich vorbestellen.</span></div>` : ''}
+            ${P.specs ? `<div class="specs-panel"><h3>📐 Technische Daten</h3>
+              <div class="specs-grid">
+                <div class="spec-tile"><div class="sl">Gewicht</div><div class="sv">${P.specs.gewicht}</div></div>
+                <div class="spec-tile"><div class="sl">Form</div><div class="sv">${P.specs.form}</div></div>
+                <div class="spec-tile"><div class="sl">Balance</div><div class="sv">${P.specs.balance}</div></div>
+                <div class="spec-tile"><div class="sl">Kern</div><div class="sv">${P.specs.kern}</div></div>
+                <div class="spec-tile"><div class="sl">Oberfläche</div><div class="sv">${P.specs.oberflaeche}</div></div>
+                <div class="spec-tile"><div class="sl">Spielertyp</div><div class="sv">${P.specs.level}</div></div>
+              </div>
+              <div class="spec-bars">
+                <div class="spec-bar-row"><span class="bl">Power</span><div class="spec-bar"><span style="width:${P.specs.power*10}%"></span></div><span class="bv">${P.specs.power}</span></div>
+                <div class="spec-bar-row"><span class="bl">Kontrolle</span><div class="spec-bar"><span style="width:${P.specs.kontrolle*10}%"></span></div><span class="bv">${P.specs.kontrolle}</span></div>
+              </div>
+            </div>` : ''}
+            <p class="article-longdesc">${P.longDesc || P.desc}</p>
+            ${P.details ? `<ul class="article-details">${P.details.map(d => `<li><span class="check">✓</span><span>${d}</span></li>`).join('')}</ul>` : ''}
+
           </div>
         </div>`;
 
