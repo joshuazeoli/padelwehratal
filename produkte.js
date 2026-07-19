@@ -206,3 +206,15 @@ const ICONS = {
 /* Hilfsfunktionen (gemeinsam) */
 const fmt = n => '€ ' + n.toFixed(2).replace('.', ',');
 const totalStock = p => typeof p.stock === 'number' ? p.stock : Object.values(p.stock).reduce((a,b) => a+b, 0);
+
+/* Gemeinsamer Warenkorb (shop.html + artikel.html) – gespeichert im Browser */
+const CART_KEY = 'cube-cart';
+function loadCart() {
+  try {
+    const c = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    return c.filter(e => e && PRODUCTS.some(p => p.id === e.id) && e.qty > 0);
+  } catch (e) { return []; }
+}
+function saveCart(c) {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch (e) {}
+}

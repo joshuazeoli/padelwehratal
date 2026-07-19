@@ -135,6 +135,18 @@
     }
     .btn-order:hover:not(:disabled) { background: var(--cyan-light); transform: translateY(-2px); }
     .btn-order:disabled { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); cursor: not-allowed; box-shadow: none; }
+    .buy-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .buy-actions .btn-order { flex: 1 1 180px; }
+    .btn-cart {
+      flex: 1 1 180px; padding: 14px; background: transparent; color: var(--white);
+      border: 2px solid rgba(230,255,83,0.4); border-radius: 50px;
+      font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all .25s; font-family: inherit;
+    }
+    .btn-cart:hover:not(:disabled) { background: rgba(230,255,83,0.12); border-color: var(--cyan); transform: translateY(-2px); }
+    .btn-cart:disabled { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.35); cursor: not-allowed; }
+    .nav-cart { color: var(--text-muted); font-size: 0.88rem; font-weight: 700; transition: color .2s; }
+    .nav-cart:hover { color: var(--cyan); }
+    .nav-cart .nc-count { background: var(--cyan); color: #002b63; border-radius: 50px; padding: 1px 8px; font-size: 0.78rem; font-weight: 900; margin-left: 2px; }
     .buy-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; text-align: center; }
     .order-status { margin-top: 12px; font-size: 0.85rem; line-height: 1.5; display: none; padding: 12px 14px; border-radius: 10px; }
     .order-status.ok { display: block; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.35); color: var(--cyan); }
@@ -169,6 +181,7 @@
       </a>
       <div class="nav-right">
         <a href="shop.html" class="nav-back">← Zurück zum Shop</a>
+        <a href="shop.html#warenkorb" class="nav-cart" title="Zum Warenkorb">🛒<span class="nc-count" id="navCartCount">0</span></a>
         <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="nav-cta">Jetzt buchen →</a>
       </div>
     </div>
@@ -252,7 +265,10 @@
                 <input type="text" id="custName" placeholder="Dein Name *" required />
                 <input type="email" id="custEmail" placeholder="Deine E-Mail *" required />
                 <input type="tel" id="custPhone" placeholder="Telefon (optional)" />
-                <button type="submit" class="btn-order" id="btnOrder" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : (P.availableFrom ? 'Jetzt vorbestellen' : 'Jetzt reservieren')}</button>
+                <div class="buy-actions">
+                  <button type="button" class="btn-cart" id="btnCart" onclick="addToCartFromDetail()" ${avail <= 0 ? 'disabled' : ''}>🛒 In den Warenkorb</button>
+                  <button type="submit" class="btn-order" id="btnOrder" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : (P.availableFrom ? 'Jetzt vorbestellen' : 'Jetzt reservieren')}</button>
+                </div>
                 <div class="buy-note">Unverbindliche Reservierung · Stadionweg 14, 79664 Wehr</div>
                 <div class="order-status" id="orderStatus"></div>
               </form>
@@ -287,6 +303,31 @@
       document.getElementById('reserveForm').addEventListener('submit', submitReservation);
       gallery = []; galleryIdx = 0;
       probeExtraImages(P.id);
+      updateNavCart();
+    }
+
+    /* ── In den Warenkorb (gemeinsamer Warenkorb mit shop.html) ── */
+    function updateNavCart() {
+      const el = document.getElementById('navCartCount');
+      if (el) el.textContent = loadCart().reduce((a, c) => a + c.qty, 0);
+    }
+
+    function addToCartFromDetail() {
+      const hasSizes = typeof P.stock === 'object';
+      const size = hasSizes ? document.getElementById('artSize').value : null;
+      if (hasSizes && !size) { alert('Bitte zuerst eine Größe wählen.'); return; }
+      const qty = Math.max(1, parseInt(document.getElementById('artQty').value || '1', 10));
+      const cart = loadCart();
+      const inCart = cart.filter(c => c.id === P.id && c.size === size).reduce((a, c) => a + c.qty, 0);
+      const avail = availableFor(P, size) - inCart;
+      if (qty > avail) { alert(avail > 0 ? `Nur noch ${avail} Stück verfügbar.` : 'Keine weitere Stückzahl verfügbar.'); return; }
+      const existing = cart.find(c => c.id === P.id && c.size === size);
+      if (existing) existing.qty += qty; else cart.push({ id: P.id, size, qty });
+      saveCart(cart);
+      updateNavCart();
+      const status = document.getElementById('orderStatus');
+      status.className = 'order-status ok';
+      status.innerHTML = `✅ <b>In den Warenkorb gelegt.</b> <a href="shop.html#warenkorb" style="color:var(--cyan);text-decoration:underline;">Zum Warenkorb →</a> oder weiter stöbern.`;
     }
 
     /* ── Bildergalerie: Zusatzbilder heißen <artikel-id>-2.jpg, -3.jpg … (auch png/webp) ── */

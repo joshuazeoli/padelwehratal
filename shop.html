@@ -307,7 +307,7 @@
   <script src="produkte.js"></script>
   <script>
     /* ── Hilfsfunktionen ── */
-    const cart = [];  // { id, size, qty }
+    const cart = loadCart();  // gemeinsamer Warenkorb (auch von den Artikelseiten befüllt)  // { id, size, qty }
     const reserved = (id, size) => cart.filter(c => c.id === id && c.size === size).reduce((a,c) => a+c.qty, 0);
     const reservedTotal = id => cart.filter(c => c.id === id).reduce((a,c) => a+c.qty, 0);
 
@@ -397,6 +397,7 @@
     function removeFromCart(i) { cart.splice(i, 1); updateCart(); renderProducts(currentCat); }
 
     function updateCart() {
+      saveCart(cart);
       const wrap = document.getElementById('cartItems');
       const count = cart.reduce((a,c) => a+c.qty, 0);
       document.getElementById('cartCount').textContent = count;
@@ -480,6 +481,7 @@
 
     renderProducts(currentCat);
     updateCart();
+    if (location.hash === '#warenkorb') openCart();
     loadStockFromSheet().then(ok => { if (ok) renderProducts(currentCat); });
   </script>
 </body>
