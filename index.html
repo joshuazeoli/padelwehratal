@@ -212,6 +212,18 @@
     .coach-contact a { display: flex; align-items: center; gap: 9px; font-size: 0.83rem; color: var(--text-muted); transition: color .2s; text-decoration: none; }
     .coach-contact a:hover { color: var(--cyan); }
     .coach-contact .cc-icon { width: 28px; height: 28px; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+    /* Trainingspreise */
+    .training-prices { margin-top: 48px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; }
+    .tp-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tp-head h3 { font-size: 1.2rem; font-weight: 800; color: var(--white); }
+    .tp-head p { font-size: 0.82rem; color: var(--cyan); font-weight: 700; }
+    .tp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .tp-tile { background: rgba(230,255,83,0.06); border: 1px solid rgba(230,255,83,0.18); border-radius: 12px; padding: 18px 16px; text-align: center; transition: transform .2s, border-color .2s; }
+    .tp-tile:hover { transform: translateY(-3px); border-color: var(--cyan); }
+    .tp-label { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .tp-price { font-size: 1.9rem; font-weight: 900; color: var(--white); }
+    .tp-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+    @media (max-width: 900px) { .tp-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 900px) { .coaches-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .coaches-grid { grid-template-columns: 1fr; } }
 
@@ -824,6 +836,20 @@
         </div>
 
       </div>
+
+      <!-- ── TRAININGSPREISE ── -->
+      <div class="training-prices">
+        <div class="tp-head">
+          <h3 data-i18n="tp_title">Trainingspreise</h3>
+          <p data-i18n="tp_note">Alle Preise pro Stunde · inkl. Court</p>
+        </div>
+        <div class="tp-grid">
+          <div class="tp-tile"><div class="tp-label" data-i18n="tp1_l">Einzeltraining</div><div class="tp-price">€ 50</div><div class="tp-sub" data-i18n="tp_hour">pro Stunde</div></div>
+          <div class="tp-tile"><div class="tp-label" data-i18n="tp2_l">2er-Training</div><div class="tp-price">€ 60</div><div class="tp-sub" data-i18n="tp_hour">pro Stunde</div></div>
+          <div class="tp-tile"><div class="tp-label" data-i18n="tp3_l">3er-Training</div><div class="tp-price">€ 70</div><div class="tp-sub" data-i18n="tp_hour">pro Stunde</div></div>
+          <div class="tp-tile"><div class="tp-label" data-i18n="tp4_l">4er-Training</div><div class="tp-price">€ 80</div><div class="tp-sub" data-i18n="tp_hour">pro Stunde</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1159,6 +1185,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Galerie', nav_news:'News', nav_contact:'Kontakt', nav_shop:'Shop',
         nav_cta:'Jetzt buchen →',
+        tp_title:'Trainingspreise', tp_note:'Alle Preise pro Stunde · inkl. Court', tp1_l:'Einzeltraining', tp2_l:'2er-Training', tp3_l:'3er-Training', tp4_l:'4er-Training', tp_hour:'pro Stunde',
         nav_liga:'Liga', liga_label:'Deutsche Padel-Liga', liga_title:'The Cube in der Deutschen Padel-Liga', liga_sub:'Wir spielen mit fünf Mannschaften in der Deutschen Padel-Liga – vom Aufstiegskampf bis zum Altersklassen-Team ist alles dabei.', liga_banner_title:'Mannschaften für The Cube am Start', liga_banner_sub:'2 aktive Herrenteams · 2 Damenteams · 1 Altersklassen-Team', liga_role_men:'Herren', liga_role_women:'Damen', liga_role_senior:'Altersklassen-Mannschaft', liga_t1_tag:'🔥 Aufstiegskampf 1. Bundesliga', liga_t2_tag:'🔥 Aufstiegskampf 2. Bundesliga', liga_t3_tag:'🏆 Regionalliga', liga_t4_tag:'🏆 Regionalliga', liga_t5_tag:'🏆 Regionalliga', liga_t3_name:'CUBE Altersklasse', liga_t1_desc:'Unser erstes Herrenteam kämpft aktuell um den Aufstieg in die 1. Bundesliga – das Aushängeschild der Arena.', liga_t2_desc:'CUBE II greift an und kämpft um den Aufstieg in die 2. Bundesliga – mit viel Energie und Teamgeist.', liga_t3_desc:'Erfahrung zahlt sich aus: Unser Altersklassen-Team vertritt The Cube in der Regionalliga.', liga_t4_desc:'Unser erstes Damenteam bringt die Cube-Farben in der Regionalliga auf den Court.', liga_t5_desc:'Auch unser zweites Damenteam ist in der Regionalliga am Start – Nachwuchs und Spielfreude inklusive.', form_error:'Senden fehlgeschlagen – bitte schreib uns direkt an padelarena79664@gmail.com.', news_error:'Anmeldung fehlgeschlagen – bitte versuch es später noch einmal.',
         news_label:'Neuigkeiten', news_title:'Was kommt als Nächstes', news_sub:'Große Pläne für die Zukunft des Padel im Wehratal.',
         news_badge:'Ankündigung', news_headline:'Neue Indoor-Halle in Wehr geplant',
@@ -1242,6 +1269,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Gallery', nav_news:'News', nav_contact:'Contact', nav_shop:'Shop',
         nav_cta:'Book now →',
+        tp_title:'Training prices', tp_note:'All prices per hour · court included', tp1_l:'Individual training', tp2_l:'Group of 2', tp3_l:'Group of 3', tp4_l:'Group of 4', tp_hour:'per hour',
         nav_liga:'League', liga_label:'German Padel League', liga_title:'The Cube in the German Padel League', liga_sub:'We compete with five teams in the German Padel League – from promotion battles to our seniors team.', liga_banner_title:'teams representing The Cube', liga_banner_sub:'2 active men\'s teams · 2 women\'s teams · 1 seniors team', liga_role_men:'Men', liga_role_women:'Women', liga_role_senior:'Seniors team', liga_t1_tag:'🔥 Fighting for promotion to Bundesliga 1', liga_t2_tag:'🔥 Fighting for promotion to Bundesliga 2', liga_t3_tag:'🏆 Regional league', liga_t4_tag:'🏆 Regional league', liga_t5_tag:'🏆 Regional league', liga_t3_name:'CUBE Seniors', liga_t1_desc:'Our first men\'s team is currently fighting for promotion to the 1st Bundesliga – the flagship of the arena.', liga_t2_desc:'CUBE II is pushing for promotion to the 2nd Bundesliga – with plenty of energy and team spirit.', liga_t3_desc:'Experience pays off: our seniors team represents The Cube in the Regional League.', liga_t4_desc:'Our first women\'s team competes for The Cube in the Regional League.', liga_t5_desc:'Our second women\'s team also plays in the Regional League – young talent and pure enthusiasm included.', form_error:'Sending failed – please email us directly at padelarena79664@gmail.com.', news_error:'Sign-up failed – please try again later.',
         news_label:'News', news_title:'What\'s Coming Next', news_sub:'Big plans for the future of padel in the Wehratal.',
         news_badge:'Announcement', news_headline:'New Indoor Hall Planned in Wehr',
@@ -1325,6 +1353,7 @@
         nav_training:'Entrenamiento',
         nav_events:'Eventos', nav_gallery:'Galería', nav_news:'Noticias', nav_contact:'Contacto', nav_shop:'Shop',
         nav_cta:'Reservar →',
+        tp_title:'Precios de entrenamiento', tp_note:'Todos los precios por hora · pista incluida', tp1_l:'Entrenamiento individual', tp2_l:'Grupo de 2', tp3_l:'Grupo de 3', tp4_l:'Grupo de 4', tp_hour:'por hora',
         nav_liga:'Liga', liga_label:'Liga Alemana de Pádel', liga_title:'The Cube en la Liga Alemana de Pádel', liga_sub:'Competimos con cinco equipos en la Liga Alemana de Pádel – desde la lucha por el ascenso hasta nuestro equipo de veteranos.', liga_banner_title:'equipos representando a The Cube', liga_banner_sub:'2 equipos masculinos · 2 equipos femeninos · 1 equipo de veteranos', liga_role_men:'Masculino', liga_role_women:'Femenino', liga_role_senior:'Equipo de veteranos', liga_t1_tag:'🔥 Lucha por el ascenso a la 1ª Bundesliga', liga_t2_tag:'🔥 Lucha por el ascenso a la 2ª Bundesliga', liga_t3_tag:'🏆 Liga Regional', liga_t4_tag:'🏆 Liga Regional', liga_t5_tag:'🏆 Liga Regional', liga_t3_name:'CUBE Veteranos', liga_t1_desc:'Nuestro primer equipo masculino lucha actualmente por el ascenso a la 1ª Bundesliga – el buque insignia de la arena.', liga_t2_desc:'CUBE II lucha por el ascenso a la 2ª Bundesliga – con mucha energía y espíritu de equipo.', liga_t3_desc:'La experiencia cuenta: nuestro equipo de veteranos representa a The Cube en la Liga Regional.', liga_t4_desc:'Nuestro primer equipo femenino compite por The Cube en la Liga Regional.', liga_t5_desc:'Nuestro segundo equipo femenino también juega en la Liga Regional – talento joven y pura ilusión.', form_error:'No se pudo enviar – escríbenos directamente a padelarena79664@gmail.com.', news_error:'No se pudo registrar – inténtalo más tarde.',
         news_label:'Noticias', news_title:'Lo que viene', news_sub:'Grandes planes para el futuro del pádel en el Wehratal.',
         news_badge:'Anuncio', news_headline:'Nueva pista cubierta planeada en Wehr',
