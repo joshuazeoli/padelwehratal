@@ -63,6 +63,25 @@
     .stock-badge.low  { background: rgba(4,24,50,0.88); border: 1px solid rgba(255,170,60,0.45); color: #ffc83d; }
     .stock-badge.out  { background: rgba(4,24,50,0.88); border: 1px solid rgba(255,90,90,0.4); color: #ff8a8a; }
     .photo-hint { position: absolute; bottom: 14px; left: 14px; right: 14px; text-align: center; font-size: 0.72rem; color: rgba(226,234,244,0.45); }
+    .article-visual { cursor: zoom-in; }
+    .img-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(4,24,50,0.55); color: #fff; font-size: 1.35rem; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 3; transition: background .2s; font-family: inherit; line-height: 1; }
+    .img-nav:hover { background: rgba(4,24,50,0.85); }
+    .img-nav.prev { left: 12px; }
+    .img-nav.next { right: 12px; }
+    .article-visual.has-gallery .img-nav { display: flex; }
+    .img-count { position: absolute; bottom: 12px; right: 14px; z-index: 3; background: rgba(4,24,50,0.7); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 50px; display: none; }
+    .article-visual.has-gallery .img-count { display: block; }
+    /* Vollbild-Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(2,10,22,0.96); align-items: center; justify-content: center; padding: 24px; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; background: #fff; }
+    .lightbox-close { position: absolute; top: 16px; right: 26px; font-size: 2.4rem; color: #fff; cursor: pointer; opacity: .75; line-height: 1; z-index: 2; }
+    .lightbox-close:hover { opacity: 1; }
+    .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2.8rem; color: #fff; cursor: pointer; opacity: .65; padding: 12px 16px; user-select: none; display: none; z-index: 2; }
+    .lb-nav:hover { opacity: 1; }
+    .lb-nav.prev { left: 10px; }
+    .lb-nav.next { right: 10px; }
+    .lightbox.multi .lb-nav { display: block; }
 
     .article-brand { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
     .article-name { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
@@ -161,9 +180,17 @@
     </div>
   </section>
 
+  <!-- ═══ VOLLBILD-ANSICHT ═══ -->
+  <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <span class="lb-nav prev" onclick="shiftImg(-1)">&#8249;</span>
+    <img id="lightboxImg" src="" alt="Produktbild groß" />
+    <span class="lb-nav next" onclick="shiftImg(1)">&#8250;</span>
+  </div>
+
   <footer>
     <div class="container">
-      <div class="footer-copy">© 2026 The Cube – Padelarena Wehratal · <a href="shop.html">Shop</a> · <a href="index.html">Startseite</a></div>
+      <div class="footer-copy">© 2026 The Cube – Padelarena Wehratal · <a href="shop.html">Shop</a> · <a href="index.html">Startseite</a> · <a href="datenschutz.html">Datenschutz</a></div>
     </div>
   </footer>
 
@@ -207,9 +234,12 @@
         <div class="breadcrumb"><a href="shop.html">Shop</a> › <a href="shop.html#${P.cat}">${CAT_NAMES[P.cat] || ''}</a> › ${P.name}</div>
         <div class="article-grid">
           <div>
-            <div class="article-visual">
+            <div class="article-visual" onclick="openLightbox()" title="Zum Vergrößern klicken">
               <span class="icon-wrap" style="display:contents;">${ICONS[P.icon]}</span>
-              <img class="product-photo" src="produktbilder/${P.id}.jpg" alt="${P.name}" onload="photoLoaded(this)" onerror="photoError(this,'${P.id}')" />
+              <img class="product-photo" src="produktbilder/${P.id}.jpg" alt="${P.name}" onload="photoLoaded(this); baseImgLoaded(this)" onerror="photoError(this,'${P.id}')" />
+              <button type="button" class="img-nav prev" onclick="event.stopPropagation(); shiftImg(-1)" title="Vorheriges Bild">&#8249;</button>
+              <button type="button" class="img-nav next" onclick="event.stopPropagation(); shiftImg(1)" title="Weiteres Bild">&#8250;</button>
+              <span class="img-count" id="imgCount"></span>
               ${badge}
             </div>
             <div class="buy-box">
@@ -255,7 +285,77 @@
         </div>`;
 
       document.getElementById('reserveForm').addEventListener('submit', submitReservation);
+      gallery = []; galleryIdx = 0;
+      probeExtraImages(P.id);
     }
+
+    /* ── Bildergalerie: Zusatzbilder heißen <artikel-id>-2.jpg, -3.jpg … (auch png/webp) ── */
+    let gallery = [], galleryIdx = 0;
+
+    function baseImgLoaded(img) {
+      if (!gallery.some(g => g.n === 1)) gallery.push({ n: 1, src: img.getAttribute('src') });
+      updateGalleryUI();
+    }
+
+    function probeExtraImages(id) {
+      [2, 3, 4].forEach(n => {
+        const exts = ['jpg', 'png', 'webp'];
+        const tryExt = i => {
+          if (i >= exts.length) return;
+          const src = 'produktbilder/' + id + '-' + n + '.' + exts[i];
+          const im = new Image();
+          im.onload = () => { if (!gallery.some(g => g.src === src)) { gallery.push({ n, src }); updateGalleryUI(); } };
+          im.onerror = () => tryExt(i + 1);
+          im.src = src;
+        };
+        tryExt(0);
+      });
+    }
+
+    function updateGalleryUI() {
+      gallery.sort((a, b) => a.n - b.n);
+      const vis = document.querySelector('.article-visual');
+      const count = document.getElementById('imgCount');
+      if (!vis || !count) return;
+      if (gallery.length > 1) {
+        vis.classList.add('has-gallery');
+        count.textContent = (galleryIdx + 1) + ' / ' + gallery.length;
+      }
+    }
+
+    function shiftImg(dir) {
+      if (gallery.length < 2) return;
+      galleryIdx = (galleryIdx + dir + gallery.length) % gallery.length;
+      const src = gallery[galleryIdx].src;
+      const main = document.querySelector('.product-photo');
+      if (main) { main.src = src; main.style.display = 'block'; }
+      const count = document.getElementById('imgCount');
+      if (count) count.textContent = (galleryIdx + 1) + ' / ' + gallery.length;
+      const lb = document.getElementById('lightbox');
+      if (lb.classList.contains('active')) document.getElementById('lightboxImg').src = src;
+    }
+
+    /* ── Vollbild-Ansicht ── */
+    function openLightbox() {
+      const main = document.querySelector('.product-photo');
+      if (!main || main.style.display === 'none' || !main.getAttribute('src')) return;
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightboxImg').src = main.src;
+      lb.classList.toggle('multi', gallery.length > 1);
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') shiftImg(1);
+      if (e.key === 'ArrowLeft') shiftImg(-1);
+    });
 
     async function submitReservation(e) {
       e.preventDefault();

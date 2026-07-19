@@ -57,8 +57,8 @@
     .nav-inner { display: flex; align-items: center; height: 80px; gap: 0; }
     .nav-logo { display: flex; align-items: flex-start; flex-shrink: 0; }
     .nav-logo img { height: 44px; width: auto; position: relative; z-index: 101; }
-    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; flex: 1; justify-content: center; }
-    .nav-links a { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); transition: color .2s; }
+    .nav-links { display: flex; gap: 13px; list-style: none; align-items: center; flex: 1; justify-content: center; }
+    .nav-links a { font-size: 0.83rem; font-weight: 600; color: var(--text-muted); transition: color .2s; white-space: nowrap; }
     .nav-links a:hover { color: var(--white); }
     .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
     .nav-cta { background: var(--cyan); color: #002b63; padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; transition: all .25s; box-shadow: 0 4px 18px rgba(230,255,83,0.3); }
@@ -259,6 +259,25 @@
     .partnership-text .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.3); color: var(--cyan); padding: 5px 14px; border-radius: 50px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
     .partnership-text h3 { font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 10px; }
     .partnership-text p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* ── LIGA ── */
+    #liga { background: #041832; }
+    .liga-banner { background: linear-gradient(135deg, var(--brand-blue) 0%, #003c8f 100%); border: 1px solid rgba(230,255,83,0.25); border-radius: var(--radius); padding: 26px 32px; margin-bottom: 40px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .liga-banner .lb-num { font-size: 2.6rem; font-weight: 900; color: var(--cyan); line-height: 1; }
+    .liga-banner .lb-text { flex: 1; min-width: 240px; }
+    .liga-banner .lb-text b { color: var(--white); font-size: 1.05rem; display: block; margin-bottom: 4px; }
+    .liga-banner .lb-text span { color: rgba(255,255,255,0.75); font-size: 0.9rem; }
+    .liga-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .liga-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 24px; position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s; }
+    .liga-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand-blue), var(--cyan)); }
+    .liga-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,74,171,0.35); }
+    .liga-card .lc-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.25); color: var(--cyan); padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+    .liga-card .lc-tag.hot { background: rgba(255,200,50,0.1); border-color: rgba(255,200,50,0.3); color: #ffc83d; }
+    .liga-card h3 { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .liga-card .lc-role { font-size: 0.78rem; color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .liga-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+    @media (max-width: 900px) { .liga-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .liga-grid { grid-template-columns: 1fr; } }
 
     /* ── CONTACT ── */
     #contact { background: #041832; }
@@ -472,6 +491,7 @@
         <li><a href="#pricing" data-i18n="nav_membership">Mitgliedschaft</a></li>
         <li><a href="#training" data-i18n="nav_training">Training</a></li>
         <li><a href="#events" data-i18n="nav_events">Events</a></li>
+        <li><a href="#liga" data-i18n="nav_liga">Liga</a></li>
         <li><a href="#gallery" data-i18n="nav_gallery">Galerie</a></li>
         <li><a href="shop.html" data-i18n="nav_shop">Shop</a></li>
         <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
@@ -496,6 +516,7 @@
     <a href="#pricing" data-i18n="nav_membership" onclick="closeMobile()">Mitgliedschaft</a>
     <a href="#training" data-i18n="nav_training" onclick="closeMobile()">Training</a>
     <a href="#events" data-i18n="nav_events" onclick="closeMobile()">Events</a>
+    <a href="#liga" data-i18n="nav_liga" onclick="closeMobile()">Liga</a>
     <a href="#gallery" data-i18n="nav_gallery" onclick="closeMobile()">Galerie</a>
     <a href="shop.html" data-i18n="nav_shop" onclick="closeMobile()">Shop</a>
     <a href="#contact" data-i18n="nav_contact" onclick="closeMobile()">Kontakt</a>
@@ -513,7 +534,7 @@
           <span class="hours-label" data-i18n="hours_label">Öffnungszeiten</span>
           <span class="hours-sep">·</span>
           <span class="day-name" data-i18n="hours_daily">Täglich</span>
-          <span class="day-time">07:00 – 22:30</span>
+          <span class="day-time">07:00 – 22:00</span>
         </div>
         <img src="cube-logo.png" alt="The Cube – Padelarena Wehratal" class="hero-logo" />
         <div class="hero-badge">
@@ -543,6 +564,54 @@
     </div>
   </section>
 
+  <!-- ═══ DEUTSCHE PADEL-LIGA ═══ -->
+  <section class="section" id="liga">
+    <div class="container">
+      <div class="section-label" data-i18n="liga_label">Deutsche Padel-Liga</div>
+      <h2 class="section-title" data-i18n="liga_title">The Cube in der Deutschen Padel-Liga</h2>
+      <p class="section-sub" data-i18n="liga_sub">Wir spielen mit fünf Mannschaften in der Deutschen Padel-Liga – vom Aufstiegskampf bis zum Altersklassen-Team ist alles dabei.</p>
+      <div class="liga-banner">
+        <div class="lb-num">5</div>
+        <div class="lb-text">
+          <b data-i18n="liga_banner_title">Mannschaften für The Cube am Start</b>
+          <span data-i18n="liga_banner_sub">2 aktive Herrenteams · 2 Damenteams · 1 Altersklassen-Team</span>
+        </div>
+      </div>
+      <div class="liga-grid">
+        <div class="liga-card">
+          <span class="lc-tag hot" data-i18n="liga_t1_tag">🔥 Aufstiegskampf 1. Bundesliga</span>
+          <h3>CUBE I</h3>
+          <div class="lc-role" data-i18n="liga_role_men">Herren</div>
+          <p data-i18n="liga_t1_desc">Unser erstes Herrenteam kämpft aktuell um den Aufstieg in die 1. Bundesliga – das Aushängeschild der Arena.</p>
+        </div>
+        <div class="liga-card">
+          <span class="lc-tag hot" data-i18n="liga_t2_tag">🔥 Aufstiegskampf 2. Bundesliga</span>
+          <h3>CUBE II</h3>
+          <div class="lc-role" data-i18n="liga_role_men">Herren</div>
+          <p data-i18n="liga_t2_desc">CUBE II greift an und kämpft um den Aufstieg in die 2. Bundesliga – mit viel Energie und Teamgeist.</p>
+        </div>
+        <div class="liga-card">
+          <span class="lc-tag" data-i18n="liga_t3_tag">🏆 Regionalliga</span>
+          <h3 data-i18n="liga_t3_name">CUBE Altersklasse</h3>
+          <div class="lc-role" data-i18n="liga_role_senior">Altersklassen-Mannschaft</div>
+          <p data-i18n="liga_t3_desc">Erfahrung zahlt sich aus: Unser Altersklassen-Team vertritt The Cube in der Regionalliga.</p>
+        </div>
+        <div class="liga-card">
+          <span class="lc-tag" data-i18n="liga_t4_tag">🏆 Regionalliga</span>
+          <h3>CUBE Damen I</h3>
+          <div class="lc-role" data-i18n="liga_role_women">Damen</div>
+          <p data-i18n="liga_t4_desc">Unser erstes Damenteam bringt die Cube-Farben in der Regionalliga auf den Court.</p>
+        </div>
+        <div class="liga-card">
+          <span class="lc-tag" data-i18n="liga_t5_tag">🏆 Regionalliga</span>
+          <h3>CUBE Damen II</h3>
+          <div class="lc-role" data-i18n="liga_role_women">Damen</div>
+          <p data-i18n="liga_t5_desc">Auch unser zweites Damenteam ist in der Regionalliga am Start – Nachwuchs und Spielfreude inklusive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ NEWS ═══ -->
   <section class="section" id="news">
     <div class="container">
@@ -557,7 +626,7 @@
           <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:18px;" data-i18n="news_stay">Bleib auf dem Laufenden – trag dich ein und verpasse keine Ankündigung.</p>
           <div class="news-subscribe">
             <input type="email" id="newsEmail" data-i18n-placeholder="news_email_ph" placeholder="Deine E-Mail-Adresse" />
-            <button onclick="document.getElementById('newsEmail').value='';this.textContent=translations[currentLang].news_done||'✓ Eingetragen!';" data-i18n="news_btn">Benachrichtigen</button>
+            <button onclick="subscribeNews(this)" data-i18n="news_btn">Benachrichtigen</button>
           </div>
         </div>
         <div class="news-visual">
@@ -781,7 +850,7 @@
               <span class="slot-rate">€6 <span data-i18n="per_person">/ Person</span></span>
             </div>
             <div class="price-slot">
-              <span class="slot-time">17:00 – 22:30</span>
+              <span class="slot-time">17:00 – 22:00</span>
               <span class="slot-rate">€7 <span data-i18n="per_person">/ Person</span></span>
             </div>
           </div>
@@ -809,7 +878,7 @@
               <span class="slot-rate free" data-i18n="plan_free">Gratis</span>
             </div>
             <div class="price-slot">
-              <span class="slot-time">17:00 – 22:30</span>
+              <span class="slot-time">17:00 – 22:00</span>
               <span class="slot-rate">€3,50 <span data-i18n="per_person">/ Person</span></span>
             </div>
           </div>
@@ -976,10 +1045,17 @@
               </div>
             </div>
             <div class="contact-card">
+              <div class="contact-card-icon">📸</div>
+              <div>
+                <h4>Instagram</h4>
+                <p><a href="https://www.instagram.com/the.cube_wehratal" target="_blank" style="color:inherit;">@the.cube_wehratal</a></p>
+              </div>
+            </div>
+            <div class="contact-card">
               <div class="contact-card-icon">🕐</div>
               <div>
                 <h4 data-i18n="cc_hours">Öffnungszeiten</h4>
-                <p data-i18n="cc_hours_val">Täglich: 07:00 – 22:30 Uhr</p>
+                <p data-i18n="cc_hours_val">Täglich: 07:00 – 22:00 Uhr</p>
               </div>
             </div>
           </div>
@@ -993,24 +1069,24 @@
             <div class="form-row">
               <div class="form-group">
                 <label data-i18n="form_fname">Vorname</label>
-                <input type="text" data-i18n-placeholder="form_fname_ph" placeholder="Max" required />
+                <input type="text" name="vorname" data-i18n-placeholder="form_fname_ph" placeholder="Max" required />
               </div>
               <div class="form-group">
                 <label data-i18n="form_lname">Nachname</label>
-                <input type="text" data-i18n-placeholder="form_lname_ph" placeholder="Mustermann" required />
+                <input type="text" name="nachname" data-i18n-placeholder="form_lname_ph" placeholder="Mustermann" required />
               </div>
             </div>
             <div class="form-group">
               <label data-i18n="form_email">E-Mail</label>
-              <input type="email" data-i18n-placeholder="form_email_ph" placeholder="max@email.de" required />
+              <input type="email" name="email" data-i18n-placeholder="form_email_ph" placeholder="max@email.de" required />
             </div>
             <div class="form-group">
               <label data-i18n="form_subject">Betreff</label>
-              <input type="text" data-i18n-placeholder="form_subject_ph" placeholder="z.B. Mitgliedschaft anfragen" />
+              <input type="text" name="betreff" data-i18n-placeholder="form_subject_ph" placeholder="z.B. Mitgliedschaft anfragen" />
             </div>
             <div class="form-group">
               <label data-i18n="form_msg">Nachricht</label>
-              <textarea data-i18n-placeholder="form_msg_ph" placeholder="Deine Nachricht…" required></textarea>
+              <textarea name="nachricht" data-i18n-placeholder="form_msg_ph" placeholder="Deine Nachricht…" required></textarea>
             </div>
             <button type="submit" class="btn-submit" data-i18n="form_btn">Nachricht senden →</button>
           </form>
@@ -1061,13 +1137,14 @@
           <a href="#events" data-i18n="nav_events">Events</a>
           <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank">Playtomic</a>
           <a href="shop.html" data-i18n="nav_shop">Shop</a>
+          <a href="https://www.instagram.com/the.cube_wehratal" target="_blank">Instagram</a>
           <a href="#news" data-i18n="nav_news">News</a>
           <a href="#contact" data-i18n="nav_contact">Kontakt</a>
         </div>
       </div>
       <div class="footer-copy">
         <span data-i18n="footer_copy">© 2026 The Cube – Padelarena Wehratal. Alle Rechte vorbehalten.</span>
-        <span style="margin-left:16px;"><a href="#" onclick="openImpressum();return false;" style="color:var(--text-muted);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'">Impressum</a></span>
+        <span style="margin-left:16px;"><a href="#" onclick="openImpressum();return false;" style="color:var(--text-muted);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'">Impressum</a> · <a href="datenschutz.html" style="color:var(--text-muted);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'">Datenschutz</a></span>
       </div>
     </div>
   </footer>
@@ -1082,6 +1159,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Galerie', nav_news:'News', nav_contact:'Kontakt', nav_shop:'Shop',
         nav_cta:'Jetzt buchen →',
+        nav_liga:'Liga', liga_label:'Deutsche Padel-Liga', liga_title:'The Cube in der Deutschen Padel-Liga', liga_sub:'Wir spielen mit fünf Mannschaften in der Deutschen Padel-Liga – vom Aufstiegskampf bis zum Altersklassen-Team ist alles dabei.', liga_banner_title:'Mannschaften für The Cube am Start', liga_banner_sub:'2 aktive Herrenteams · 2 Damenteams · 1 Altersklassen-Team', liga_role_men:'Herren', liga_role_women:'Damen', liga_role_senior:'Altersklassen-Mannschaft', liga_t1_tag:'🔥 Aufstiegskampf 1. Bundesliga', liga_t2_tag:'🔥 Aufstiegskampf 2. Bundesliga', liga_t3_tag:'🏆 Regionalliga', liga_t4_tag:'🏆 Regionalliga', liga_t5_tag:'🏆 Regionalliga', liga_t3_name:'CUBE Altersklasse', liga_t1_desc:'Unser erstes Herrenteam kämpft aktuell um den Aufstieg in die 1. Bundesliga – das Aushängeschild der Arena.', liga_t2_desc:'CUBE II greift an und kämpft um den Aufstieg in die 2. Bundesliga – mit viel Energie und Teamgeist.', liga_t3_desc:'Erfahrung zahlt sich aus: Unser Altersklassen-Team vertritt The Cube in der Regionalliga.', liga_t4_desc:'Unser erstes Damenteam bringt die Cube-Farben in der Regionalliga auf den Court.', liga_t5_desc:'Auch unser zweites Damenteam ist in der Regionalliga am Start – Nachwuchs und Spielfreude inklusive.', form_error:'Senden fehlgeschlagen – bitte schreib uns direkt an padelarena79664@gmail.com.', news_error:'Anmeldung fehlgeschlagen – bitte versuch es später noch einmal.',
         news_label:'Neuigkeiten', news_title:'Was kommt als Nächstes', news_sub:'Große Pläne für die Zukunft des Padel im Wehratal.',
         news_badge:'Ankündigung', news_headline:'Neue Indoor-Halle in Wehr geplant',
         news_desc:'Wir planen den Bau einer modernen Indoor-Padelhalle in Wehr – für ganzjährigen Spielspaß bei jedem Wetter. Mehr Courts, mehr Möglichkeiten, mehr Padel. Sobald es Neuigkeiten gibt, erfährst du es hier zuerst.',
@@ -1149,7 +1227,7 @@
         contact_label:'Kontakt & Anfahrt', contact_title:'Wir freuen uns auf dich',
         contact_sub:'Fragen zur Mitgliedschaft, zu Trainings oder zum Betrieb? Schreib uns einfach!',
         cc_team:'Ihre Ansprechpartner', cc_address:'Adresse', cc_phone:'Telefon', cc_email:'E-Mail',
-        cc_hours:'Öffnungszeiten', cc_hours_val:'Täglich: 07:00 – 22:30 Uhr',
+        cc_hours:'Öffnungszeiten', cc_hours_val:'Täglich: 07:00 – 22:00 Uhr',
         form_title:'Nachricht senden', form_fname:'Vorname', form_fname_ph:'Max',
         form_lname:'Nachname', form_lname_ph:'Mustermann',
         form_email:'E-Mail', form_email_ph:'max@email.de',
@@ -1164,6 +1242,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Gallery', nav_news:'News', nav_contact:'Contact', nav_shop:'Shop',
         nav_cta:'Book now →',
+        nav_liga:'League', liga_label:'German Padel League', liga_title:'The Cube in the German Padel League', liga_sub:'We compete with five teams in the German Padel League – from promotion battles to our seniors team.', liga_banner_title:'teams representing The Cube', liga_banner_sub:'2 active men\'s teams · 2 women\'s teams · 1 seniors team', liga_role_men:'Men', liga_role_women:'Women', liga_role_senior:'Seniors team', liga_t1_tag:'🔥 Fighting for promotion to Bundesliga 1', liga_t2_tag:'🔥 Fighting for promotion to Bundesliga 2', liga_t3_tag:'🏆 Regional league', liga_t4_tag:'🏆 Regional league', liga_t5_tag:'🏆 Regional league', liga_t3_name:'CUBE Seniors', liga_t1_desc:'Our first men\'s team is currently fighting for promotion to the 1st Bundesliga – the flagship of the arena.', liga_t2_desc:'CUBE II is pushing for promotion to the 2nd Bundesliga – with plenty of energy and team spirit.', liga_t3_desc:'Experience pays off: our seniors team represents The Cube in the Regional League.', liga_t4_desc:'Our first women\'s team competes for The Cube in the Regional League.', liga_t5_desc:'Our second women\'s team also plays in the Regional League – young talent and pure enthusiasm included.', form_error:'Sending failed – please email us directly at padelarena79664@gmail.com.', news_error:'Sign-up failed – please try again later.',
         news_label:'News', news_title:'What\'s Coming Next', news_sub:'Big plans for the future of padel in the Wehratal.',
         news_badge:'Announcement', news_headline:'New Indoor Hall Planned in Wehr',
         news_desc:'We\'re planning to build a modern indoor padel hall in Wehr – for year-round play in any weather. More courts, more possibilities, more padel. As soon as there\'s news, you\'ll hear it here first.',
@@ -1231,7 +1310,7 @@
         contact_label:'Contact & Directions', contact_title:'We look forward to seeing you',
         contact_sub:'Questions about membership, training or operations? Just write to us!',
         cc_team:'Your contacts', cc_address:'Address', cc_phone:'Phone', cc_email:'Email',
-        cc_hours:'Opening hours', cc_hours_val:'Daily: 07:00 – 22:30',
+        cc_hours:'Opening hours', cc_hours_val:'Daily: 07:00 – 22:00',
         form_title:'Send a message', form_fname:'First name', form_fname_ph:'John',
         form_lname:'Last name', form_lname_ph:'Smith',
         form_email:'Email', form_email_ph:'john@email.com',
@@ -1246,6 +1325,7 @@
         nav_training:'Entrenamiento',
         nav_events:'Eventos', nav_gallery:'Galería', nav_news:'Noticias', nav_contact:'Contacto', nav_shop:'Shop',
         nav_cta:'Reservar →',
+        nav_liga:'Liga', liga_label:'Liga Alemana de Pádel', liga_title:'The Cube en la Liga Alemana de Pádel', liga_sub:'Competimos con cinco equipos en la Liga Alemana de Pádel – desde la lucha por el ascenso hasta nuestro equipo de veteranos.', liga_banner_title:'equipos representando a The Cube', liga_banner_sub:'2 equipos masculinos · 2 equipos femeninos · 1 equipo de veteranos', liga_role_men:'Masculino', liga_role_women:'Femenino', liga_role_senior:'Equipo de veteranos', liga_t1_tag:'🔥 Lucha por el ascenso a la 1ª Bundesliga', liga_t2_tag:'🔥 Lucha por el ascenso a la 2ª Bundesliga', liga_t3_tag:'🏆 Liga Regional', liga_t4_tag:'🏆 Liga Regional', liga_t5_tag:'🏆 Liga Regional', liga_t3_name:'CUBE Veteranos', liga_t1_desc:'Nuestro primer equipo masculino lucha actualmente por el ascenso a la 1ª Bundesliga – el buque insignia de la arena.', liga_t2_desc:'CUBE II lucha por el ascenso a la 2ª Bundesliga – con mucha energía y espíritu de equipo.', liga_t3_desc:'La experiencia cuenta: nuestro equipo de veteranos representa a The Cube en la Liga Regional.', liga_t4_desc:'Nuestro primer equipo femenino compite por The Cube en la Liga Regional.', liga_t5_desc:'Nuestro segundo equipo femenino también juega en la Liga Regional – talento joven y pura ilusión.', form_error:'No se pudo enviar – escríbenos directamente a padelarena79664@gmail.com.', news_error:'No se pudo registrar – inténtalo más tarde.',
         news_label:'Noticias', news_title:'Lo que viene', news_sub:'Grandes planes para el futuro del pádel en el Wehratal.',
         news_badge:'Anuncio', news_headline:'Nueva pista cubierta planeada en Wehr',
         news_desc:'Estamos planeando construir una moderna pista de pádel cubierta en Wehr – para jugar todo el año sin importar el clima. Más canchas, más posibilidades, más pádel. En cuanto haya novedades, te enterarás aquí primero.',
@@ -1313,7 +1393,7 @@
         contact_label:'Contacto & Cómo llegar', contact_title:'Te esperamos con los brazos abiertos',
         contact_sub:'¿Preguntas sobre membresía, entrenamiento o el club? ¡Escríbenos!',
         cc_team:'Tus contactos', cc_address:'Dirección', cc_phone:'Teléfono', cc_email:'Correo electrónico',
-        cc_hours:'Horario de apertura', cc_hours_val:'Diariamente: 07:00 – 22:30',
+        cc_hours:'Horario de apertura', cc_hours_val:'Diariamente: 07:00 – 22:00',
         form_title:'Enviar un mensaje', form_fname:'Nombre', form_fname_ph:'Juan',
         form_lname:'Apellido', form_lname_ph:'García',
         form_email:'Correo electrónico', form_email_ph:'juan@email.com',
@@ -1379,17 +1459,65 @@
       if (e.key === 'Escape' && document.getElementById('impressumOverlay').classList.contains('active')) closeImpressum();
     });
 
-    function handleSubmit(e) {
+    const ORDER_EMAIL = 'joshua.zeoli@web.de';
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('.btn-submit');
+      const f = e.target;
+      const btn = f.querySelector('.btn-submit');
       const t = translations[currentLang];
-      btn.textContent = t.form_success;
-      btn.style.background = '#f2ff8f';
-      setTimeout(() => {
-        btn.textContent = t.form_btn;
-        btn.style.background = '';
-        e.target.reset();
-      }, 3000);
+      const orig = btn.textContent;
+      btn.disabled = true; btn.textContent = '…';
+      try {
+        const fd = new FormData(f);
+        const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: '📩 Kontaktanfrage – The Cube Website',
+            _template: 'table', _captcha: 'false',
+            Vorname: fd.get('vorname'), Nachname: fd.get('nachname'),
+            'E-Mail': fd.get('email'), Betreff: fd.get('betreff') || '–',
+            Nachricht: fd.get('nachricht'),
+          }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        btn.textContent = t.form_success;
+        btn.style.background = '#f2ff8f';
+        f.reset();
+        setTimeout(() => { btn.textContent = t.form_btn; btn.style.background = ''; btn.disabled = false; }, 3500);
+      } catch (err) {
+        btn.disabled = false; btn.textContent = orig;
+        alert(t.form_error || 'Senden fehlgeschlagen – bitte schreib uns direkt an padelarena79664@gmail.com.');
+      }
+    }
+
+    /* Newsletter-Anmeldung → FormSubmit */
+    async function subscribeNews(btn) {
+      const inp = document.getElementById('newsEmail');
+      const email = inp.value.trim();
+      if (!email || !email.includes('@')) { inp.focus(); return; }
+      const t = translations[currentLang];
+      const orig = btn.textContent;
+      btn.disabled = true; btn.textContent = '…';
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: '📬 Newsletter-Anmeldung – The Cube',
+            _template: 'table', _captcha: 'false',
+            'E-Mail': email,
+            Aktion: 'Möchte über die neue Indoor-Halle & News informiert werden',
+          }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        inp.value = '';
+        btn.textContent = t.news_done || '✓ Eingetragen!';
+      } catch (err) {
+        btn.textContent = orig;
+        alert(t.news_error || 'Anmeldung fehlgeschlagen – bitte versuch es später noch einmal.');
+      }
+      btn.disabled = false;
     }
 
     window.addEventListener('scroll', () => {

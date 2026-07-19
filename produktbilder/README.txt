@@ -29,3 +29,17 @@ WICHTIG: Der Dateiname muss exakt der Artikel-Nummer entsprechen:
 NICHT VERGESSEN: Die Bilder auch in den Ordner
 github-deploy/produktbilder/ kopieren und zu GitHub hochladen,
 damit sie auf der Live-Seite erscheinen.
+
+
+WEITERE BILDER PRO ARTIKEL (z.B. Rückansicht)
+=============================================
+Du kannst pro Artikel bis zu 3 Zusatzbilder ablegen – einfach mit
+-2, -3, -4 am Ende des Dateinamens:
+
+  shirt-cube-weiss.jpg     → Vorderansicht (Hauptbild)
+  shirt-cube-weiss-2.jpg   → Rückansicht
+  shirt-cube-weiss-3.jpg   → optionales Detailbild
+
+Sobald ein Zusatzbild vorhanden ist, erscheinen auf der Artikelseite
+automatisch Pfeile zum Durchblättern. Ein Klick auf das Bild öffnet
+es im Vollbild.
