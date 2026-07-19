@@ -58,16 +58,6 @@
     .mobile-menu a { font-size: 1.3rem; font-weight: 700; color: var(--text-muted); padding: 12px 24px; transition: color 0.2s; }
     .mobile-menu a:hover { color: var(--white); }
 
-    /* ── BACKGROUND WATERMARK ── */
-    .bg-watermark {
-      position: fixed; inset: 0; z-index: 2; pointer-events: none;
-      background-image: url('cube-racket.png');
-      background-repeat: repeat;
-      background-size: 72px auto;
-      background-position: 0 0;
-      opacity: 0.03;
-    }
-
     /* ── SHOP HERO ── */
     .shop-hero { padding: 150px 0 40px; position: relative; overflow: hidden; }
     .shop-hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 70% 20%, rgba(0,74,171,0.55) 0%, transparent 60%), linear-gradient(180deg, #041832 0%, #06264e 100%); }
@@ -113,6 +103,7 @@
     a.product-name:hover { color: var(--cyan); }
     .product-details-link { font-size: 0.78rem; color: var(--cyan); font-weight: 700; margin-bottom: 14px; display: inline-block; }
     .product-details-link:hover { text-decoration: underline; }
+    .avail-flag { font-size: 0.75rem; color: #ffc83d; font-weight: 700; margin-bottom: 10px; }
     .product-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; flex: 1; }
     .product-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
     .product-price { font-size: 1.45rem; font-weight: 900; color: var(--white); }
@@ -212,7 +203,6 @@
 </head>
 <body>
 
-  <div class="bg-watermark"></div>
 
   <!-- ═══ NAVIGATION ═══ -->
   <nav>
@@ -332,7 +322,8 @@
       grid.innerHTML = '';
       PRODUCTS.filter(p => cat === 'alle' || p.cat === cat).forEach(p => {
         const avail = availableFor(p);
-        const badge = avail <= 0 ? '<span class="stock-badge out">Ausverkauft</span>'
+        const badge = p.availableFrom ? `<span class="stock-badge low">Ab ${p.availableFrom}</span>`
+                    : avail <= 0 ? '<span class="stock-badge out">Ausverkauft</span>'
                     : avail <= 3 ? `<span class="stock-badge low">Nur noch ${avail}</span>`
                     : `<span class="stock-badge ok">Auf Lager</span>`;
         const hasSizes = typeof p.stock === 'object';
@@ -342,7 +333,8 @@
               return `<option value="${s}" ${rest <= 0 ? 'disabled' : ''}>${s}${rest <= 0 ? ' – ausverkauft' : ` (${rest} verfügbar)`}</option>`;
             }).join('')
           : '';
-        const stockText = hasSizes
+        const stockText = p.availableFrom ? 'Jetzt vorbestellbar'
+          : hasSizes
           ? `${avail} Stück gesamt`
           : (avail > 0 ? `${avail} verfügbar` : 'zurzeit nicht verfügbar');
         const card = document.createElement('div');
@@ -353,6 +345,7 @@
             <div class="product-brand">${p.brand}</div>
             <a class="product-name" href="artikel.html?id=${p.id}">${p.name}</a>
             <p class="product-desc">${p.desc}</p>
+            ${p.availableFrom ? `<div class="avail-flag">⏳ Verfügbar ab ${p.availableFrom} – jetzt vorbestellbar</div>` : ''}
             <a class="product-details-link" href="artikel.html?id=${p.id}">Mehr Infos & großes Bild →</a>
             <div class="product-meta">
               <div class="product-price">${fmt(p.price)}<small>inkl. MwSt.</small></div>
@@ -362,7 +355,7 @@
               ${hasSizes ? `<select class="size-select" id="size-${p.id}">${sizeOpts}</select>` : ''}
               <input class="qty-input" id="qty-${p.id}" type="number" min="1" value="1" ${avail <= 0 ? 'disabled' : ''} />
             </div>
-            <button class="btn-add" onclick="addToCart('${p.id}')" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : 'In den Warenkorb'}</button>
+            <button class="btn-add" onclick="addToCart('${p.id}')" ${avail <= 0 ? 'disabled' : ''}>${avail <= 0 ? 'Ausverkauft' : (p.availableFrom ? 'Vorbestellen' : 'In den Warenkorb')}</button>
           </div>`;
         grid.appendChild(card);
       });

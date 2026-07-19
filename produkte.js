@@ -7,7 +7,9 @@
    SHEET_CSV_URL unten). Die Werte hier sind nur der Notfall-
    Fallback, falls die Tabelle nicht erreichbar ist.
    Zum Pflegen also einfach die Google-Tabelle bearbeiten!
-   ▶ Texte (desc, longDesc, details) pflegst du hier.
+   ▶ Texte (desc, longDesc, details) und technische Daten (specs)
+   pflegst du hier. Die Schläger-Specs sind typische ca.-Werte –
+   bitte bei Bedarf mit den offiziellen Babolat-Angaben abgleichen.
    ▶ WICHTIG: Nach Änderungen die Datei auch nach github-deploy/
    kopieren und zu GitHub hochladen.
    ═══════════════════════════════════════════════════════════════ */
@@ -44,46 +46,56 @@ const PRODUCTS = [
     desc: 'Das kompromisslose Signature-Modell von Juan Lebrón – maximale Power für Angriffsspieler.',
     longDesc: 'Der Viper Juan Lebron 3.1 ist das kompromisslose Signature-Modell des spanischen Weltklassespielers Juan Lebrón. Die Diamantform mit kopflastiger Balance liefert maximale Power für Smashes und aggressives Angriffsspiel. Die strukturierte Schlagfläche gibt zusätzlichen Grip für Effet-Bälle – ein Schläger für Spieler, die das Spiel dominieren wollen.',
     details: ['Signature-Modell von Juan Lebrón', 'Form: Diamant – maximale Power', 'Kopflastige Balance für druckvolle Smashes', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für fortgeschrittene bis Profi-Spieler'],
+    specs: { gewicht: 'ca. 365 g', form: 'Diamant', balance: 'Kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Fortgeschritten – Profi', power: 10, kontrolle: 7 },
     price: 389.90, stock: 2, icon: 'racket' },
   { id: 'racket-viper-soft-lebron-31', cat: 'schlaeger', brand: 'Babolat', name: 'Viper Soft Juan Lebron 3.1',
     desc: 'Lebróns Signature mit weicherem Kern – Power mit mehr Komfort und Armschonung.',
     longDesc: 'Der Viper Soft Juan Lebron 3.1 bringt die DNA des Lebrón-Signature-Modells mit einem weicheren Kern zusammen. Das Ergebnis: viel Angriffspower bei deutlich mehr Komfort und Armschonung. Ideal für offensive Spieler, die Wert auf ein angenehmeres Schlaggefühl legen oder empfindliche Arme haben.',
     details: ['Signature-Modell von Juan Lebrón – Soft-Version', 'Form: Diamant – Power mit Komfort', 'Weicherer EVA-Kern, armschonend', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für fortgeschrittene Spieler'],
+    specs: { gewicht: 'ca. 360 g', form: 'Diamant', balance: 'Kopflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Fortgeschritten', power: 9, kontrolle: 8 },
     price: 389.90, stock: 2, icon: 'racket' },
   { id: 'racket-veron-lebron-31', cat: 'schlaeger', brand: 'Babolat', name: 'Veron Juan Lebron 3.1',
     desc: 'Die Signature-Variante für Allrounder – Kontrolle und Power perfekt ausbalanciert.',
     longDesc: 'Der Veron Juan Lebron 3.1 ist die Allround-Variante der Lebrón-Serie: Die Hybridform verbindet die Kontrolle eines runden Schlägers mit der Power der Diamantform. Wer ein ausgewogenes, vielseitiges Spiel bevorzugt und trotzdem im Angriff zulegen will, findet hier den perfekten Partner.',
     details: ['Signature-Modell von Juan Lebrón', 'Form: Hybrid – Kontrolle & Power ausbalanciert', 'Vielseitig für Angriff und Verteidigung', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für ambitionierte Allrounder'],
+    specs: { gewicht: 'ca. 365 g', form: 'Tropfen (Hybrid)', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Ambitionierte Allrounder', power: 8, kontrolle: 9 },
     price: 389.90, stock: 2, icon: 'racket' },
   { id: 'racket-technical-viper-31', cat: 'schlaeger', brand: 'Babolat', name: 'Technical Viper 3.1',
     desc: 'Diamantform für ambitionierte Spieler – präzise Schläge mit viel Druck.',
     longDesc: 'Der Technical Viper 3.1 bringt die aggressive Viper-Genetik in ein etwas zugänglicheres Paket. Die Diamantform sorgt für ordentlich Druck im Angriffsspiel, bleibt dabei aber kontrollierbar. Für ambitionierte Spieler, die ihr Offensivspiel auf das nächste Level bringen wollen.',
     details: ['Form: Diamant – offensiv ausgerichtet', 'Viel Power bei guter Kontrollierbarkeit', 'Carbon-Rahmen für Stabilität', 'Strukturierte Schlagfläche', 'Empfohlen für ambitionierte Spieler'],
+    specs: { gewicht: 'ca. 365 g', form: 'Diamant', balance: 'Kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Ambitioniert', power: 9, kontrolle: 7 },
     price: 329.90, stock: 3, icon: 'racket' },
   { id: 'racket-technical-viper-soft-31', cat: 'schlaeger', brand: 'Babolat', name: 'Technical Viper Soft 3.1',
     desc: 'Die Technical-Serie mit weichem Kern – Power, die den Arm schont.',
     longDesc: 'Der Technical Viper Soft 3.1 kombiniert die offensive Diamantform der Technical-Serie mit einem weicheren Kern. Das sorgt für ein komfortables Schlaggefühl und schont Arm und Ellbogen – ohne auf Angriffspower zu verzichten. Die richtige Wahl für Offensivspieler mit Fokus auf Komfort.',
     details: ['Form: Diamant – offensiv ausgerichtet', 'Weicherer EVA-Kern, armschonend', 'Komfortables Schlaggefühl', 'Carbon-Rahmen für Stabilität', 'Empfohlen für ambitionierte Spieler'],
+    specs: { gewicht: 'ca. 360 g', form: 'Diamant', balance: 'Kopflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert', level: 'Ambitioniert', power: 8, kontrolle: 8 },
     price: 329.90, stock: 2, icon: 'racket' },
   { id: 'racket-counter-viper-30', cat: 'schlaeger', brand: 'Babolat', name: 'Counter Viper 3.0',
     desc: 'Ausgewogene Rundform – Kontrolle und Stabilität für konstantes Spiel.',
     longDesc: 'Der Counter Viper 3.0 setzt auf Kontrolle: Die ausgewogene Form mit gleichmäßiger Balance verzeiht Fehler und gibt dir Sicherheit in der Defensive wie im Aufbauspiel. Wer konstant und präzise spielen will, statt nur auf Power zu setzen, liegt hier genau richtig.',
     details: ['Form: Rund – Kontrolle & Sicherheit', 'Ausgewogene Balance, fehlerverzeihend', 'Stabiler Carbon-Rahmen', 'Ideal für konstantes Aufbauspiel', 'Empfohlen für Fortgeschrittene'],
+    specs: { gewicht: 'ca. 360 g', form: 'Rund', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Fortgeschritten', power: 7, kontrolle: 9 },
     price: 259.90, stock: 3, icon: 'racket' },
   { id: 'racket-counter-viper-soft-30', cat: 'schlaeger', brand: 'Babolat', name: 'Counter Viper Soft 3.0',
     desc: 'Die komfortable Counter-Variante – weicher Kern, viel Spielgefühl.',
     longDesc: 'Der Counter Viper Soft 3.0 ist die komfortable Variante des Kontroll-Modells: Der weichere Kern bietet maximales Ballgefühl und schont die Arme. Perfekt für Spieler, die viel Wert auf Touch, Präzision und ein sanftes Schlaggefühl legen.',
     details: ['Form: Rund – Kontrolle & Sicherheit', 'Weicherer EVA-Kern, maximales Ballgefühl', 'Armschonend und komfortabel', 'Ideal für präzises, taktisches Spiel', 'Empfohlen für Fortgeschrittene'],
+    availableFrom: 'Februar 2027',
+    specs: { gewicht: 'ca. 355 g', form: 'Rund', balance: 'Grifflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert', level: 'Einsteiger – Fortgeschritten', power: 6, kontrolle: 10 },
     price: 259.90, stock: 2, icon: 'racket' },
   { id: 'racket-air-viper-27', cat: 'schlaeger', brand: 'Babolat', name: 'Air Viper 2.7',
     desc: 'Ultraleicht und wendig – aggressives Spiel mit schneller Schlagvorbereitung.',
     longDesc: 'Der Air Viper 2.7 ist das Leichtgewicht der Viper-Familie: Das reduzierte Gewicht macht ihn extrem wendig und ermöglicht blitzschnelle Reaktionen am Netz. Trotzdem steckt die aggressive Viper-DNA drin – für schnelles, offensives Spiel ohne schwere Arme.',
     details: ['Ultraleichte Bauweise – extrem wendig', 'Form: Diamant – offensive Ausrichtung', 'Schnelle Schlagvorbereitung am Netz', 'Auch für längere Sessions angenehm', 'Empfohlen für Fortgeschrittene'],
+    specs: { gewicht: 'ca. 350 g', form: 'Diamant', balance: 'Leicht kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Fortgeschritten', power: 8, kontrolle: 8 },
     price: 219.90, stock: 3, icon: 'racket' },
   { id: 'racket-air-veron-27', cat: 'schlaeger', brand: 'Babolat', name: 'Air Veron 2.7',
     desc: 'Leicht und kontrolliert – der Allrounder für schnelles, präzises Spiel.',
     longDesc: 'Der Air Veron 2.7 kombiniert geringes Gewicht mit der ausgewogenen Veron-Form. Das Ergebnis ist ein agiler Allrounder, der sich mühelos durch schnelle Ballwechsel bewegt und dabei präzise bleibt. Ideal für Spieler, die Vielseitigkeit und Leichtigkeit suchen.',
     details: ['Ultraleichte Bauweise – extrem wendig', 'Form: Hybrid – ausgewogen & präzise', 'Vielseitig in Angriff und Verteidigung', 'Auch für längere Sessions angenehm', 'Empfohlen für Allrounder'],
+    specs: { gewicht: 'ca. 350 g', form: 'Tropfen (Hybrid)', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Allrounder', power: 7, kontrolle: 9 },
     price: 219.90, stock: 3, icon: 'racket' },
   // ── BÄLLE ──
   { id: 'balls-court', cat: 'baelle', brand: 'Babolat', name: 'Court Bälle – 3er Pack',
