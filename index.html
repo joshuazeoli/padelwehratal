@@ -25,7 +25,7 @@
       --radius:       16px;
     }
 
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1260px; margin: 0 auto; padding: 0 28px; }
     .section { padding: 96px 0; }
     .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
     .section-title { font-size: clamp(1.8rem, 4vw, 2.75rem); font-weight: 800; line-height: 1.15; color: var(--white); margin-bottom: 20px; }
@@ -334,15 +334,54 @@
     .footer-copy { font-size: 0.78rem; color: #26507f; margin-top: 24px; text-align: center; }
     .section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
-    /* ── BACKGROUND WATERMARK ── */
-    .bg-watermark {
-      position: fixed; inset: 0; z-index: 2; pointer-events: none;
-      background-image: url('cube-racket.png');
-      background-repeat: repeat;
-      background-size: 72px auto;
-      background-position: 0 0;
-      opacity: 0.03;
+    /* ── VISUELLE EBENEN ── */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 45% 32% at 8% 12%, rgba(0,74,171,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 94% 42%, rgba(0,74,171,0.16) 0%, transparent 70%),
+        radial-gradient(ellipse 34% 26% at 18% 88%, rgba(230,255,83,0.05) 0%, transparent 70%);
     }
+    .section { position: relative; overflow: hidden; }
+    .section > .container { position: relative; z-index: 1; }
+    .section::before, .section::after { pointer-events: none; }
+    #news::before { content: ''; position: absolute; top: -140px; right: -160px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.32) 0%, transparent 65%); }
+    #about::before { content: ''; position: absolute; bottom: -180px; left: -180px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.26) 0%, transparent 65%); }
+    #about::after { content: ''; position: absolute; top: 80px; right: -100px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(230,255,83,0.06) 0%, transparent 65%); }
+    #pricing::before { content: ''; position: absolute; top: -120px; left: -140px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.28) 0%, transparent 65%); }
+    #training::before { content: ''; position: absolute; bottom: -160px; right: -160px; width: 540px; height: 540px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.24) 0%, transparent 65%); }
+    #events::before { content: ''; position: absolute; top: -120px; right: -120px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(230,255,83,0.05) 0%, transparent 65%); }
+    #liga::before { content: ''; position: absolute; bottom: -160px; left: -140px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.3) 0%, transparent 65%); }
+    #gallery::before { content: ''; position: absolute; top: -140px; left: -120px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.22) 0%, transparent 65%); }
+    #contact::before { content: ''; position: absolute; bottom: -180px; right: -160px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(0,74,171,0.26) 0%, transparent 65%); }
+
+    /* Akzentlinie unter Sektions-Titeln */
+    .section-title::after { content: ''; display: block; width: 64px; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--cyan), rgba(230,255,83,0)); margin-top: 16px; }
+
+    /* Schwebende Licht-Orbs im Hero */
+    .hero::before {
+      content: ''; position: absolute; top: 14%; right: 24%; width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,255,83,0.10) 0%, transparent 60%);
+      animation: float1 11s ease-in-out infinite; pointer-events: none; z-index: 0;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 8%; left: -60px; width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,74,171,0.4) 0%, transparent 62%);
+      animation: float2 14s ease-in-out infinite; pointer-events: none; z-index: 0;
+    }
+    @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 26px); } }
+    @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(34px, -22px); } }
+
+    /* Scroll-Reveal (Einblenden beim Scrollen) */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s cubic-bezier(.22,.7,.35,1), transform .65s cubic-bezier(.22,.7,.35,1); will-change: opacity, transform; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero::before, .hero::after { animation: none; }
+    }
+
+    /* Kartenglanz beim Hover */
+    .pricing-card:hover, .coach-card:hover, .event-card:hover, .liga-card:hover { border-color: var(--border-strong); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -497,8 +536,6 @@
 </head>
 <body>
 
-  <!-- ═══ BACKGROUND WATERMARK ═══ -->
-  <div class="bg-watermark"></div>
 
   <!-- ═══ NAVIGATION ═══ -->
   <nav>
@@ -1592,6 +1629,16 @@
       }
       btn.disabled = false;
     }
+
+    /* ── Scroll-Reveal: Karten & Blöcke sanft einblenden ── */
+    (function () {
+      const els = document.querySelectorAll('.news-highlight, .about-visual, .feature-list li, .booking-steps .bstep, .pricing-card, .coach-card, .training-prices, .event-card, .partnership-banner, .liga-banner, .liga-card, .gallery-item, .contact-card, .contact-form');
+      if (!('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach((el, i) => { el.classList.add('reveal'); el.style.transitionDelay = ((i % 3) * 70) + 'ms'; io.observe(el); });
+    })();
 
     window.addEventListener('scroll', () => {
       document.querySelector('nav').style.boxShadow =
