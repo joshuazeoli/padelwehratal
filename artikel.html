@@ -421,22 +421,43 @@
         Telefon: document.getElementById('custPhone').value || '–',
         Abwicklung: 'Abholung & Bezahlung in der Arena',
       };
-      try {
-        const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+      const orderData = {
+        token: ORDER_TOKEN,
+        bestellung: line,
+        summe: fmt(P.price * qty),
+        name: payload.Name,
+        email: payload.email,
+        telefon: payload.Telefon,
+        bemerkung: '–',
+      };
+      const showSuccess = () => {
         status.className = 'order-status ok';
-        status.innerHTML = '✅ <b>Reservierung eingegangen!</b> Wir melden uns bei dir, sobald der Artikel zur Abholung bereitliegt.';
+        status.innerHTML = '✅ <b>Reservierung eingegangen!</b> Wir melden uns bei dir, sobald der Artikel zur Abholung bereitliegt. Eine Bestätigung ist an deine E-Mail-Adresse unterwegs.';
         btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
         document.getElementById('reserveForm').reset();
-      } catch (err) {
+      };
+      try {
+        /* 1. Weg: Google Apps Script – Bestellmail an The Cube + Bestätigung an den Käufer */
+        const res = await fetch(ORDER_ENDPOINT, { method: 'POST', body: JSON.stringify(orderData) });
+        const j = await res.json();
+        if (!j.ok) throw new Error(j.error || 'Script-Fehler');
+        showSuccess();
+      } catch (e1) {
+        try {
+          /* 2. Weg: FormSubmit (nur Benachrichtigung an The Cube) */
+          const res2 = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!res2.ok) throw new Error('HTTP ' + res2.status);
+          showSuccess();
+        } catch (err) {
         const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + line + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload.email + '\nTelefon: ' + payload.Telefon);
         status.className = 'order-status err';
         status.innerHTML = '⚠️ Der automatische Versand hat nicht geklappt. <a style="color:var(--cyan);text-decoration:underline;" href="mailto:' + ORDER_EMAIL + '?subject=Shop-Bestellung%20The%20Cube&body=' + body + '">Hier klicken</a>, um die Reservierung per E-Mail zu senden.';
         btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
+        }
       }
     }
 
