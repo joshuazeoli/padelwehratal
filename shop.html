@@ -441,10 +441,11 @@
         _subject: '🛒 Neue Shop-Bestellung – The Cube',
         _template: 'table',
         _captcha: 'false',
+        _autoresponse: ORDER_AUTOREPLY,
         Bestellung: lines.join('\n'),
         Gesamtsumme: fmt(total),
         Name: document.getElementById('custName').value,
-        'E-Mail': document.getElementById('custEmail').value,
+        email: document.getElementById('custEmail').value,
         Telefon: document.getElementById('custPhone').value || '–',
         Bemerkung: document.getElementById('custNote').value || '–',
         Abwicklung: 'Abholung & Bezahlung in der Arena',
@@ -463,7 +464,7 @@
         btn.textContent = 'Bestellung absenden';
       } catch (err) {
         /* Fallback: E-Mail-Programm öffnen, falls der Versand fehlschlägt */
-        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + lines.join('\n') + '\n\nGesamt: ' + fmt(total) + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload['E-Mail'] + '\nTelefon: ' + payload.Telefon + '\nBemerkung: ' + payload.Bemerkung);
+        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + lines.join('\n') + '\n\nGesamt: ' + fmt(total) + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload.email + '\nTelefon: ' + payload.Telefon + '\nBemerkung: ' + payload.Bemerkung);
         status.className = 'order-status err';
         status.innerHTML = '⚠️ Der automatische Versand hat nicht geklappt. <a style="color:var(--cyan);text-decoration:underline;" href="mailto:' + ORDER_EMAIL + '?subject=Shop-Bestellung%20The%20Cube&body=' + body + '">Hier klicken</a>, um die Bestellung per E-Mail zu senden.';
         btn.disabled = false; btn.textContent = 'Bestellung absenden';

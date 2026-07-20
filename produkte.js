@@ -125,6 +125,7 @@ const PRODUCTS = [
 
 /* Bestell-Mails gehen an diese Adresse (FormSubmit.co): */
 const ORDER_EMAIL = 'joshua.zeoli@web.de';
+const ORDER_AUTOREPLY = 'Vielen Dank für deine Bestellung bei The Cube – Padelarena Wehr!\n\nDeine Reservierung ist bei uns eingegangen und wird nun geprüft. Wir nehmen in Kürze persönlich Kontakt mit dir auf, um die Übergabe und die Bezahlung zu klären – bezahlt wird bequem bei der Abholung in der Arena.\n\nBis bald auf dem Court!\nDein Team von The Cube – Padelarena Wehr';
 
 /* ═══════════════════════════════════════════════════════════════
    📊 LAGER-SYNCHRONISATION (Google-Tabelle)

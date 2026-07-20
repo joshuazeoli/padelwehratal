@@ -413,10 +413,11 @@
         _subject: '🛒 Neue Shop-Bestellung – The Cube',
         _template: 'table',
         _captcha: 'false',
+        _autoresponse: ORDER_AUTOREPLY,
         Bestellung: line,
         Gesamtsumme: fmt(P.price * qty),
         Name: document.getElementById('custName').value,
-        'E-Mail': document.getElementById('custEmail').value,
+        email: document.getElementById('custEmail').value,
         Telefon: document.getElementById('custPhone').value || '–',
         Abwicklung: 'Abholung & Bezahlung in der Arena',
       };
@@ -432,7 +433,7 @@
         btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
         document.getElementById('reserveForm').reset();
       } catch (err) {
-        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + line + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload['E-Mail'] + '\nTelefon: ' + payload.Telefon);
+        const body = encodeURIComponent('Neue Shop-Bestellung – The Cube\n\n' + line + '\n\nName: ' + payload.Name + '\nE-Mail: ' + payload.email + '\nTelefon: ' + payload.Telefon);
         status.className = 'order-status err';
         status.innerHTML = '⚠️ Der automatische Versand hat nicht geklappt. <a style="color:var(--cyan);text-decoration:underline;" href="mailto:' + ORDER_EMAIL + '?subject=Shop-Bestellung%20The%20Cube&body=' + body + '">Hier klicken</a>, um die Reservierung per E-Mail zu senden.';
         btn.textContent = 'Jetzt reservieren'; btn.disabled = false;
