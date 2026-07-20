@@ -153,6 +153,16 @@
     .booking-inner p { color: rgba(255,255,255,0.65); margin-top: 6px; font-size: 0.95rem; }
     .btn-playtomic { background: var(--white); color: var(--brand-blue); padding: 16px 36px; border-radius: 50px; font-size: 1rem; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; transition: all .25s; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
     .btn-playtomic:hover { background: var(--cyan-light); transform: translateY(-3px); }
+    .booking-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 38px; position: relative; z-index: 1; }
+    .bstep { display: flex; gap: 12px; align-items: flex-start; }
+    .bs-num { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--cyan); color: #002b63; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .bstep b { display: block; color: var(--white); font-size: 0.92rem; margin-bottom: 3px; }
+    .bstep p { color: rgba(255,255,255,0.72); font-size: 0.8rem; line-height: 1.5; margin: 0; }
+    .app-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .app-badges a { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.32); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 0.72rem; font-weight: 700; transition: all .2s; }
+    .app-badges a:hover { background: rgba(0,0,0,0.5); border-color: var(--cyan); }
+    @media (max-width: 900px) { .booking-steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .booking-steps { grid-template-columns: 1fr; gap: 16px; } }
 
     /* ── PRICING ── */
     #pricing { background: #041832; }
@@ -198,7 +208,7 @@
     .coach-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
     .coach-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.25); color: var(--cyan); padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
     .coach-badge.gold { background: rgba(255,200,50,0.1); border-color: rgba(255,200,50,0.3); color: #ffc83d; }
-    .coach-name { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .coach-name { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
     .coach-role { font-size: 0.8rem; color: var(--cyan); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
     .coach-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
     .coach-times { background: rgba(230,255,83,0.06); border: 1px solid rgba(230,255,83,0.15); border-radius: 10px; padding: 12px 16px; }
@@ -514,7 +524,7 @@
           <button class="lang-btn" onclick="setLang('en')">EN</button>
           <button class="lang-btn" onclick="setLang('es')">ES</button>
         </div>
-        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="nav-cta" data-i18n="nav_cta">Jetzt buchen →</a>
+        <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="nav-cta" data-i18n="nav_cta">Jetzt buchen →</a>
       </div>
       <div class="nav-hamburger"><span></span><span></span><span></span></div>
     </div>
@@ -532,7 +542,7 @@
     <a href="#gallery" data-i18n="nav_gallery" onclick="closeMobile()">Galerie</a>
     <a href="shop.html" data-i18n="nav_shop" onclick="closeMobile()">Shop</a>
     <a href="#contact" data-i18n="nav_contact" onclick="closeMobile()">Kontakt</a>
-    <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="mobile-cta" data-i18n="nav_cta" onclick="closeMobile()">Jetzt buchen →</a>
+    <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="mobile-cta" data-i18n="nav_cta" onclick="closeMobile()">Jetzt buchen →</a>
   </div>
 
   <!-- ═══ HERO ═══ -->
@@ -555,7 +565,7 @@
         </div>
         <p class="hero-desc" data-i18n="hero_desc">Willkommen in The Cube – der modernen Padelarena im Wehratal. Spitzencourtqualität, tolle Atmosphäre und eine leidenschaftliche Community für alle, die Padel lieben.</p>
         <div class="hero-actions">
-          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn btn-primary" data-i18n="hero_btn_book">🎾 Court buchen</a>
+          <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="btn btn-primary" data-i18n="hero_btn_book">🎾 Court buchen</a>
           <a href="#about" class="btn btn-outline" data-i18n="hero_btn_more">Mehr erfahren</a>
         </div>
         <div class="hero-stats">
@@ -725,10 +735,44 @@
           <h2 data-i18n="book_title">Bereit zu spielen? Buche deinen Court jetzt.</h2>
           <p data-i18n="book_sub">Verfügbarkeit prüfen und direkt über Playtomic reservieren – einfach, schnell, jederzeit.</p>
         </div>
-        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn-playtomic">
+        <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="btn-playtomic">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
           <span data-i18n="book_btn">Auf Playtomic buchen</span>
         </a>
+      </div>
+      <div class="booking-steps">
+        <div class="bstep">
+          <div class="bs-num">1</div>
+          <div>
+            <b data-i18n="bs1_t">Playtomic-App laden</b>
+            <p data-i18n="bs1_d">Kostenlos für iPhone und Android – oder einfach im Browser buchen.</p>
+            <div class="app-badges">
+              <a href="https://apps.apple.com/ch/app/playtomic-play-padel/id1242321076" target="_blank"> App Store</a>
+              <a href="https://play.google.com/store/apps/details?id=com.playtomic" target="_blank">▶ Google Play</a>
+            </div>
+          </div>
+        </div>
+        <div class="bstep">
+          <div class="bs-num">2</div>
+          <div>
+            <b data-i18n="bs2_t">„The Cube" suchen</b>
+            <p data-i18n="bs2_d">In der App nach „The Cube – Padelarena Wehratal" suchen und als Club auswählen.</p>
+          </div>
+        </div>
+        <div class="bstep">
+          <div class="bs-num">3</div>
+          <div>
+            <b data-i18n="bs3_t">Court auswählen & buchen</b>
+            <p data-i18n="bs3_d">Wunschtermin und Court wählen und die Buchung direkt in der App abschließen.</p>
+          </div>
+        </div>
+        <div class="bstep">
+          <div class="bs-num">4</div>
+          <div>
+            <b data-i18n="bs4_t">PIN erhalten & spielen</b>
+            <p data-i18n="bs4_d">Deinen Tür-PIN bekommst du per E-Mail und in der Playtomic-App – damit geht's direkt auf den Court.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -737,7 +781,7 @@
   <section class="section" id="training">
     <div class="container">
       <div class="section-label" data-i18n="training_label">Training & Coaches</div>
-      <h2 class="section-title" data-i18n="training_title">Lern von den Besten</h2>
+      <h2 class="section-title" data-i18n="training_title">Besser werden</h2>
       <p class="section-sub" data-i18n="training_sub">Unser erfahrenes Trainerteam begleitet dich – egal ob Einsteiger oder ambitionierter Spieler.</p>
       <div class="coaches-grid">
 
@@ -749,7 +793,6 @@
               <span class="coach-badge gold">🏅 DPV <span data-i18n="badge_licensed">Lizenztrainer</span></span>
             </div>
             <div class="coach-name">Marc Brüx</div>
-            <div class="coach-role" data-i18n="coach_role_head">Head Coach</div>
             <p class="coach-desc" data-i18n="marc_desc">Lizenzierter DPV-Padel-Coach mit langjähriger Erfahrung im Spieler- und Gruppentraining. Marc verbindet technisches Know-how mit einer motivierenden Trainingsatmosphäre.</p>
             <div class="coach-times">
               <div class="coach-times-label" data-i18n="coach_times_label">Trainingszeiten</div>
@@ -780,7 +823,6 @@
               <span class="coach-badge gold">🏅 DPV <span data-i18n="badge_licensed">Lizenztrainer</span></span>
             </div>
             <div class="coach-name">Markus Zeoli</div>
-            <div class="coach-role" data-i18n="coach_role_senior">Senior Coach</div>
             <p class="coach-desc" data-i18n="markus_desc">Lizenzierter DPV-Padel-Coach mit jahrelanger Erfahrung in der Spielerentwicklung. Markus legt besonderen Wert auf Technik, Taktik und individuelle Förderung.</p>
             <div class="coach-times">
               <div class="coach-times-label" data-i18n="coach_times_label">Trainingszeiten</div>
@@ -812,7 +854,6 @@
               <span class="coach-badge gold">🇨🇭 <span data-i18n="badge_top10">Top 10 Schweiz</span></span>
             </div>
             <div class="coach-name">Joshua Zeoli</div>
-            <div class="coach-role" data-i18n="coach_role_pro">Pro Coach & Player</div>
             <p class="coach-desc" data-i18n="nathalie_desc">Erfahrener Trainer und aktiver Top-10-Spieler in der Schweizer Rangliste. Joshua bringt hochkarätiges Spielverständnis direkt ins Training und gibt wertvolle Einblicke auf Profiniveau.</p>
             <div class="coach-times">
               <div class="coach-times-label" data-i18n="coach_times_label">Trainingszeiten</div>
@@ -882,22 +923,23 @@
           </div>
           <ul class="pricing-features">
             <li><span class="check">✓</span> <span data-i18n="plan1_f1">Buchung via Playtomic</span></li>
-            <li><span class="check">✓</span> <span data-i18n="plan1_f2">7 Tage im Voraus buchbar</span></li>
+            <li><span class="check">✓</span> <span data-i18n="plan1_f2">10 Tage im Voraus buchbar</span></li>
             <li><span class="check">✓</span> <span data-i18n="plan1_f3">Keine Mitgliedschaft nötig</span></li>
             <li><span class="cross">✗</span> <span data-i18n="plan1_f4">Keine Rabatte</span></li>
           </ul>
-          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn-plan btn-plan-outline" data-i18n="plan1_btn">Court buchen</a>
+          <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="btn-plan btn-plan-outline" data-i18n="plan1_btn">Court buchen</a>
         </div>
 
-        <!-- ── CARD 2: Schüler ── -->
-        <div class="pricing-card">
-          <div class="pricing-name" data-i18n="plan2_name">Schüler</div>
+        <!-- ── CARD 2: Mid Day Abo ── -->
+        <div class="pricing-card featured">
+          <div class="featured-badge" data-i18n="plan_popular">Beliebteste Wahl</div>
+          <div class="pricing-name" data-i18n="plan2_name">Mid Day Abo</div>
           <div class="pricing-annual">
             <span class="currency">€</span>
             <span class="amount">300</span>
             <span class="period" data-i18n="plan_year">/ Jahr</span>
           </div>
-          <div class="pricing-desc" data-i18n="plan2_desc">Für Schüler und Jugendliche – mehr spielen, weniger zahlen.</div>
+          <div class="pricing-desc" data-i18n="plan2_desc">Unter der Woche tagsüber gratis spielen – perfekt für alle mit flexiblen Zeiten.</div>
           <div class="price-slots">
             <div class="price-slot">
               <span class="slot-time"><span data-i18n="plan2_days">Mo–Fr</span> · 07:30 – 17:00</span>
@@ -913,12 +955,11 @@
             <li><span class="check">✓</span> <span data-i18n="plan2_f2">Max. 4 aktive Buchungen gleichzeitig</span></li>
             <li><span class="check">✓</span> <span data-i18n="plan2_f3">7 Tage im Voraus buchbar</span></li>
           </ul>
-          <a href="#contact" class="btn-plan btn-plan-outline" data-i18n="plan2_btn">Mitglied werden</a>
+          <a href="#contact" class="btn-plan btn-plan-cyan" data-i18n="plan2_btn">Mitglied werden</a>
         </div>
 
         <!-- ── CARD 3: Premium ── -->
-        <div class="pricing-card featured">
-          <div class="featured-badge" data-i18n="plan_popular">Beliebteste Wahl</div>
+        <div class="pricing-card">
           <div class="pricing-name" data-i18n="plan3_name">Premium</div>
           <div class="pricing-annual">
             <span class="currency">€</span>
@@ -937,7 +978,7 @@
             <li><span class="check">✓</span> <span data-i18n="plan3_f2">Max. 4 aktive Buchungen gleichzeitig</span></li>
             <li><span class="check">✓</span> <span data-i18n="plan3_f3">14 Tage Buchungsvorlauf (exklusiv)</span></li>
           </ul>
-          <a href="#contact" class="btn-plan btn-plan-cyan" data-i18n="plan3_btn">Jetzt anfragen</a>
+          <a href="#contact" class="btn-plan btn-plan-outline" data-i18n="plan3_btn">Jetzt anfragen</a>
         </div>
 
       </div>
@@ -971,7 +1012,7 @@
             <span><span class="dot"></span> <span data-i18n="ev2_m2">Ankündigungen folgen</span></span>
             <span><span class="dot"></span> <span data-i18n="ev2_m3">Anmeldung via Playtomic</span></span>
           </div>
-          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev2_btn">Jetzt anmelden →</a>
+          <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev2_btn">Jetzt anmelden →</a>
         </div>
         <div class="event-card">
           <div class="event-tag" data-i18n="ev3_tag">🇨🇭 Offiziell</div>
@@ -1161,7 +1202,7 @@
           <a href="#about" data-i18n="nav_about">Über uns</a>
           <a href="#pricing" data-i18n="nav_membership">Mitgliedschaft</a>
           <a href="#events" data-i18n="nav_events">Events</a>
-          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank">Playtomic</a>
+          <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank">Playtomic</a>
           <a href="shop.html" data-i18n="nav_shop">Shop</a>
           <a href="https://www.instagram.com/the.cube_wehratal" target="_blank">Instagram</a>
           <a href="#news" data-i18n="nav_news">News</a>
@@ -1185,6 +1226,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Galerie', nav_news:'News', nav_contact:'Kontakt', nav_shop:'Shop',
         nav_cta:'Jetzt buchen →',
+        bs1_t:'Playtomic-App laden', bs1_d:'Kostenlos für iPhone und Android – oder einfach im Browser buchen.', bs2_t:'„The Cube" suchen', bs2_d:'In der App nach „The Cube – Padelarena Wehratal" suchen und als Club auswählen.', bs3_t:'Court auswählen & buchen', bs3_d:'Wunschtermin und Court wählen und die Buchung direkt in der App abschließen.', bs4_t:'PIN erhalten & spielen', bs4_d:'Deinen Tür-PIN bekommst du per E-Mail und in der Playtomic-App – damit geht\'s direkt auf den Court.',
         tp_title:'Trainingspreise', tp_note:'Alle Preise pro Stunde · inkl. Court', tp1_l:'Einzeltraining', tp2_l:'2er-Training', tp3_l:'3er-Training', tp4_l:'4er-Training', tp_hour:'pro Stunde',
         nav_liga:'Liga', liga_label:'Deutsche Padel-Liga', liga_title:'The Cube in der Deutschen Padel-Liga', liga_sub:'Wir spielen mit fünf Mannschaften in der Deutschen Padel-Liga – vom Aufstiegskampf bis zum Altersklassen-Team ist alles dabei.', liga_banner_title:'Mannschaften für The Cube am Start', liga_banner_sub:'2 aktive Herrenteams · 2 Damenteams · 1 Altersklassen-Team', liga_role_men:'Herren', liga_role_women:'Damen', liga_role_senior:'Altersklassen-Mannschaft', liga_t1_tag:'🔥 Aufstiegskampf 1. Bundesliga', liga_t2_tag:'🔥 Aufstiegskampf 2. Bundesliga', liga_t3_tag:'🏆 Regionalliga', liga_t4_tag:'🏆 Regionalliga', liga_t5_tag:'🏆 Regionalliga', liga_t3_name:'CUBE Altersklasse', liga_t1_desc:'Unser erstes Herrenteam kämpft aktuell um den Aufstieg in die 1. Bundesliga – das Aushängeschild der Arena.', liga_t2_desc:'CUBE II greift an und kämpft um den Aufstieg in die 2. Bundesliga – mit viel Energie und Teamgeist.', liga_t3_desc:'Erfahrung zahlt sich aus: Unser Altersklassen-Team vertritt The Cube in der Regionalliga.', liga_t4_desc:'Unser erstes Damenteam bringt die Cube-Farben in der Regionalliga auf den Court.', liga_t5_desc:'Auch unser zweites Damenteam ist in der Regionalliga am Start – Nachwuchs und Spielfreude inklusive.', form_error:'Senden fehlgeschlagen – bitte schreib uns direkt an padelarena79664@gmail.com.', news_error:'Anmeldung fehlgeschlagen – bitte versuch es später noch einmal.',
         news_label:'Neuigkeiten', news_title:'Was kommt als Nächstes', news_sub:'Große Pläne für die Zukunft des Padel im Wehratal.',
@@ -1210,7 +1252,7 @@
         book_title:'Bereit zu spielen? Buche deinen Court jetzt.',
         book_sub:'Verfügbarkeit prüfen und direkt über Playtomic reservieren – einfach, schnell, jederzeit.',
         book_btn:'Auf Playtomic buchen',
-        training_label:'Training & Coaches', training_title:'Lern von den Besten',
+        training_label:'Training & Coaches', training_title:'Besser werden',
         training_sub:'Unser erfahrenes Trainerteam begleitet dich – egal ob Einsteiger oder ambitionierter Spieler.',
         coach_photo_hint:'Foto hier einfügen', badge_licensed:'Lizenztrainer', badge_coach:'Coach', badge_top10:'Top 10 Schweiz',
         coach_role_head:'Head Coach', coach_role_senior:'Senior Coach', coach_role_pro:'Pro Coach & Player',
@@ -1225,9 +1267,9 @@
         price_sub:'Ob Gelegenheitsspieler oder regelmäßiger Court-Stammgast – wir haben das passende Paket für jede Spielfreude.',
         plan1_name:'Basis', plan1_paytype:'Pay per Play', plan1_desc:'Du zahlst nur, wenn du spielst – keine Bindung, keine Jahresgebühr.',
         per_person:'/ Person',
-        plan1_f1:'Buchung via Playtomic', plan1_f2:'7 Tage im Voraus buchbar', plan1_f3:'Keine Mitgliedschaft nötig', plan1_f4:'Keine Rabatte',
+        plan1_f1:'Buchung via Playtomic', plan1_f2:'10 Tage im Voraus buchbar', plan1_f3:'Keine Mitgliedschaft nötig', plan1_f4:'Keine Rabatte',
         plan1_btn:'Court buchen', plan_popular:'Beliebteste Wahl',
-        plan2_name:'Schüler', plan_year:'/ Jahr', plan2_desc:'Für Schüler und Jugendliche – mehr spielen, weniger zahlen.',
+        plan2_name:'Mid Day Abo', plan_year:'/ Jahr', plan2_desc:'Unter der Woche tagsüber gratis spielen – perfekt für alle mit flexiblen Zeiten.',
         plan2_days:'Mo–Fr', plan_free:'Gratis',
         plan2_f1:'Max. 4 Std. pro Tag', plan2_f2:'Max. 4 aktive Buchungen gleichzeitig', plan2_f3:'7 Tage im Voraus buchbar',
         plan2_btn:'Mitglied werden',
@@ -1269,6 +1311,7 @@
         nav_training:'Training',
         nav_events:'Events', nav_gallery:'Gallery', nav_news:'News', nav_contact:'Contact', nav_shop:'Shop',
         nav_cta:'Book now →',
+        bs1_t:'Download the Playtomic app', bs1_d:'Free for iPhone and Android – or simply book in your browser.', bs2_t:'Search for "The Cube"', bs2_d:'Search for "The Cube – Padelarena Wehratal" in the app and select the club.', bs3_t:'Pick a court & book', bs3_d:'Choose your time and court and complete the booking right in the app.', bs4_t:'Get your PIN & play', bs4_d:'You receive your door PIN by e-mail and in the Playtomic app – and you are ready to play.',
         tp_title:'Training prices', tp_note:'All prices per hour · court included', tp1_l:'Individual training', tp2_l:'Group of 2', tp3_l:'Group of 3', tp4_l:'Group of 4', tp_hour:'per hour',
         nav_liga:'League', liga_label:'German Padel League', liga_title:'The Cube in the German Padel League', liga_sub:'We compete with five teams in the German Padel League – from promotion battles to our seniors team.', liga_banner_title:'teams representing The Cube', liga_banner_sub:'2 active men\'s teams · 2 women\'s teams · 1 seniors team', liga_role_men:'Men', liga_role_women:'Women', liga_role_senior:'Seniors team', liga_t1_tag:'🔥 Fighting for promotion to Bundesliga 1', liga_t2_tag:'🔥 Fighting for promotion to Bundesliga 2', liga_t3_tag:'🏆 Regional league', liga_t4_tag:'🏆 Regional league', liga_t5_tag:'🏆 Regional league', liga_t3_name:'CUBE Seniors', liga_t1_desc:'Our first men\'s team is currently fighting for promotion to the 1st Bundesliga – the flagship of the arena.', liga_t2_desc:'CUBE II is pushing for promotion to the 2nd Bundesliga – with plenty of energy and team spirit.', liga_t3_desc:'Experience pays off: our seniors team represents The Cube in the Regional League.', liga_t4_desc:'Our first women\'s team competes for The Cube in the Regional League.', liga_t5_desc:'Our second women\'s team also plays in the Regional League – young talent and pure enthusiasm included.', form_error:'Sending failed – please email us directly at padelarena79664@gmail.com.', news_error:'Sign-up failed – please try again later.',
         news_label:'News', news_title:'What\'s Coming Next', news_sub:'Big plans for the future of padel in the Wehratal.',
@@ -1294,7 +1337,7 @@
         book_title:'Ready to play? Book your court now.',
         book_sub:'Check availability and book directly via Playtomic – easy, fast, anytime.',
         book_btn:'Book on Playtomic',
-        training_label:'Training & Coaches', training_title:'Learn from the best',
+        training_label:'Training & Coaches', training_title:'Get better',
         training_sub:'Our experienced coaching team is here for you – whether you\'re a beginner or an ambitious player.',
         coach_photo_hint:'Insert photo here', badge_licensed:'Licensed Coach', badge_coach:'Coach', badge_top10:'Top 10 Switzerland',
         coach_role_head:'Head Coach', coach_role_senior:'Senior Coach', coach_role_pro:'Pro Coach & Player',
@@ -1309,9 +1352,9 @@
         price_sub:'Whether you\'re a casual player or a regular – we have the perfect package for every level of enthusiasm.',
         plan1_name:'Basic', plan1_paytype:'Pay per Play', plan1_desc:'Pay only when you play – no commitment, no annual fee.',
         per_person:'/ person',
-        plan1_f1:'Book via Playtomic', plan1_f2:'Book 7 days in advance', plan1_f3:'No membership required', plan1_f4:'No discounts',
+        plan1_f1:'Book via Playtomic', plan1_f2:'Book 10 days in advance', plan1_f3:'No membership required', plan1_f4:'No discounts',
         plan1_btn:'Book a court', plan_popular:'Most popular',
-        plan2_name:'Student', plan_year:'/ year', plan2_desc:'For students and juniors – play more, pay less.',
+        plan2_name:'Mid Day Pass', plan_year:'/ year', plan2_desc:'Play for free on weekdays during the day – perfect for flexible schedules.',
         plan2_days:'Mon–Fri', plan_free:'Free',
         plan2_f1:'Max. 4 hrs per day', plan2_f2:'Max. 4 active bookings at once', plan2_f3:'Book 7 days in advance',
         plan2_btn:'Join now',
@@ -1353,6 +1396,7 @@
         nav_training:'Entrenamiento',
         nav_events:'Eventos', nav_gallery:'Galería', nav_news:'Noticias', nav_contact:'Contacto', nav_shop:'Shop',
         nav_cta:'Reservar →',
+        bs1_t:'Descarga la app de Playtomic', bs1_d:'Gratis para iPhone y Android – o reserva simplemente en el navegador.', bs2_t:'Busca "The Cube"', bs2_d:'Busca "The Cube – Padelarena Wehratal" en la app y selecciona el club.', bs3_t:'Elige pista y reserva', bs3_d:'Elige fecha y pista y completa la reserva directamente en la app.', bs4_t:'Recibe tu PIN y juega', bs4_d:'Recibirás tu PIN de acceso por correo y en la app de Playtomic – ¡y a jugar!',
         tp_title:'Precios de entrenamiento', tp_note:'Todos los precios por hora · pista incluida', tp1_l:'Entrenamiento individual', tp2_l:'Grupo de 2', tp3_l:'Grupo de 3', tp4_l:'Grupo de 4', tp_hour:'por hora',
         nav_liga:'Liga', liga_label:'Liga Alemana de Pádel', liga_title:'The Cube en la Liga Alemana de Pádel', liga_sub:'Competimos con cinco equipos en la Liga Alemana de Pádel – desde la lucha por el ascenso hasta nuestro equipo de veteranos.', liga_banner_title:'equipos representando a The Cube', liga_banner_sub:'2 equipos masculinos · 2 equipos femeninos · 1 equipo de veteranos', liga_role_men:'Masculino', liga_role_women:'Femenino', liga_role_senior:'Equipo de veteranos', liga_t1_tag:'🔥 Lucha por el ascenso a la 1ª Bundesliga', liga_t2_tag:'🔥 Lucha por el ascenso a la 2ª Bundesliga', liga_t3_tag:'🏆 Liga Regional', liga_t4_tag:'🏆 Liga Regional', liga_t5_tag:'🏆 Liga Regional', liga_t3_name:'CUBE Veteranos', liga_t1_desc:'Nuestro primer equipo masculino lucha actualmente por el ascenso a la 1ª Bundesliga – el buque insignia de la arena.', liga_t2_desc:'CUBE II lucha por el ascenso a la 2ª Bundesliga – con mucha energía y espíritu de equipo.', liga_t3_desc:'La experiencia cuenta: nuestro equipo de veteranos representa a The Cube en la Liga Regional.', liga_t4_desc:'Nuestro primer equipo femenino compite por The Cube en la Liga Regional.', liga_t5_desc:'Nuestro segundo equipo femenino también juega en la Liga Regional – talento joven y pura ilusión.', form_error:'No se pudo enviar – escríbenos directamente a padelarena79664@gmail.com.', news_error:'No se pudo registrar – inténtalo más tarde.',
         news_label:'Noticias', news_title:'Lo que viene', news_sub:'Grandes planes para el futuro del pádel en el Wehratal.',
@@ -1378,7 +1422,7 @@
         book_title:'¿Listo para jugar? Reserva tu cancha ahora.',
         book_sub:'Consulta disponibilidad y reserva directamente en Playtomic – fácil, rápido, en cualquier momento.',
         book_btn:'Reservar en Playtomic',
-        training_label:'Entrenamiento & Coaches', training_title:'Aprende de los mejores',
+        training_label:'Entrenamiento & Coaches', training_title:'Mejora tu juego',
         training_sub:'Nuestro equipo de entrenadores con experiencia te acompaña – ya seas principiante o jugador ambicioso.',
         coach_photo_hint:'Insertar foto aquí', badge_licensed:'Entrenador Licenciado', badge_coach:'Entrenador', badge_top10:'Top 10 Suiza',
         coach_role_head:'Entrenador Principal', coach_role_senior:'Entrenador Senior', coach_role_pro:'Entrenador Pro & Jugador',
@@ -1393,9 +1437,9 @@
         price_sub:'Ya seas jugador ocasional o asiduo – tenemos el paquete ideal para cada nivel de entusiasmo.',
         plan1_name:'Básico', plan1_paytype:'Pay per Play', plan1_desc:'Paga solo cuando juegas – sin compromiso, sin cuota anual.',
         per_person:'/ persona',
-        plan1_f1:'Reserva vía Playtomic', plan1_f2:'Reserva con 7 días de antelación', plan1_f3:'Sin membresía necesaria', plan1_f4:'Sin descuentos',
+        plan1_f1:'Reserva vía Playtomic', plan1_f2:'Reserva con 10 días de antelación', plan1_f3:'Sin membresía necesaria', plan1_f4:'Sin descuentos',
         plan1_btn:'Reservar cancha', plan_popular:'Más popular',
-        plan2_name:'Estudiante', plan_year:'/ año', plan2_desc:'Para estudiantes y jóvenes – juega más, paga menos.',
+        plan2_name:'Abono Mid Day', plan_year:'/ año', plan2_desc:'Juega gratis entre semana durante el día – perfecto para horarios flexibles.',
         plan2_days:'Lu–Vi', plan_free:'Gratis',
         plan2_f1:'Máx. 4 horas por día', plan2_f2:'Máx. 4 reservas activas a la vez', plan2_f3:'Reserva con 7 días de antelación',
         plan2_btn:'Unirse',
