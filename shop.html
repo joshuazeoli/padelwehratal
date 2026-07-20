@@ -222,7 +222,7 @@
         <li><a href="index.html#contact">Kontakt</a></li>
       </ul>
       <div class="nav-right">
-        <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank" class="nav-cta">Jetzt buchen →</a>
+        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="nav-cta">Jetzt buchen →</a>
       </div>
       <div class="nav-hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
     </div>
@@ -297,7 +297,7 @@
         <div class="footer-links">
           <a href="index.html">Startseite</a>
           <a href="index.html#contact">Kontakt</a>
-          <a href="https://playtomic.io/the-cube-padelarena-wehratal/140e3349-ed8d-4e19-acd4-87e2a5519b72" target="_blank">Playtomic</a>
+          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank">Playtomic</a>
         </div>
       </div>
       <div class="footer-copy">© 2026 The Cube – Padelarena Wehratal. Alle Rechte vorbehalten. · <a href="datenschutz.html" style="color:var(--text-muted);">Datenschutz</a></div>
@@ -483,6 +483,13 @@
     updateCart();
     if (location.hash === '#warenkorb') openCart();
     loadStockFromSheet().then(ok => { if (ok) renderProducts(currentCat); });
+
+    /* Playtomic: auf Smartphones den offiziellen App-Link verwenden (öffnet die Playtomic-App) */
+    (function () {
+      if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
+      const APP_LINK = 'https://playtomic.com/tenant/140e3349-ed8d-4e19-acd4-87e2a5519b72?utm_source=website&utm_campaign=share';
+      document.querySelectorAll('a[href*="playtomic.com/clubs"]').forEach(a => { a.href = APP_LINK; });
+    })();
   </script>
 </body>
 </html>
