@@ -214,7 +214,8 @@
     const P = PRODUCTS.find(x => x.id === artId);
     const wrap = document.getElementById('articleContainer');
 
-    const CAT_NAMES = { shirts: 'Shirts', hosen: 'Hosen', schlaeger: 'Schläger', baelle: 'Bälle' };
+    const CAT_NAMES = { shirts: 'Shirts', hosen: 'Hosen', schlaeger: 'Schläger', baelle: 'Bälle', taschen: 'Taschen' };
+    const SPEC_LABELS = { gewicht: 'Gewicht', form: 'Form', balance: 'Balance', kern: 'Kern', oberflaeche: 'Oberfläche', level: 'Spielertyp', volumen: 'Volumen', faecher: 'Fächer', schlaegerfach: 'Schlägerfach', schuhfach: 'Schuhfach', material: 'Material', masse: 'Maße' };
 
     function availableFor(p, size) {
       if (typeof p.stock === 'number') return p.stock;
@@ -282,17 +283,12 @@
             ${P.availableFrom ? `<div class="avail-note"><span>⏳</span><span><b>Verfügbar ab ${P.availableFrom}.</b> Dieser Artikel ist aktuell noch nicht erhältlich – du kannst ihn aber bereits unverbindlich vorbestellen.</span></div>` : ''}
             ${P.specs ? `<div class="specs-panel"><h3>📐 Technische Daten</h3>
               <div class="specs-grid">
-                <div class="spec-tile"><div class="sl">Gewicht</div><div class="sv">${P.specs.gewicht}</div></div>
-                <div class="spec-tile"><div class="sl">Form</div><div class="sv">${P.specs.form}</div></div>
-                <div class="spec-tile"><div class="sl">Balance</div><div class="sv">${P.specs.balance}</div></div>
-                <div class="spec-tile"><div class="sl">Kern</div><div class="sv">${P.specs.kern}</div></div>
-                <div class="spec-tile"><div class="sl">Oberfläche</div><div class="sv">${P.specs.oberflaeche}</div></div>
-                <div class="spec-tile"><div class="sl">Spielertyp</div><div class="sv">${P.specs.level}</div></div>
+                ${Object.entries(P.specs).filter(([k]) => k !== 'power' && k !== 'kontrolle').map(([k, v]) => `<div class="spec-tile"><div class="sl">${SPEC_LABELS[k] || k}</div><div class="sv">${v}</div></div>`).join('')}
               </div>
-              <div class="spec-bars">
+              ${P.specs.power !== undefined ? `<div class="spec-bars">
                 <div class="spec-bar-row"><span class="bl">Power</span><div class="spec-bar"><span style="width:${P.specs.power*10}%"></span></div><span class="bv">${P.specs.power}</span></div>
                 <div class="spec-bar-row"><span class="bl">Kontrolle</span><div class="spec-bar"><span style="width:${P.specs.kontrolle*10}%"></span></div><span class="bv">${P.specs.kontrolle}</span></div>
-              </div>
+              </div>` : ''}
             </div>` : ''}
             <p class="article-longdesc">${P.longDesc || P.desc}</p>
             ${P.details ? `<ul class="article-details">${P.details.map(d => `<li><span class="check">✓</span><span>${d}</span></li>`).join('')}</ul>` : ''}

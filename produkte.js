@@ -108,6 +108,19 @@ const PRODUCTS = [
     longDesc: 'Die Babolat ACE Padelbälle sind die Premium-Wahl für ambitionierte Spieler: Sie bieten ein druckvolles, lebendiges Spielgefühl und behalten ihre Eigenschaften auch nach vielen Ballwechseln. Erste Wahl für Matches und Turniere bei The Cube.',
     details: ['3 Bälle pro Dose', 'Premium-Qualität für Match und Turnier', 'Druckvolles, lebendiges Spielgefühl', 'Hohe Lebensdauer und Formstabilität'],
     price: 7.90, stock: 24, icon: 'balls' },
+  // ── TASCHEN ──
+  { id: 'rucksack-pure-aero', cat: 'taschen', brand: 'Babolat', name: 'Rucksack Pure Aero',
+    desc: 'Der Rucksack der Pure-Aero-Linie – viel Platz für Schläger, Schuhe und Ausrüstung.',
+    longDesc: 'Der Babolat Rucksack Pure Aero im markanten Gelb-Schwarz der Pure-Aero-Linie ist der ideale Begleiter für Training und Match. Im gepolsterten Hauptfach ist Platz für deine Ausrüstung, Schläger sind im eigenen Fach geschützt untergebracht, und dank separatem Schuhfach bleibt der Rest deiner Sachen sauber. Bequeme, gepolsterte Schultergurte machen ihn auch unterwegs angenehm zu tragen.',
+    details: ['Gepolstertes Hauptfach für deine komplette Ausrüstung', 'Eigenes Schlägerfach für bis zu 2 Schläger', 'Separates Schuhfach – Schmutz bleibt draußen', 'Fronttasche für Kleinteile, Handy und Wertsachen', 'Gepolsterte, verstellbare Schultergurte'],
+    specs: { volumen: 'ca. 32 l', faecher: '3 Fächer + Fronttasche', schlaegerfach: 'Bis zu 2 Schläger', schuhfach: 'Separat belüftet', material: 'Polyester', gewicht: 'ca. 800 g' },
+    price: 90.00, stock: 2, icon: 'bag' },
+  { id: 'rucksack-pure-strike', cat: 'taschen', brand: 'Babolat', name: 'Rucksack Pure Strike',
+    desc: 'Der Rucksack der Pure-Strike-Linie – durchdachte Fächer im cleanen Weiß-Rot-Design.',
+    longDesc: 'Der Babolat Rucksack Pure Strike bringt das cleane Weiß-Rot-Schwarz der Pure-Strike-Linie auf deinen Rücken. Wie sein Pure-Aero-Bruder bietet er ein geräumiges Hauptfach, ein geschütztes Schlägerfach und ein separates Schuhfach – perfekt organisiert für Training, Match und Alltag. Robuste Verarbeitung und gepolsterte Gurte inklusive.',
+    details: ['Geräumiges, gepolstertes Hauptfach', 'Eigenes Schlägerfach für bis zu 2 Schläger', 'Separates Schuhfach – Schmutz bleibt draußen', 'Fronttasche für Kleinteile, Handy und Wertsachen', 'Gepolsterte, verstellbare Schultergurte'],
+    specs: { volumen: 'ca. 32 l', faecher: '3 Fächer + Fronttasche', schlaegerfach: 'Bis zu 2 Schläger', schuhfach: 'Separat belüftet', material: 'Polyester', gewicht: 'ca. 800 g' },
+    price: 90.00, stock: 2, icon: 'bag' },
 ];
 
 /* Bestell-Mails gehen an diese Adresse (FormSubmit.co): */
@@ -199,6 +212,7 @@ const ICONS = {
   'shirt-blau':     shirtSVG('#004aab', '#3d7fd6'),
   'shorts-weiss':   shortsSVG('#f2f6fc', '#aebfd6'),
   'shorts-schwarz': shortsSVG('#10131c', '#55617a'),
+  bag: `<svg viewBox="0 0 120 120" fill="none"><path d="M42 32 C42 18 78 18 78 32" stroke="#e6ff53" stroke-width="8" fill="none"/><rect x="28" y="30" width="64" height="74" rx="16" fill="#e6ff53"/><rect x="38" y="42" width="44" height="12" rx="5" fill="#004aab"/><rect x="38" y="64" width="44" height="30" rx="9" fill="#004aab"/><rect x="52" y="60" width="16" height="8" rx="3" fill="#f2ff8f"/></svg>`,
   racket: `<img src="cube-racket.png" alt="" style="width:30%;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.35));" />`,
   balls: `<svg viewBox="0 0 120 120" fill="none"><circle cx="42" cy="45" r="24" fill="#e6ff53"/><path d="M22 35 Q42 45 22 56 M62 35 Q42 45 62 56" stroke="#004aab" stroke-width="2.5" fill="none"/><circle cx="78" cy="70" r="24" fill="#e6ff53"/><path d="M58 60 Q78 70 58 81 M98 60 Q78 70 98 81" stroke="#004aab" stroke-width="2.5" fill="none"/></svg>`,
 };

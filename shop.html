@@ -260,6 +260,7 @@
         <button class="filter-btn" data-cat="hosen">Hosen</button>
         <button class="filter-btn" data-cat="schlaeger">Schläger</button>
         <button class="filter-btn" data-cat="baelle">Bälle</button>
+        <button class="filter-btn" data-cat="taschen">Taschen</button>
       </div>
       <div class="products-grid" id="productsGrid"></div>
     </div>
@@ -373,7 +374,7 @@
     });
     /* QR-Deep-Links: shop.html#shirts / #hosen / #schlaeger / #baelle */
     const hashCat = location.hash.replace('#', '');
-    if (['shirts','hosen','schlaeger','baelle'].includes(hashCat)) {
+    if (['shirts','hosen','schlaeger','baelle','taschen'].includes(hashCat)) {
       currentCat = hashCat;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === hashCat));
     }

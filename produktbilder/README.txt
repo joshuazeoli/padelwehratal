@@ -23,6 +23,8 @@ WICHTIG: Der Dateiname muss exakt der Artikel-Nummer entsprechen:
   racket-air-veron-27.jpg           → Air Veron 2.7
   balls-court.jpg                   → Court Bälle – 3er Pack
   balls-ace.jpg                     → ACE Bälle – 3er Pack
+  rucksack-pure-aero.jpg            → Rucksack Pure Aero
+  rucksack-pure-strike.jpg          → Rucksack Pure Strike
 
 (statt .jpg geht auch .png oder .webp)
 
