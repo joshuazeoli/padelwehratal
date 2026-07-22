@@ -264,17 +264,33 @@
 
     /* ── EVENTS ── */
     #events { background: #051f42; }
-    .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 72px; }
-    .event-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; transition: transform .25s, box-shadow .25s; position: relative; overflow: hidden; }
-    .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand-blue), var(--cyan)); }
-    .event-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,74,171,0.35); }
-    .event-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,255,83,0.1); border: 1px solid rgba(230,255,83,0.25); color: var(--cyan); padding: 4px 12px; border-radius: 50px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
-    .event-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--white); margin-bottom: 10px; }
-    .event-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
-    .event-meta { display: flex; flex-direction: column; gap: 6px; }
-    .event-meta span { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #b8cfe6; font-weight: 500; }
-    .event-meta .dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; flex-shrink: 0; }
-    /* WhatsApp-Community */
+    .events-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 72px; }
+    .event-row { display: grid; grid-template-columns: 148px 1fr auto; gap: 30px; align-items: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .event-row::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 4px; background: linear-gradient(180deg, var(--brand-blue), var(--cyan)); }
+    .event-row:hover { transform: translateY(-4px); box-shadow: 0 20px 55px rgba(0,74,171,0.35); border-color: var(--border-strong); }
+    .ev-when { text-align: center; background: linear-gradient(160deg, rgba(0,74,171,0.4), rgba(230,255,83,0.07)); border: 1px solid var(--border-strong); border-radius: 16px; padding: 18px 10px; min-width: 130px; }
+    .ev-when .ev-day { font-size: 2rem; font-weight: 900; color: var(--cyan); line-height: 1.15; letter-spacing: 0.04em; }
+    .ev-when .ev-time { font-size: 0.82rem; font-weight: 700; color: var(--white); margin-top: 5px; white-space: nowrap; }
+    .ev-when .ev-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; margin-top: 5px; line-height: 1.4; }
+    .ev-main .event-tag { margin-bottom: 10px; }
+    .ev-main h3 { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .ev-main p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; max-width: 680px; }
+    .ev-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ev-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,255,83,0.06); border: 1px solid rgba(230,255,83,0.18); color: #cfe0f2; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+    .ev-cta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-width: 215px; max-width: 240px; }
+    .ev-cta .btn-plan { width: 100%; text-align: center; }
+    @media (max-width: 980px) {
+      .event-row { grid-template-columns: 118px 1fr; }
+      .ev-when { min-width: 0; }
+      .ev-cta { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; min-width: 0; max-width: none; }
+      .ev-cta .btn-plan { width: auto; }
+    }
+    @media (max-width: 600px) {
+      .event-row { grid-template-columns: 1fr; padding: 24px 20px; gap: 18px; }
+      .ev-when { display: flex; align-items: baseline; justify-content: center; gap: 10px; padding: 12px; }
+      .ev-when .ev-time, .ev-when .ev-sub { margin-top: 0; }
+      .ev-cta .btn-plan { width: 100%; }
+    }
     .wa-join { margin-top: 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
     .btn-whatsapp { display: inline-flex; align-items: center; gap: 9px; background: #25D366; color: #06301b; padding: 11px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; transition: all .25s; box-shadow: 0 6px 22px rgba(37,211,102,0.35); }
     .btn-whatsapp:hover { background: #3ae078; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,211,102,0.5); }
@@ -403,12 +419,12 @@
     }
 
     /* Kartenglanz beim Hover */
-    .pricing-card:hover, .coach-card:hover, .event-card:hover, .liga-card:hover { border-color: var(--border-strong); }
+    .pricing-card:hover, .coach-card:hover, .liga-card:hover { border-color: var(--border-strong); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-      .pricing-grid, .events-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .gallery-item.tall { grid-row: span 1; }
       .nav-links { display: none; }
@@ -440,7 +456,7 @@
     @media (max-width: 600px) {
       .section { padding: 48px 0; }
       .container { padding: 0 16px; }
-      .pricing-grid, .events-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .coaches-grid { grid-template-columns: 1fr; }
@@ -1010,19 +1026,24 @@
       <div class="section-label" data-i18n="events_label">Events & Turniere</div>
       <h2 class="section-title" data-i18n="events_title">Immer was los bei The Cube</h2>
       <p class="section-sub" data-i18n="events_sub">Von wöchentlichen Social-Spielen bis zu offiziellen Turnieren – hier findest du alle Events auf einen Blick.</p>
-      <div class="events-grid">
-        <div class="event-card">
-          <div class="event-tag" data-i18n="ev1_tag">🎾 Wöchentlich</div>
-          <h3 data-i18n="ev1_title">Social Padel</h3>
-          <p data-i18n="ev1_desc">Komm vorbei, spiel mit und lern neue Mitspieler kennen! Unser wöchentliches Social Padel ist für alle Levels offen – einfach vorbeikommen und mitmachen.</p>
-          <div class="event-meta">
-            <span><span class="dot"></span> <span data-i18n="ev1_m1">Jeden Freitag</span></span>
-            <span><span class="dot"></span> 18:00 – 20:00 Uhr</span>
-            <span><span class="dot"></span> <span data-i18n="ev1_m3">Alle Spielstärken willkommen</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev1_m4">10 € pro Person</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev1_m5">Anmeldung über unsere WhatsApp-Community</span></span>
+      <div class="events-list">
+
+        <div class="event-row">
+          <div class="ev-when">
+            <div class="ev-day" data-i18n="ev1_day">FR</div>
+            <div class="ev-time">18:00 – 20:00</div>
           </div>
-          <div class="wa-join">
+          <div class="ev-main">
+            <div class="event-tag" data-i18n="ev1_tag">🎾 Wöchentlich</div>
+            <h3 data-i18n="ev1_title">Social Padel</h3>
+            <p data-i18n="ev1_desc">Komm vorbei, spiel mit und lern neue Mitspieler kennen! Unser wöchentliches Social Padel ist für alle Levels offen – einfach vorbeikommen und mitmachen.</p>
+            <div class="ev-chips">
+              <span class="ev-chip">📅 <span data-i18n="ev1_m1">Jeden Freitag</span></span>
+              <span class="ev-chip">👥 <span data-i18n="ev1_m3">Alle Spielstärken willkommen</span></span>
+              <span class="ev-chip">💶 <span data-i18n="ev1_m4">10 € pro Person</span></span>
+            </div>
+          </div>
+          <div class="ev-cta">
             <a class="btn-whatsapp" href="https://chat.whatsapp.com/GDaN4ri7fhM2Fqd2XyUjFc" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span data-i18n="wa_btn">Zur WhatsApp-Community</span></a>
             <div class="wa-qr">
               <img src="whatsapp-qr.png" alt="QR-Code: WhatsApp-Community von The Cube" loading="lazy" />
@@ -1030,52 +1051,86 @@
             </div>
           </div>
         </div>
-        <div class="event-card">
-          <div class="event-tag" data-i18n="ev2_tag">🏆 Turnier</div>
-          <h3 data-i18n="ev2_title">Mexicano Turniere</h3>
-          <p data-i18n="ev2_desc">Das beliebte Mexicano-Format bei The Cube – ein spannendes Rundum-Turnier, bei dem du mit wechselnden Partnern spielst und immer gegen gleichstarke Teams antrittst.</p>
-          <div class="event-meta">
-            <span><span class="dot"></span> <span data-i18n="ev2_m1">Regelmäßige Termine</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev2_m2">Ankündigungen folgen</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev2_m3">Anmeldung via Playtomic</span></span>
+
+        <div class="event-row">
+          <div class="ev-when">
+            <div class="ev-day">🧒</div>
+            <div class="ev-time"><span data-i18n="ev4_day">FR</span> · 14:00 – 17:00</div>
           </div>
-          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev2_btn">Jetzt anmelden →</a>
-        </div>
-        <div class="event-card">
-          <div class="event-tag" data-i18n="ev3_tag">🇨🇭 Offiziell</div>
-          <h3 data-i18n="ev3_title">Swiss Tennis Padel Turniere</h3>
-          <p data-i18n="ev3_desc">Als lizenzierter Partner von Swiss Tennis Padel veranstalten wir offizielle Turniere im nationalen Kalender. Spieler erhalten offizielle Ranglistenpunkte.</p>
-          <div class="event-meta">
-            <span><span class="dot"></span> <span data-i18n="ev3_m1">Offizielle Ranglistenturniere</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev3_m2">Termine werden bekanntgegeben</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev3_m3">Alle Infos via Swiss Tennis Padel</span></span>
+          <div class="ev-main">
+            <div class="event-tag" data-i18n="ev4_tag">🧒 Jugend</div>
+            <h3 data-i18n="ev4_title">JuPadel – Jugendtraining</h3>
+            <p data-i18n="ev4_desc">Padel lernen & spielen für Kinder von 7 bis 12 Jahren – mit Trainer Jordi. Ab dem 18. September startet der zweite Trainingsblock: 8 Einheiten, wöchentlich. Die genauen Termine werden entsprechend kommuniziert. Meldet eure Kinder mit Name und Alter bei Nathalie an – kurz vor Trainingsstart erhaltet ihr die Einteilung mit der entsprechenden Uhrzeit.</p>
+            <div class="ev-chips">
+              <span class="ev-chip">📅 <span data-i18n="ev4_m2">Start 18. September · 8 Einheiten</span></span>
+              <span class="ev-chip">🧒 <span data-i18n="ev4_m3">Alter 7–12 Jahre</span></span>
+              <span class="ev-chip">💶 <span data-i18n="ev4_m4">95 € pro Kind für den gesamten Block (inkl. Trainer, Schläger & Platzmiete)</span></span>
+            </div>
           </div>
-          <a href="https://swisstennis-padel.tournamentsoftware.com" target="_blank" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev3_btn">Jetzt registrieren →</a>
-        </div>
-        <div class="event-card">
-          <div class="event-tag" data-i18n="ev4_tag">🧒 Jugend</div>
-          <h3 data-i18n="ev4_title">JuPadel – Jugendtraining</h3>
-          <p data-i18n="ev4_desc">Padel lernen & spielen für Kinder von 7 bis 12 Jahren – mit Trainer Jordi. Ab dem 18. September startet der zweite Trainingsblock: 8 Einheiten, wöchentlich. Die genauen Termine werden entsprechend kommuniziert. Meldet eure Kinder mit Name und Alter bei Nathalie an – kurz vor Trainingsstart erhaltet ihr die Einteilung mit der entsprechenden Uhrzeit.</p>
-          <div class="event-meta">
-            <span><span class="dot"></span> <span data-i18n="ev4_m1">Freitags zwischen 14:00 – 17:00 Uhr</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev4_m2">Start 18. September · 8 Einheiten</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev4_m3">Alter 7–12 Jahre</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev4_m4">95 € pro Kind für den gesamten Block (inkl. Trainer, Schläger & Platzmiete)</span></span>
+          <div class="ev-cta">
+            <a href="tel:+41788491930" class="btn-plan btn-plan-outline" style="display:inline-block;padding:11px 22px;font-size:0.83rem;" data-i18n="ev4_btn">Anmeldung bei Nathalie: +41 78 849 19 30</a>
           </div>
-          <a href="tel:+41788491930" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev4_btn">Anmeldung bei Nathalie: +41 78 849 19 30</a>
         </div>
-        <div class="event-card">
-          <div class="event-tag" data-i18n="ev5_tag">💛 Ladies</div>
-          <h3 data-i18n="ev5_title">Padel Ladies – Beginner</h3>
-          <p data-i18n="ev5_desc">Für alle Ladies, die Padel kennenlernen möchten – perfekt für Einsteigerinnen! Gemeinsam lernen, spielen und die Faszination Padel entdecken. Nach der Anmeldung wirst du zur WhatsApp-Gruppe hinzugefügt.</p>
-          <div class="event-meta">
-            <span><span class="dot"></span> <span data-i18n="ev5_m1">Start 18. September · Einstieg jederzeit möglich</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev5_m2">Jeden zweiten Sonntag, 09:30 – 11:00 Uhr</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev5_m3">Geführt von Jordi – erfahren, lernen, mit Spaß verbessern</span></span>
-            <span><span class="dot"></span> <span data-i18n="ev5_m4">10 € pro Person</span></span>
+
+        <div class="event-row">
+          <div class="ev-when">
+            <div class="ev-day">💛</div>
+            <div class="ev-time"><span data-i18n="ev5_day">SO</span> · 09:30 – 11:00</div>
           </div>
-          <a href="tel:+41788491930" class="btn-plan btn-plan-outline" style="margin-top:20px;display:inline-block;padding:10px 22px;font-size:0.85rem;" data-i18n="ev5_btn">Anmeldung bei Nathalie: +41 78 849 19 30</a>
+          <div class="ev-main">
+            <div class="event-tag" data-i18n="ev5_tag">💛 Ladies</div>
+            <h3 data-i18n="ev5_title">Padel Ladies – Beginner</h3>
+            <p data-i18n="ev5_desc">Für alle Ladies, die Padel kennenlernen möchten – perfekt für Einsteigerinnen! Gemeinsam lernen, spielen und die Faszination Padel entdecken. Nach der Anmeldung wirst du zur WhatsApp-Gruppe hinzugefügt.</p>
+            <div class="ev-chips">
+              <span class="ev-chip">📅 <span data-i18n="ev5_m1">Start 18. September · Einstieg jederzeit möglich</span></span>
+              <span class="ev-chip">🔁 <span data-i18n="ev5_freq">Jeden 2. Sonntag</span></span>
+              <span class="ev-chip">🎾 <span data-i18n="ev5_m3">Geführt von Jordi – erfahren, lernen, mit Spaß verbessern</span></span>
+              <span class="ev-chip">💶 <span data-i18n="ev5_m4">10 € pro Person</span></span>
+            </div>
+          </div>
+          <div class="ev-cta">
+            <a href="tel:+41788491930" class="btn-plan btn-plan-outline" style="display:inline-block;padding:11px 22px;font-size:0.83rem;" data-i18n="ev5_btn">Anmeldung bei Nathalie: +41 78 849 19 30</a>
+          </div>
         </div>
+
+        <div class="event-row">
+          <div class="ev-when">
+            <div class="ev-day">🏆</div>
+            <div class="ev-sub" data-i18n="ev2_m1">Regelmäßige Termine</div>
+          </div>
+          <div class="ev-main">
+            <div class="event-tag" data-i18n="ev2_tag">🏆 Turnier</div>
+            <h3 data-i18n="ev2_title">Mexicano Turniere</h3>
+            <p data-i18n="ev2_desc">Das beliebte Mexicano-Format bei The Cube – ein spannendes Rundum-Turnier, bei dem du mit wechselnden Partnern spielst und immer gegen gleichstarke Teams antrittst.</p>
+            <div class="ev-chips">
+              <span class="ev-chip">📢 <span data-i18n="ev2_m2">Ankündigungen folgen</span></span>
+              <span class="ev-chip">📲 <span data-i18n="ev2_m3">Anmeldung via Playtomic</span></span>
+            </div>
+          </div>
+          <div class="ev-cta">
+            <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" class="btn-plan btn-plan-outline" style="display:inline-block;padding:11px 22px;font-size:0.83rem;" data-i18n="ev2_btn">Jetzt anmelden →</a>
+          </div>
+        </div>
+
+        <div class="event-row">
+          <div class="ev-when">
+            <div class="ev-day">🇨🇭</div>
+            <div class="ev-sub" data-i18n="ev3_m2">Termine werden bekanntgegeben</div>
+          </div>
+          <div class="ev-main">
+            <div class="event-tag" data-i18n="ev3_tag">🇨🇭 Offiziell</div>
+            <h3 data-i18n="ev3_title">Swiss Tennis Padel Turniere</h3>
+            <p data-i18n="ev3_desc">Als lizenzierter Partner von Swiss Tennis Padel veranstalten wir offizielle Turniere im nationalen Kalender. Spieler erhalten offizielle Ranglistenpunkte.</p>
+            <div class="ev-chips">
+              <span class="ev-chip">🏅 <span data-i18n="ev3_m1">Offizielle Ranglistenturniere</span></span>
+              <span class="ev-chip">ℹ️ <span data-i18n="ev3_m3">Alle Infos via Swiss Tennis Padel</span></span>
+            </div>
+          </div>
+          <div class="ev-cta">
+            <a href="https://swisstennis-padel.tournamentsoftware.com" target="_blank" class="btn-plan btn-plan-outline" style="display:inline-block;padding:11px 22px;font-size:0.83rem;" data-i18n="ev3_btn">Jetzt registrieren →</a>
+          </div>
+        </div>
+
       </div>
       <div class="partnership-banner">
         <div class="partnership-logo">
@@ -1448,7 +1503,7 @@
         ev2_m1:'Regelmäßige Termine', ev2_m2:'Ankündigungen folgen', ev2_m3:'Anmeldung via Playtomic', ev2_btn:'Jetzt anmelden →',
         ev3_tag:'🇨🇭 Offiziell', ev3_title:'Swiss Tennis Padel Turniere',
         ev3_desc:'Als lizenzierter Partner von Swiss Tennis Padel veranstalten wir offizielle Turniere im nationalen Kalender. Spieler erhalten offizielle Ranglistenpunkte.',
-        ev3_m1:'Offizielle Ranglistenturniere', ev3_m2:'Termine werden bekanntgegeben', ev3_m3:'Alle Infos via Swiss Tennis Padel', ev3_btn:'Jetzt registrieren →', ev4_tag:'🧒 Jugend', ev4_title:'JuPadel – Jugendtraining', ev4_desc:'Padel lernen & spielen für Kinder von 7 bis 12 Jahren – mit Trainer Jordi. Ab dem 18. September startet der zweite Trainingsblock: 8 Einheiten, wöchentlich. Die genauen Termine werden entsprechend kommuniziert. Meldet eure Kinder mit Name und Alter bei Nathalie an – kurz vor Trainingsstart erhaltet ihr die Einteilung mit der entsprechenden Uhrzeit.', ev4_m1:'Freitags zwischen 14:00 – 17:00 Uhr', ev4_m2:'Start 18. September · 8 Einheiten', ev4_m3:'Alter 7–12 Jahre', ev4_m4:'95 € pro Kind für den gesamten Block (inkl. Trainer, Schläger & Platzmiete)', ev4_btn:'Anmeldung bei Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Beginner', ev5_desc:'Für alle Ladies, die Padel kennenlernen möchten – perfekt für Einsteigerinnen! Gemeinsam lernen, spielen und die Faszination Padel entdecken. Nach der Anmeldung wirst du zur WhatsApp-Gruppe hinzugefügt.', ev5_m1:'Start 18. September · Einstieg jederzeit möglich', ev5_m2:'Jeden zweiten Sonntag, 09:30 – 11:00 Uhr', ev5_m3:'Geführt von Jordi – erfahren, lernen, mit Spaß verbessern', ev5_m4:'10 € pro Person', ev5_btn:'Anmeldung bei Nathalie: +41 78 849 19 30',
+        ev3_m1:'Offizielle Ranglistenturniere', ev3_m2:'Termine werden bekanntgegeben', ev3_m3:'Alle Infos via Swiss Tennis Padel', ev3_btn:'Jetzt registrieren →', ev4_tag:'🧒 Jugend', ev4_title:'JuPadel – Jugendtraining', ev4_desc:'Padel lernen & spielen für Kinder von 7 bis 12 Jahren – mit Trainer Jordi. Ab dem 18. September startet der zweite Trainingsblock: 8 Einheiten, wöchentlich. Die genauen Termine werden entsprechend kommuniziert. Meldet eure Kinder mit Name und Alter bei Nathalie an – kurz vor Trainingsstart erhaltet ihr die Einteilung mit der entsprechenden Uhrzeit.', ev4_m1:'Freitags zwischen 14:00 – 17:00 Uhr', ev4_m2:'Start 18. September · 8 Einheiten', ev4_m3:'Alter 7–12 Jahre', ev4_m4:'95 € pro Kind für den gesamten Block (inkl. Trainer, Schläger & Platzmiete)', ev4_btn:'Anmeldung bei Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Beginner', ev5_desc:'Für alle Ladies, die Padel kennenlernen möchten – perfekt für Einsteigerinnen! Gemeinsam lernen, spielen und die Faszination Padel entdecken. Nach der Anmeldung wirst du zur WhatsApp-Gruppe hinzugefügt.', ev5_m1:'Start 18. September · Einstieg jederzeit möglich', ev5_m2:'Jeden zweiten Sonntag, 09:30 – 11:00 Uhr', ev5_m3:'Geführt von Jordi – erfahren, lernen, mit Spaß verbessern', ev5_m4:'10 € pro Person', ev5_btn:'Anmeldung bei Nathalie: +41 78 849 19 30', ev1_day:'FR', ev4_day:'FR', ev5_day:'SO', ev5_freq:'Jeden 2. Sonntag',
         partner_badge:'✅ Offiziell lizenzierter Partner', partner_title:'Swiss Tennis Padel Partner',
         partner_desc:'The Cube – Padelarena Wehr ist offizieller lizenzierter Partner von Swiss Tennis Padel. Wir organisieren und veranstalten offizielle Swiss Tennis Padel Ranglistenturniere und sind damit Teil des nationalen Padel-Netzwerks der Schweiz.',
         gallery_label:'Galerie', gallery_title:'Einblick in The Cube', gallery_sub:'Moderne Anlage, tolle Atmosphäre – überzeug dich selbst.',
@@ -1534,7 +1589,7 @@
         ev2_m1:'Regular dates', ev2_m2:'Announcements to follow', ev2_m3:'Sign up via Playtomic', ev2_btn:'Sign up now →',
         ev3_tag:'🇨🇭 Official', ev3_title:'Swiss Tennis Padel Tournaments',
         ev3_desc:'As a licensed partner of Swiss Tennis Padel, we host official tournaments in the national calendar. Players earn official ranking points.',
-        ev3_m1:'Official ranking tournaments', ev3_m2:'Dates to be announced', ev3_m3:'All info via Swiss Tennis Padel', ev3_btn:'Register now →', ev4_tag:'🧒 Juniors', ev4_title:'JuPadel – Youth Training', ev4_desc:'Learn & play padel for kids aged 7 to 12 – with coach Jordi. The second training block starts on 18 September: 8 sessions, weekly. The exact dates will be communicated. Register your kids with their name and age with Nathalie – shortly before the start you will receive the schedule with your time slot.', ev4_m1:'Fridays between 2:00 – 5:00 pm', ev4_m2:'Starts 18 September · 8 sessions', ev4_m3:'Ages 7–12', ev4_m4:'€95 per child for the full block (incl. coach, racket & court)', ev4_btn:'Sign up with Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Beginners', ev5_desc:'For all ladies who want to get to know padel – perfect for first-timers! Learn, play and discover the fascination of padel together. After signing up you will be added to the WhatsApp group.', ev5_m1:'Starts 18 September · join anytime', ev5_m2:'Every second Sunday, 9:30 – 11:00 am', ev5_m3:'Led by Jordi – experience, learn and improve with fun', ev5_m4:'€10 per person', ev5_btn:'Sign up with Nathalie: +41 78 849 19 30',
+        ev3_m1:'Official ranking tournaments', ev3_m2:'Dates to be announced', ev3_m3:'All info via Swiss Tennis Padel', ev3_btn:'Register now →', ev4_tag:'🧒 Juniors', ev4_title:'JuPadel – Youth Training', ev4_desc:'Learn & play padel for kids aged 7 to 12 – with coach Jordi. The second training block starts on 18 September: 8 sessions, weekly. The exact dates will be communicated. Register your kids with their name and age with Nathalie – shortly before the start you will receive the schedule with your time slot.', ev4_m1:'Fridays between 2:00 – 5:00 pm', ev4_m2:'Starts 18 September · 8 sessions', ev4_m3:'Ages 7–12', ev4_m4:'€95 per child for the full block (incl. coach, racket & court)', ev4_btn:'Sign up with Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Beginners', ev5_desc:'For all ladies who want to get to know padel – perfect for first-timers! Learn, play and discover the fascination of padel together. After signing up you will be added to the WhatsApp group.', ev5_m1:'Starts 18 September · join anytime', ev5_m2:'Every second Sunday, 9:30 – 11:00 am', ev5_m3:'Led by Jordi – experience, learn and improve with fun', ev5_m4:'€10 per person', ev5_btn:'Sign up with Nathalie: +41 78 849 19 30', ev1_day:'FRI', ev4_day:'FRI', ev5_day:'SUN', ev5_freq:'Every 2nd Sunday',
         partner_badge:'✅ Official licensed partner', partner_title:'Swiss Tennis Padel Partner',
         partner_desc:'The Cube – Padelarena Wehr is an official licensed partner of Swiss Tennis Padel. We organise and host official Swiss Tennis Padel ranking tournaments, making us part of the national padel network of Switzerland.',
         gallery_label:'Gallery', gallery_title:'A look inside The Cube', gallery_sub:'Modern facility, great atmosphere – see for yourself.',
@@ -1620,7 +1675,7 @@
         ev2_m1:'Fechas regulares', ev2_m2:'Próximos anuncios', ev2_m3:'Inscripción vía Playtomic', ev2_btn:'Inscribirse ahora →',
         ev3_tag:'🇨🇭 Oficial', ev3_title:'Torneos Swiss Tennis Padel',
         ev3_desc:'Como socio licenciado de Swiss Tennis Padel, organizamos torneos oficiales en el calendario nacional. Los jugadores obtienen puntos de clasificación oficiales.',
-        ev3_m1:'Torneos de clasificación oficial', ev3_m2:'Fechas por confirmar', ev3_m3:'Toda la info vía Swiss Tennis Padel', ev3_btn:'Registrarse ahora →', ev4_tag:'🧒 Jóvenes', ev4_title:'JuPadel – Entrenamiento juvenil', ev4_desc:'Aprender y jugar al pádel para niños de 7 a 12 años – con el entrenador Jordi. El segundo bloque de entrenamiento comienza el 18 de septiembre: 8 sesiones semanales. Las fechas exactas se comunicarán. Inscribe a tus hijos con nombre y edad con Nathalie – poco antes del inicio recibirás el horario asignado.', ev4_m1:'Viernes entre 14:00 – 17:00', ev4_m2:'Inicio 18 de septiembre · 8 sesiones', ev4_m3:'Edad 7–12 años', ev4_m4:'95 € por niño por el bloque completo (incl. entrenador, pala y pista)', ev4_btn:'Inscríbete con Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Principiantes', ev5_desc:'Para todas las mujeres que quieran conocer el pádel – ¡perfecto para principiantes! Aprender, jugar y descubrir juntas la fascinación del pádel. Tras la inscripción te añadimos al grupo de WhatsApp.', ev5_m1:'Inicio 18 de septiembre · incorporación en cualquier momento', ev5_m2:'Cada dos domingos, 09:30 – 11:00', ev5_m3:'Dirigido por Jordi – experimentar, aprender y mejorar con diversión', ev5_m4:'10 € por persona', ev5_btn:'Inscríbete con Nathalie: +41 78 849 19 30',
+        ev3_m1:'Torneos de clasificación oficial', ev3_m2:'Fechas por confirmar', ev3_m3:'Toda la info vía Swiss Tennis Padel', ev3_btn:'Registrarse ahora →', ev4_tag:'🧒 Jóvenes', ev4_title:'JuPadel – Entrenamiento juvenil', ev4_desc:'Aprender y jugar al pádel para niños de 7 a 12 años – con el entrenador Jordi. El segundo bloque de entrenamiento comienza el 18 de septiembre: 8 sesiones semanales. Las fechas exactas se comunicarán. Inscribe a tus hijos con nombre y edad con Nathalie – poco antes del inicio recibirás el horario asignado.', ev4_m1:'Viernes entre 14:00 – 17:00', ev4_m2:'Inicio 18 de septiembre · 8 sesiones', ev4_m3:'Edad 7–12 años', ev4_m4:'95 € por niño por el bloque completo (incl. entrenador, pala y pista)', ev4_btn:'Inscríbete con Nathalie: +41 78 849 19 30', ev5_tag:'💛 Ladies', ev5_title:'Padel Ladies – Principiantes', ev5_desc:'Para todas las mujeres que quieran conocer el pádel – ¡perfecto para principiantes! Aprender, jugar y descubrir juntas la fascinación del pádel. Tras la inscripción te añadimos al grupo de WhatsApp.', ev5_m1:'Inicio 18 de septiembre · incorporación en cualquier momento', ev5_m2:'Cada dos domingos, 09:30 – 11:00', ev5_m3:'Dirigido por Jordi – experimentar, aprender y mejorar con diversión', ev5_m4:'10 € por persona', ev5_btn:'Inscríbete con Nathalie: +41 78 849 19 30', ev1_day:'VIE', ev4_day:'VIE', ev5_day:'DOM', ev5_freq:'Cada 2 domingos',
         partner_badge:'✅ Socio oficial licenciado', partner_title:'Socio Swiss Tennis Padel',
         partner_desc:'The Cube – Padelarena Wehr es socio oficial licenciado de Swiss Tennis Padel. Organizamos y celebramos torneos oficiales de clasificación de Swiss Tennis Padel, siendo parte de la red nacional de pádel de Suiza.',
         gallery_label:'Galería', gallery_title:'Una mirada al interior de The Cube', gallery_sub:'Instalaciones modernas, gran ambiente – compruébalo tú mismo.',
@@ -1782,7 +1837,7 @@
     })();
 
     (function () {
-      const els = document.querySelectorAll('.news-highlight, .about-visual, .feature-list li, .booking-steps .bstep, .pricing-card, .coach-card, .training-prices, .event-card, .partnership-banner, .liga-banner, .liga-card, .gallery-item, .contact-card, .contact-form');
+      const els = document.querySelectorAll('.news-highlight, .about-visual, .feature-list li, .booking-steps .bstep, .pricing-card, .coach-card, .training-prices, .event-row, .partnership-banner, .liga-banner, .liga-card, .gallery-item, .contact-card, .contact-form');
       if (!('IntersectionObserver' in window)) return;
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
