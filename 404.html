@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>The Cube – Padelarena Wehr</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://padelwehratal.com/">
+<meta http-equiv="refresh" content="2; url=/">
+<script>
+// Bekannte alte Pfade gezielt umleiten, sonst zur Startseite
+var map={'/impressum':'/#impressum','/kontakt-anfahrt':'/#contact','/social-padel':'/#events','/ueber-uns':'/#about','/hot-news':'/#news','/portfolio':'/#gallery','/shop':'/shop.html'};
+var p=location.pathname.replace(/\/+$/,'').toLowerCase();
+location.replace(map[p]||'/');
+</script>
+</head>
+<body style="font-family:sans-serif;background:#0a0a14;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
+<p>Seite nicht gefunden – du wirst zur Startseite weitergeleitet … <a href="/" style="color:#7fdcff">Hier klicken</a></p>
+</body>
+</html>

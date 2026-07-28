@@ -1749,6 +1749,7 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && document.getElementById('impressumOverlay').classList.contains('active')) closeImpressum();
     });
+    if (location.hash === '#impressum') openImpressum();
 
     const ORDER_EMAIL = 'joshua.zeoli@web.de';
     async function handleSubmit(e) {
