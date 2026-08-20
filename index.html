@@ -186,6 +186,7 @@
     .price-slot .slot-rate { font-size: 0.95rem; font-weight: 800; color: var(--white); white-space: nowrap; }
     .price-slot .slot-rate.free { color: var(--cyan); }
     .price-slot-divider { height: 1px; background: var(--border); margin: 4px 0; }
+    .price-note { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; padding: 2px 2px 0; }
     /* Feature list */
     .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1; }
     .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: #b8cfe6; line-height: 1.4; }
@@ -825,13 +826,18 @@
           <div class="pricing-desc" data-i18n="plan1_desc">Du zahlst nur, wenn du spielst – keine Bindung, keine Jahresgebühr.</div>
           <div class="price-slots">
             <div class="price-slot">
-              <span class="slot-time">07:00 – 17:00</span>
+              <span class="slot-time"><span data-i18n="plan2_days">Mo–Fr</span> · 07:00 – 17:00</span>
               <span class="slot-rate">€6 <span data-i18n="per_person">/ Person</span></span>
             </div>
             <div class="price-slot">
-              <span class="slot-time">17:00 – 22:00</span>
+              <span class="slot-time"><span data-i18n="plan2_days">Mo–Fr</span> · 17:00 – 22:00</span>
               <span class="slot-rate">€7 <span data-i18n="per_person">/ Person</span></span>
             </div>
+            <div class="price-slot">
+              <span class="slot-time" data-i18n="plan2_weekend">Sa–So · ganztägig</span>
+              <span class="slot-rate">€6 <span data-i18n="per_person">/ Person</span></span>
+            </div>
+            <div class="price-note" data-i18n="plan1_hourly">Alle Preise gelten pro Person und Stunde.</div>
           </div>
           <ul class="pricing-features">
             <li><span class="check">✓</span> <span data-i18n="plan1_f1">Buchung via Playtomic</span></li>
@@ -1483,6 +1489,7 @@
         plan1_name:'Basis', plan1_paytype:'Pay per Play', plan1_desc:'Du zahlst nur, wenn du spielst – keine Bindung, keine Jahresgebühr.',
         per_person:'/ Person',
         plan1_f1:'Buchung via Playtomic', plan1_f2:'10 Tage im Voraus buchbar', plan1_f3:'Keine Mitgliedschaft nötig', plan1_f4:'Keine Rabatte',
+        plan1_hourly:'Alle Preise gelten pro Person und Stunde.',
         plan1_btn:'Court buchen', plan_popular:'Beliebteste Wahl',
         plan2_name:'Mid Day Abo', plan_year:'/ Jahr', plan2_desc:'Unter der Woche tagsüber und am Wochenende ganztägig gratis spielen – perfekt für alle mit flexiblen Zeiten.',
         plan2_days:'Mo–Fr', plan_free:'Gratis',
@@ -1569,6 +1576,7 @@
         plan1_name:'Basic', plan1_paytype:'Pay per Play', plan1_desc:'Pay only when you play – no commitment, no annual fee.',
         per_person:'/ person',
         plan1_f1:'Book via Playtomic', plan1_f2:'Book 10 days in advance', plan1_f3:'No membership required', plan1_f4:'No discounts',
+        plan1_hourly:'All prices are per person and per hour.',
         plan1_btn:'Book a court', plan_popular:'Most popular',
         plan2_name:'Mid Day Pass', plan_year:'/ year', plan2_desc:'Play for free on weekdays during the day and all weekend – perfect for flexible schedules.',
         plan2_days:'Mon–Fri', plan_free:'Free',
@@ -1655,6 +1663,7 @@
         plan1_name:'Básico', plan1_paytype:'Pay per Play', plan1_desc:'Paga solo cuando juegas – sin compromiso, sin cuota anual.',
         per_person:'/ persona',
         plan1_f1:'Reserva vía Playtomic', plan1_f2:'Reserva con 10 días de antelación', plan1_f3:'Sin membresía necesaria', plan1_f4:'Sin descuentos',
+        plan1_hourly:'Todos los precios son por persona y por hora.',
         plan1_btn:'Reservar cancha', plan_popular:'Más popular',
         plan2_name:'Abono Mid Day', plan_year:'/ año', plan2_desc:'Juega gratis entre semana durante el día y todo el fin de semana – perfecto para horarios flexibles.',
         plan2_days:'Lu–Vi', plan_free:'Gratis',
