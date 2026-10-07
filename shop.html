@@ -679,9 +679,11 @@
         Telefon: document.getElementById('custPhone').value || '–',
         Bemerkung: document.getElementById('custNote').value || '–',
         Abwicklung: 'Abholung & Bezahlung in der Arena',
+        Lager: STOCK_FALLBACK_NOTE,
       };
       const orderData = {
         token: ORDER_TOKEN,
+        items: cart.map(c => ({ id: c.id, size: c.size, qty: c.qty })),
         bestellung: lines.join('\n'),
         summe: fmt(total),
         name: payload.Name,
@@ -700,8 +702,23 @@
         /* 1. Weg: Google Apps Script – Bestellmail an The Cube + Bestätigung an den Käufer */
         const res = await fetch(ORDER_ENDPOINT, { method: 'POST', body: JSON.stringify(orderData) });
         const j = await res.json();
+        if (!j.ok && j.error === 'stock') {
+          /* Lagerkonflikt: kein Fallback – sonst würde trotzdem überverkauft */
+          j.unavailable.forEach(u => {
+            const c = cart.find(x => x.id === u.id && x.size === u.size);
+            const p = PRODUCTS.find(x => x.id === u.id);
+            if (p && typeof p.stock === 'object') p.stock[u.size] = u.verfuegbar;
+            if (c) { if (u.verfuegbar > 0) c.qty = Math.min(c.qty, u.verfuegbar); else cart.splice(cart.indexOf(c), 1); }
+          });
+          updateCart(); renderProducts(currentCat);
+          status.className = 'order-status err';
+          status.innerHTML = stockConflictHTML(j.unavailable) + ' Dein Warenkorb wurde bereits angepasst.';
+          btn.disabled = !cart.length; btn.textContent = 'Bestellung absenden';
+          return;
+        }
         if (!j.ok) throw new Error(j.error || 'Script-Fehler');
         showSuccess();
+        loadStockFromSheet().then(ok => { if (ok) renderProducts(currentCat); });
       } catch (e1) {
         try {
           /* 2. Weg: FormSubmit (nur Benachrichtigung an The Cube) */

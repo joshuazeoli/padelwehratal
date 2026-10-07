@@ -222,6 +222,14 @@ const ICONS = {
 
 /* Hilfsfunktionen (gemeinsam) */
 const fmt = n => '€ ' + n.toFixed(2).replace('.', ',');
+/* Lagerkonflikt-Meldung (Apps Script antwortet mit error:'stock', wenn Shirts/Shorts
+   inzwischen von jemand anderem gekauft wurden – dann wird NICHTS gebucht/gesendet) */
+function stockConflictHTML(list) {
+  const rows = (list || []).map(u => `<li>${u.artikel} – Größe ${u.size}: ${u.verfuegbar > 0 ? 'nur noch ' + u.verfuegbar + ' verfügbar' : 'leider ausverkauft'}</li>`).join('');
+  return '<b>Gerade eben ausverkauft.</b> Während du bestellt hast, war jemand schneller:<ul style="margin:8px 0 8px 18px">' + rows + '</ul>Bitte passe die Menge an und sende die Bestellung erneut.';
+}
+const STOCK_FALLBACK_NOTE = 'NICHT automatisch abgebucht – bitte manuell in der Lagerliste korrigieren';
+
 const totalStock = p => typeof p.stock === 'number' ? p.stock : Object.values(p.stock).reduce((a,b) => a+b, 0);
 
 /* Gemeinsamer Warenkorb (shop.html + artikel.html) – gespeichert im Browser */
