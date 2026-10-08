@@ -5,7 +5,9 @@
    ▶ LAGER-SYNC: Bestand & Preise werden automatisch aus der
    Google-Tabelle "The Cube – Lagerliste Shop" geladen (siehe
    SHEET_CSV_URL unten). Die Werte hier sind nur der Notfall-
-   Fallback, falls die Tabelle nicht erreichbar ist.
+   Fallback, falls die Tabelle nicht erreichbar ist (Stand 08.10.2026).
+   Der Shop zeigt dann einen Hinweis, dass der Bestand evtl. nicht
+   aktuell ist – trotzdem bei größeren Lageränderungen hier nachziehen.
    Zum Pflegen also einfach die Google-Tabelle bearbeiten!
    ▶ Texte (desc, longDesc, details) und technische Daten (specs)
    pflegst du hier. Die Schläger-Specs sind typische ca.-Werte –
@@ -19,95 +21,95 @@ const PRODUCTS = [
     desc: 'Das offizielle The-Cube-Shirt in Weiß – atmungsaktives Funktionsmaterial mit Cube-Branding.',
     longDesc: 'Das offizielle Vereinsshirt der Padelarena Wehr in klassischem Weiß. Das Babolat Exercise Shirt besteht aus leichtem, atmungsaktivem Funktionsmaterial, das Schweiß schnell von der Haut wegtransportiert – perfekt für intensive Matches und Training. Mit dezentem Cube-Branding zeigst du, zu welchem Club du gehörst.',
     details: ['Offizielle The-Cube-Edition mit Club-Branding', 'Atmungsaktives, schnelltrocknendes Funktionsmaterial', 'Leichter, sportlicher Schnitt', 'Größen S – XL', 'Maschinenwaschbar bei 30 °C'],
-    price: 34.90, stock: { S: 3, M: 5, L: 4, XL: 2 }, icon: 'shirt-weiss' },
+    price: 50.00, stock: { S: 0, M: 2, L: 4, XL: 0 }, icon: 'shirt-weiss' },
   { id: 'shirt-cube-schwarz', cat: 'shirts', brand: 'Babolat', name: 'Exercise Shirt Cube (Schwarz)',
     desc: 'Das offizielle The-Cube-Shirt in Schwarz – schnelltrocknend und angenehm leicht.',
     longDesc: 'Das offizielle Vereinsshirt der Padelarena Wehr in sportlichem Schwarz. Das Babolat Exercise Shirt kombiniert modernen Look mit Hightech-Material: leicht, schnelltrocknend und angenehm auf der Haut. Ob im Training oder beim Turnier – mit dem Cube-Branding bist du Teil des Teams.',
     details: ['Offizielle The-Cube-Edition mit Club-Branding', 'Atmungsaktives, schnelltrocknendes Funktionsmaterial', 'Leichter, sportlicher Schnitt', 'Größen S – XL', 'Maschinenwaschbar bei 30 °C'],
-    price: 34.90, stock: { S: 2, M: 5, L: 4, XL: 2 }, icon: 'shirt-schwarz' },
+    price: 50.00, stock: { S: 0, M: 1, L: 3, XL: 2 }, icon: 'shirt-schwarz' },
   { id: 'shirt-cube-blau', cat: 'shirts', brand: 'Babolat', name: 'Exercise Shirt Cube (Blau)',
     desc: 'Das offizielle The-Cube-Shirt im Vereinsblau – für echte Cube-Fans.',
     longDesc: 'Das offizielle Vereinsshirt der Padelarena Wehr im königsblauen Vereinsdesign – passend zu unserem Logo. Das Babolat Exercise Shirt bietet erstklassigen Tragekomfort dank atmungsaktivem Funktionsmaterial und sportlichem Schnitt. Die erste Wahl für alle, die die Cube-Farben auf den Court bringen wollen.',
     details: ['Offizielle The-Cube-Edition im Vereinsblau', 'Atmungsaktives, schnelltrocknendes Funktionsmaterial', 'Leichter, sportlicher Schnitt', 'Größen S – XL', 'Maschinenwaschbar bei 30 °C'],
-    price: 34.90, stock: { S: 3, M: 6, L: 5, XL: 2 }, icon: 'shirt-blau' },
+    price: 50.00, stock: { S: 0, M: 4, L: 8, XL: 3 }, icon: 'shirt-blau' },
   // ── HOSEN (The-Cube-Edition) ──
   { id: 'short-cube-weiss', cat: 'hosen', brand: 'Babolat', name: 'Exercise Short Cube (Weiß)',
     desc: 'Leichte Padel-Shorts in Weiß mit Cube-Branding – mit Taschen und elastischem Bund.',
     longDesc: 'Die offizielle The-Cube-Short in Weiß. Die Babolat Exercise Short ist extrem leicht, bewegungsfreundlich geschnitten und mit praktischen Taschen für Padelbälle ausgestattet. Der elastische Bund mit Kordelzug sorgt für perfekten Sitz in jeder Spielsituation.',
     details: ['Offizielle The-Cube-Edition mit Club-Branding', 'Seitentaschen mit Platz für Padelbälle', 'Elastischer Bund mit Kordelzug', 'Leichtes, schnelltrocknendes Material', 'Größen S – XL'],
-    price: 39.90, stock: { S: 2, M: 4, L: 3, XL: 2 }, icon: 'shorts-weiss' },
+    price: 40.00, stock: { S: 0, M: 2, L: 2, XL: 1 }, icon: 'shorts-weiss' },
   { id: 'short-cube-schwarz', cat: 'hosen', brand: 'Babolat', name: 'Exercise Short Cube (Schwarz)',
     desc: 'Leichte Padel-Shorts in Schwarz mit Cube-Branding – bequem und strapazierfähig.',
     longDesc: 'Die offizielle The-Cube-Short in Schwarz. Robust, bequem und mit durchdachten Details: Die Babolat Exercise Short bietet Seitentaschen für Bälle, einen elastischen Bund mit Kordelzug und strapazierfähiges Funktionsmaterial, das auch intensive Einheiten problemlos mitmacht.',
     details: ['Offizielle The-Cube-Edition mit Club-Branding', 'Seitentaschen mit Platz für Padelbälle', 'Elastischer Bund mit Kordelzug', 'Strapazierfähiges, schnelltrocknendes Material', 'Größen S – XL'],
-    price: 39.90, stock: { S: 2, M: 4, L: 4, XL: 1 }, icon: 'shorts-schwarz' },
+    price: 40.00, stock: { S: 0, M: 2, L: 4, XL: 0 }, icon: 'shorts-schwarz' },
   // ── SCHLÄGER ──
   { id: 'racket-viper-lebron-31', cat: 'schlaeger', brand: 'Babolat', name: 'Viper Juan Lebron 3.1',
     desc: 'Das kompromisslose Signature-Modell von Juan Lebrón – maximale Power für Angriffsspieler.',
     longDesc: 'Der Viper Juan Lebron 3.1 ist das kompromisslose Signature-Modell des spanischen Weltklassespielers Juan Lebrón. Die Diamantform mit kopflastiger Balance liefert maximale Power für Smashes und aggressives Angriffsspiel. Die strukturierte Schlagfläche gibt zusätzlichen Grip für Effet-Bälle – ein Schläger für Spieler, die das Spiel dominieren wollen.',
     details: ['Signature-Modell von Juan Lebrón', 'Form: Diamant – maximale Power', 'Kopflastige Balance für druckvolle Smashes', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für fortgeschrittene bis Profi-Spieler'],
     specs: { gewicht: 'ca. 365 g', form: 'Diamant', balance: 'Kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Fortgeschritten – Profi', power: 10, kontrolle: 7 },
-    price: 389.90, stock: 2, icon: 'racket' },
+    price: 290.00, stock: 1, icon: 'racket' },
   { id: 'racket-viper-soft-lebron-31', cat: 'schlaeger', brand: 'Babolat', name: 'Viper Soft Juan Lebron 3.1',
     desc: 'Lebróns Signature mit weicherem Kern – Power mit mehr Komfort und Armschonung.',
     longDesc: 'Der Viper Soft Juan Lebron 3.1 bringt die DNA des Lebrón-Signature-Modells mit einem weicheren Kern zusammen. Das Ergebnis: viel Angriffspower bei deutlich mehr Komfort und Armschonung. Ideal für offensive Spieler, die Wert auf ein angenehmeres Schlaggefühl legen oder empfindliche Arme haben.',
     details: ['Signature-Modell von Juan Lebrón – Soft-Version', 'Form: Diamant – Power mit Komfort', 'Weicherer EVA-Kern, armschonend', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für fortgeschrittene Spieler'],
     specs: { gewicht: 'ca. 360 g', form: 'Diamant', balance: 'Kopflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Fortgeschritten', power: 9, kontrolle: 8 },
-    price: 389.90, stock: 2, icon: 'racket' },
+    price: 280.00, stock: 1, icon: 'racket' },
   { id: 'racket-veron-lebron-31', cat: 'schlaeger', brand: 'Babolat', name: 'Veron Juan Lebron 3.1',
     desc: 'Die Signature-Variante für Allrounder – Kontrolle und Power perfekt ausbalanciert.',
     longDesc: 'Der Veron Juan Lebron 3.1 ist die Allround-Variante der Lebrón-Serie: Die Hybridform verbindet die Kontrolle eines runden Schlägers mit der Power der Diamantform. Wer ein ausgewogenes, vielseitiges Spiel bevorzugt und trotzdem im Angriff zulegen will, findet hier den perfekten Partner.',
     details: ['Signature-Modell von Juan Lebrón', 'Form: Hybrid – Kontrolle & Power ausbalanciert', 'Vielseitig für Angriff und Verteidigung', 'Strukturierte Schlagfläche für mehr Spin', 'Empfohlen für ambitionierte Allrounder'],
     specs: { gewicht: 'ca. 365 g', form: 'Tropfen (Hybrid)', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert (Spin)', level: 'Ambitionierte Allrounder', power: 8, kontrolle: 9 },
-    price: 389.90, stock: 2, icon: 'racket' },
+    price: 200.00, stock: 1, icon: 'racket' },
   { id: 'racket-technical-viper-31', cat: 'schlaeger', brand: 'Babolat', name: 'Technical Viper 3.1',
     desc: 'Diamantform für ambitionierte Spieler – präzise Schläge mit viel Druck.',
     longDesc: 'Der Technical Viper 3.1 bringt die aggressive Viper-Genetik in ein etwas zugänglicheres Paket. Die Diamantform sorgt für ordentlich Druck im Angriffsspiel, bleibt dabei aber kontrollierbar. Für ambitionierte Spieler, die ihr Offensivspiel auf das nächste Level bringen wollen.',
     details: ['Form: Diamant – offensiv ausgerichtet', 'Viel Power bei guter Kontrollierbarkeit', 'Carbon-Rahmen für Stabilität', 'Strukturierte Schlagfläche', 'Empfohlen für ambitionierte Spieler'],
     specs: { gewicht: 'ca. 365 g', form: 'Diamant', balance: 'Kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Ambitioniert', power: 9, kontrolle: 7 },
-    price: 329.90, stock: 3, icon: 'racket' },
+    price: 270.00, stock: 1, icon: 'racket' },
   { id: 'racket-technical-viper-soft-31', cat: 'schlaeger', brand: 'Babolat', name: 'Technical Viper Soft 3.1',
     desc: 'Die Technical-Serie mit weichem Kern – Power, die den Arm schont.',
     longDesc: 'Der Technical Viper Soft 3.1 kombiniert die offensive Diamantform der Technical-Serie mit einem weicheren Kern. Das sorgt für ein komfortables Schlaggefühl und schont Arm und Ellbogen – ohne auf Angriffspower zu verzichten. Die richtige Wahl für Offensivspieler mit Fokus auf Komfort.',
     details: ['Form: Diamant – offensiv ausgerichtet', 'Weicherer EVA-Kern, armschonend', 'Komfortables Schlaggefühl', 'Carbon-Rahmen für Stabilität', 'Empfohlen für ambitionierte Spieler'],
     specs: { gewicht: 'ca. 360 g', form: 'Diamant', balance: 'Kopflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert', level: 'Ambitioniert', power: 8, kontrolle: 8 },
-    price: 329.90, stock: 2, icon: 'racket' },
+    price: 210.00, stock: 1, icon: 'racket' },
   { id: 'racket-counter-viper-30', cat: 'schlaeger', brand: 'Babolat', name: 'Counter Viper 3.0',
     desc: 'Ausgewogene Rundform – Kontrolle und Stabilität für konstantes Spiel.',
     longDesc: 'Der Counter Viper 3.0 setzt auf Kontrolle: Die ausgewogene Form mit gleichmäßiger Balance verzeiht Fehler und gibt dir Sicherheit in der Defensive wie im Aufbauspiel. Wer konstant und präzise spielen will, statt nur auf Power zu setzen, liegt hier genau richtig.',
     details: ['Form: Rund – Kontrolle & Sicherheit', 'Ausgewogene Balance, fehlerverzeihend', 'Stabiler Carbon-Rahmen', 'Ideal für konstantes Aufbauspiel', 'Empfohlen für Fortgeschrittene'],
     specs: { gewicht: 'ca. 360 g', form: 'Rund', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Fortgeschritten', power: 7, kontrolle: 9 },
-    price: 259.90, stock: 3, icon: 'racket' },
+    price: 270.00, stock: 1, icon: 'racket' },
   { id: 'racket-counter-viper-soft-30', cat: 'schlaeger', brand: 'Babolat', name: 'Counter Viper Soft 3.0',
     desc: 'Die komfortable Counter-Variante – weicher Kern, viel Spielgefühl.',
     longDesc: 'Der Counter Viper Soft 3.0 ist die komfortable Variante des Kontroll-Modells: Der weichere Kern bietet maximales Ballgefühl und schont die Arme. Perfekt für Spieler, die viel Wert auf Touch, Präzision und ein sanftes Schlaggefühl legen.',
     details: ['Form: Rund – Kontrolle & Sicherheit', 'Weicherer EVA-Kern, maximales Ballgefühl', 'Armschonend und komfortabel', 'Ideal für präzises, taktisches Spiel', 'Empfohlen für Fortgeschrittene'],
     availableFrom: 'Februar 2027',
     specs: { gewicht: 'ca. 355 g', form: 'Rund', balance: 'Grifflastig', kern: 'Soft-EVA', oberflaeche: 'Strukturiert', level: 'Einsteiger – Fortgeschritten', power: 6, kontrolle: 10 },
-    price: 259.90, stock: 2, icon: 'racket' },
+    price: 300.00, stock: 1, icon: 'racket' },
   { id: 'racket-air-viper-27', cat: 'schlaeger', brand: 'Babolat', name: 'Air Viper 2.7',
     desc: 'Ultraleicht und wendig – aggressives Spiel mit schneller Schlagvorbereitung.',
     longDesc: 'Der Air Viper 2.7 ist das Leichtgewicht der Viper-Familie: Das reduzierte Gewicht macht ihn extrem wendig und ermöglicht blitzschnelle Reaktionen am Netz. Trotzdem steckt die aggressive Viper-DNA drin – für schnelles, offensives Spiel ohne schwere Arme.',
     details: ['Ultraleichte Bauweise – extrem wendig', 'Form: Diamant – offensive Ausrichtung', 'Schnelle Schlagvorbereitung am Netz', 'Auch für längere Sessions angenehm', 'Empfohlen für Fortgeschrittene'],
     specs: { gewicht: 'ca. 350 g', form: 'Diamant', balance: 'Leicht kopflastig', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Fortgeschritten', power: 8, kontrolle: 8 },
-    price: 219.90, stock: 3, icon: 'racket' },
+    price: 240.00, stock: 1, icon: 'racket' },
   { id: 'racket-air-veron-27', cat: 'schlaeger', brand: 'Babolat', name: 'Air Veron 2.7',
     desc: 'Leicht und kontrolliert – der Allrounder für schnelles, präzises Spiel.',
     longDesc: 'Der Air Veron 2.7 kombiniert geringes Gewicht mit der ausgewogenen Veron-Form. Das Ergebnis ist ein agiler Allrounder, der sich mühelos durch schnelle Ballwechsel bewegt und dabei präzise bleibt. Ideal für Spieler, die Vielseitigkeit und Leichtigkeit suchen.',
     details: ['Ultraleichte Bauweise – extrem wendig', 'Form: Hybrid – ausgewogen & präzise', 'Vielseitig in Angriff und Verteidigung', 'Auch für längere Sessions angenehm', 'Empfohlen für Allrounder'],
     specs: { gewicht: 'ca. 350 g', form: 'Tropfen (Hybrid)', balance: 'Ausgewogen', kern: 'X-EVA', oberflaeche: 'Strukturiert', level: 'Allrounder', power: 7, kontrolle: 9 },
-    price: 219.90, stock: 3, icon: 'racket' },
+    price: 190.00, stock: 1, icon: 'racket' },
   // ── BÄLLE ──
   { id: 'balls-court', cat: 'baelle', brand: 'Babolat', name: 'Court Bälle – 3er Pack',
     desc: 'Der zuverlässige Trainingsball für den täglichen Einsatz – super Preis-Leistung.',
     longDesc: 'Die Babolat Court Padelbälle sind der zuverlässige Standard für Training und lockere Matches. Konstanter Druck, gleichmäßiger Absprung und gute Haltbarkeit machen sie zum idealen Begleiter für den täglichen Einsatz auf unseren Courts – zum fairen Preis.',
     details: ['3 Bälle pro Dose', 'Ideal für Training und Freizeitspiel', 'Konstanter Druck und gleichmäßiger Absprung', 'Für alle Court-Beläge geeignet'],
-    price: 5.90, stock: 30, icon: 'balls' },
+    price: 7.00, stock: 200, icon: 'balls' },
   { id: 'balls-ace', cat: 'baelle', brand: 'Babolat', name: 'ACE Bälle – 3er Pack',
     desc: 'Druckvoller Premium-Ball mit hoher Lebensdauer – für Training und Turnier.',
     longDesc: 'Die Babolat ACE Padelbälle sind die Premium-Wahl für ambitionierte Spieler: Sie bieten ein druckvolles, lebendiges Spielgefühl und behalten ihre Eigenschaften auch nach vielen Ballwechseln. Erste Wahl für Matches und Turniere bei The Cube.',
     details: ['3 Bälle pro Dose', 'Premium-Qualität für Match und Turnier', 'Druckvolles, lebendiges Spielgefühl', 'Hohe Lebensdauer und Formstabilität'],
-    price: 7.90, stock: 24, icon: 'balls' },
+    price: 8.00, stock: 200, icon: 'balls' },
   // ── TASCHEN ──
   { id: 'rucksack-pure-aero', cat: 'taschen', brand: 'Babolat', name: 'Rucksack Pure Aero',
     desc: 'Der Rucksack der Pure-Aero-Linie – viel Platz für Schläger, Schuhe und Ausrüstung.',
@@ -158,11 +160,21 @@ function parseCSV(text) {
 
 /* Lädt Bestand & Preise aus der Google-Tabelle in PRODUCTS.
    Gibt true zurück, wenn Daten übernommen wurden. */
+let STOCK_LIVE = false;   /* true, sobald der Bestand aus der Tabelle geladen wurde */
 async function loadStockFromSheet() {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (await loadStockOnce()) { STOCK_LIVE = true; return true; }
+  }
+  console.warn('[Cube-Shop] Lagerliste nicht erreichbar – Fallback-Werte aus produkte.js aktiv');
+  return false;
+}
+async function loadStockOnce() {
   if (!SHEET_CSV_URL) return false;
+  const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const timer = ctrl ? setTimeout(() => ctrl.abort(), 6000) : null;
   try {
     const sep = SHEET_CSV_URL.includes('?') ? '&' : '?';
-    const res = await fetch(SHEET_CSV_URL + sep + 'cb=' + Date.now());
+    const res = await fetch(SHEET_CSV_URL + sep + 'cb=' + Date.now(), { cache: 'no-store', credentials: 'omit', signal: ctrl ? ctrl.signal : undefined });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const rows = parseCSV(await res.text());
     if (rows.length < 2) return false;
@@ -189,7 +201,11 @@ async function loadStockFromSheet() {
     });
     return applied > 0;
   } catch (e) { return false; /* Tabelle nicht erreichbar → Fallback-Werte bleiben */ }
+  finally { if (timer) clearTimeout(timer); }
 }
+/* Hinweis, wenn der Live-Bestand nicht geladen werden konnte */
+const STOCK_OFFLINE_HTML = '<div class="stock-offline" role="status" style="margin:0 0 20px;padding:12px 16px;border-left:4px solid #e6ff53;background:rgba(0,74,171,.12);font-size:.9rem;font-weight:600">Der aktuelle Lagerbestand konnte gerade nicht geladen werden – die angezeigten Stückzahlen sind evtl. nicht aktuell. Die Verfügbarkeit wird bei deiner Reservierung geprüft.</div>';
+const STOCK_LOADING_HTML = '<p class="stock-loading" style="padding:40px 0;text-align:center;font-weight:600;opacity:.75">Aktueller Bestand wird geladen …</p>';
 
 /* ── 📷 Echte Produktfotos ──
    Bild in produktbilder/ legen, benannt nach der Artikel-id,

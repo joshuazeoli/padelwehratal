@@ -470,7 +470,7 @@
     </div>
   </footer>
 
-  <script src="produkte.js"></script>
+  <script src="produkte.js?v=20261008"></script>
   <script>
     /* ── Navigation: Menü + Zustand beim Scrollen ── */
     const hamburger = document.querySelector('.nav-hamburger');
@@ -758,8 +758,12 @@
       }
     }
 
-    renderArticle();
-    loadStockFromSheet().then(ok => { if (ok) renderArticle(); });
+    /* Erst rendern, wenn der Live-Bestand aus der Lagerliste da ist */
+    wrap.innerHTML = STOCK_LOADING_HTML;
+    loadStockFromSheet().then(ok => {
+      renderArticle();
+      if (!ok && P) wrap.insertAdjacentHTML('afterbegin', STOCK_OFFLINE_HTML);
+    });
 
     /* Playtomic: auf Smartphones den offiziellen App-Link verwenden (öffnet die Playtomic-App) */
     (function () {
