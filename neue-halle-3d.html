@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neue Halle in 3D – The Cube Padelarena Wehr</title>
+  <meta name="description" content="Erlebe die neue Indoor-Padelhalle von The Cube in Wehr vorab in 3D: drehen, hineinzoomen und per Rundgang durch die Halle mit 4 Courts, Zuschauergalerie und Lounge laufen." />
+  <meta name="theme-color" content="#004aab" />
+  <meta property="og:title" content="Neue Halle in 3D – The Cube Padelarena Wehr" />
+  <meta property="og:description" content="Die neue Indoor-Padelhalle in Wehr als interaktives 3D-Modell – anschauen und durchlaufen." />
+  <meta property="og:image" content="https://padelwehratal.com/neue-halle-01-eingang.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=League+Spartan:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blau:    #004aab;   /* Königsblau – Brand */
+      --gelb:    #e6ff53;   /* Neongelb – Akzent */
+      --tinte:   #002b63;   /* Dunkelblau – Text auf Gelb & Weiß */
+      --nacht:   #041832;   /* tiefes Blau */
+      --karte:   #0a3266;   /* Kartenblau */
+      --footer:  #020f21;
+      --weiss:   #ffffff;
+      --muted:   #7a9cbf;   /* Sekundärtext auf Dunkel */
+      --hell:    #eef3fa;   /* zarte Fläche auf Weiß */
+      --linie-w: rgba(255,255,255,.28);
+      --linie-b: rgba(0,43,99,.18);
+      --soft-w:  rgba(255,255,255,.82);
+      --soft-b:  rgba(0,43,99,.78);
+      --gutter:  clamp(20px, 4.2vw, 60px);
+      --max:     1320px;
+      --nav-h:   76px;
+      --display: 'League Spartan', 'Inter', system-ui, sans-serif;
+      --text:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --ease:    cubic-bezier(.2,.7,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: var(--nav-h); }
+    body { font-family: var(--text); background: var(--blau); color: var(--weiss); line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; }
+    ::selection { background: var(--gelb); color: var(--tinte); }
+    :focus-visible { outline: 3px solid var(--gelb); outline-offset: 3px; }
+    .sec--white :focus-visible, .band :focus-visible, .form-panel :focus-visible, .impressum-box :focus-visible { outline-color: var(--blau); }
+
+    .wrap { width: min(var(--max), calc(100% - 2 * var(--gutter))); margin-inline: auto; }
+
+    /* ── Flächen ── */
+    .sec { position: relative; padding: clamp(72px, 10vw, 150px) 0; }
+    .sec--blue  { background: var(--blau);  color: var(--weiss); }
+    .sec--white { background: var(--weiss); color: var(--tinte); }
+    .sec--night { background: var(--nacht); color: var(--weiss); }
+
+    /* ── Typo ── */
+    .label { display: inline-flex; align-items: center; gap: 14px; font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gelb); margin-bottom: 26px; }
+    .label::before { content: ''; width: 34px; height: 2px; background: currentColor; }
+    .sec--white .label { color: var(--blau); }
+    .title { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 6.4vw, 5.6rem); line-height: .94; letter-spacing: -.025em; text-wrap: balance; }
+    .sub { font-size: clamp(1.02rem, 1.25vw, 1.2rem); line-height: 1.65; color: var(--soft-w); max-width: 34em; }
+    .sec--white .sub { color: var(--soft-b); }
+
+    /* Kopf einer Sektion: Titel links groß, Unterzeile rechts unten */
+    .head { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); column-gap: clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(44px, 6vw, 88px); }
+    .head .label { grid-column: 1 / -1; justify-self: start; }
+    .head .sub { padding-bottom: .5em; }
+
+    /* ── Buttons: eckig, flach, Farbwechsel statt Schweben ── */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border: 2px solid transparent; border-radius: 0; font-family: var(--text); font-size: .95rem; font-weight: 700; letter-spacing: .01em; line-height: 1.2; text-align: center; cursor: pointer; transition: background-color .18s, color .18s, border-color .18s; }
+    .btn svg { flex: none; }
+    .btn-gelb { background: var(--gelb); color: var(--tinte); border-color: var(--gelb); }
+    .btn-gelb:hover { background: var(--weiss); border-color: var(--weiss); }
+    .btn-blau { background: var(--blau); color: var(--weiss); border-color: var(--blau); }
+    .btn-blau:hover { background: var(--tinte); border-color: var(--tinte); }
+    .btn-tinte { background: var(--tinte); color: var(--weiss); border-color: var(--tinte); }
+    .btn-tinte:hover { background: var(--blau); border-color: var(--blau); }
+    .btn-line { background: transparent; color: var(--weiss); border-color: var(--weiss); }
+    .btn-line:hover { background: var(--weiss); color: var(--blau); }
+    .btn-line-b { background: transparent; color: var(--tinte); border-color: var(--tinte); }
+    .btn-line-b:hover { background: var(--tinte); color: var(--weiss); }
+    .btn-block { width: 100%; }
+    .btn-sm { min-height: 46px; padding: 0 20px; font-size: .86rem; }
+
+    /* Etikett (ersetzt die Pillen-Badges) */
+    .tag { display: inline-block; padding: 6px 10px 5px; font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; line-height: 1.2; background: var(--gelb); color: var(--tinte); }
+    .tag--line { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+    .tag--blau { background: var(--blau); color: var(--weiss); }
+
+    /* Punktliste wie auf den Flyern */
+    .dots { list-style: none; display: grid; gap: 10px; }
+    .dots li { position: relative; padding-left: 24px; font-size: .92rem; line-height: 1.5; }
+    .dots li::before { content: ''; position: absolute; left: 0; top: .48em; width: 10px; height: 10px; border-radius: 50%; background: var(--gelb); }
+    .sec--white .dots li::before { background: var(--blau); }
+
+    /* ── NAVIGATION ── */
+    nav { position: fixed; inset: 0 0 auto 0; z-index: 110; height: var(--nav-h); background: var(--blau); border-bottom: 1px solid var(--linie-w); transition: background-color .25s; }
+    nav.scrolled { background: var(--tinte); }
+    .nav-inner { display: flex; align-items: center; height: 100%; gap: 28px; }
+    .nav-logo { flex: none; display: flex; align-items: center; }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links { display: flex; flex: 1; justify-content: center; gap: clamp(12px, 1.35vw, 24px); list-style: none; }
+    .nav-links a { position: relative; padding: 8px 0; font-size: .86rem; font-weight: 600; white-space: nowrap; color: var(--weiss); }
+    .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; background: var(--gelb); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 22px; flex: none; margin-left: auto; }
+    .lang-switcher { display: flex; align-items: center; gap: 2px; }
+    .lang-btn { background: none; border: 0; padding: 6px 7px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; color: rgba(255,255,255,.6); cursor: pointer; border-bottom: 2px solid transparent; transition: color .15s; }
+    .lang-btn:hover { color: var(--weiss); }
+    .lang-btn.active { color: var(--gelb); border-bottom-color: var(--gelb); }
+    .nav-cta { display: inline-flex; align-items: center; height: 46px; padding: 0 22px; background: var(--gelb); color: var(--tinte); font-size: .88rem; font-weight: 700; transition: background-color .18s; }
+    .nav-cta:hover { background: var(--weiss); }
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 7px; width: 44px; height: 44px; padding: 0 8px; cursor: pointer; z-index: 110; }
+    .nav-hamburger span { display: block; width: 100%; height: 2.5px; background: var(--weiss); transition: transform .3s var(--ease), opacity .2s; }
+    .nav-hamburger.active span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
+    .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.active span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 105; background: var(--blau); padding: calc(var(--nav-h) + 12px) var(--gutter) 28px; flex-direction: column; overflow-y: auto; }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu a { font-family: var(--display); font-size: clamp(1.7rem, 7vw, 2.3rem); font-weight: 800; letter-spacing: -.01em; line-height: 1; padding: 15px 0 11px; border-bottom: 1px solid var(--linie-w); color: var(--weiss); }
+    .mobile-menu a:active, .mobile-menu a.active { color: var(--gelb); }
+    .mobile-menu .mobile-cta { margin-top: 26px; border: 0; background: var(--gelb); color: var(--tinte); font-family: var(--text); font-size: 1rem; font-weight: 700; letter-spacing: 0; text-align: center; padding: 19px 20px; }
+
+    /* ── Lightbox (Galerie + Artikelbilder) ── */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(2,15,33,.96); align-items: center; justify-content: center; padding: 24px; }
+    .lightbox.active { display: flex; }
+    .lightbox-img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
+    .lightbox-close, .lightbox-prev, .lightbox-next { position: absolute; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: var(--gelb); color: var(--tinte); font-size: 1.9rem; line-height: 1; cursor: pointer; user-select: none; transition: background-color .18s; }
+    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: var(--weiss); }
+    .lightbox-close { top: 0; right: 0; }
+    .lightbox-prev { left: 0; top: 50%; transform: translateY(-50%); }
+    .lightbox-next { right: 0; top: 50%; transform: translateY(-50%); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--footer); color: var(--weiss); padding: clamp(64px, 8vw, 110px) 0 36px; }
+    .footer-claim { font-family: var(--display); font-weight: 800; font-size: clamp(2.3rem, 7.4vw, 6.6rem); line-height: .92; letter-spacing: -.03em; color: var(--gelb); margin-bottom: clamp(44px, 6vw, 80px); text-wrap: balance; }
+    .footer-inner { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 28px 48px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,.2); }
+    .footer-brand img { height: 46px; width: auto; margin-bottom: 16px; }
+    .footer-brand .fname { font-size: .95rem; font-weight: 700; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 10px 28px; max-width: 760px; justify-content: flex-end; }
+    .footer-links a { font-size: .92rem; font-weight: 600; color: var(--soft-w); transition: color .15s; }
+    .footer-links a:hover { color: var(--gelb); }
+    .footer-copy { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 44px; font-size: .8rem; color: var(--muted); }
+    .footer-copy a { text-decoration: underline; text-underline-offset: 3px; transition: color .15s; }
+    .footer-copy a:hover { color: var(--gelb); }
+
+    /* ── RESPONSIVE (gemeinsam) ── */
+    @media (max-width: 1340px) {
+      .nav-inner { gap: 18px; }
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: .8rem; }
+      .nav-right { gap: 14px; }
+      .nav-cta { padding: 0 18px; }
+    }
+    @media (max-width: 1240px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-right { gap: 16px; }
+    }
+    @media (max-width: 980px) {
+      :root { --nav-h: 68px; }
+      .head { grid-template-columns: 1fr; row-gap: 22px; }
+      .head .sub { padding-bottom: 0; }
+      .footer-links { justify-content: flex-start; }
+    }
+    @media (max-width: 640px) {
+      .sec { padding: 64px 0; }
+      .nav-logo img { height: 34px; }
+      .nav-cta { display: none; }
+      .nav-inner { gap: 12px; }
+      .footer-copy { flex-direction: column; }
+      .lightbox { padding: 0; }
+      .lightbox-img { max-width: 100vw; max-height: 78vh; }
+    }
+
+    /* ════════════ Neue Halle · 3D-Seite ════════════ */
+    body { background: var(--weiss); color: var(--tinte); }
+    main { display: block; }
+    .viewer { position: relative; margin-top: var(--nav-h); height: calc(100svh - var(--nav-h)); min-height: 420px; background: var(--nacht); }
+    .viewer iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .viewer-more { position: absolute; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 3; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; background: var(--gelb); color: var(--tinte); font-size: .8rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; transition: background-color .18s; }
+    .viewer-more:hover { background: var(--weiss); }
+    .viewer.walking .viewer-more, .viewer.walking .viewer-note { display: none; }
+    .viewer-note { position: absolute; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 3; padding: 7px 12px; background: rgba(4,24,50,.82); color: var(--soft-w); font-size: .72rem; letter-spacing: .04em; white-space: nowrap; pointer-events: none; }
+    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; background: var(--linie-b); border: 2px solid var(--tinte); }
+    .fact { background: var(--weiss); padding: clamp(22px, 3vw, 36px) clamp(20px, 2.6vw, 32px); }
+    .fact .num { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 3.6vw, 3.1rem); line-height: .95; letter-spacing: -.02em; color: var(--blau); margin-bottom: 10px; }
+    .fact .what { font-size: .95rem; line-height: 1.5; color: var(--soft-b); }
+    .fact .what strong { display: block; color: var(--tinte); font-weight: 700; margin-bottom: 4px; }
+    .howto { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); margin-top: clamp(48px, 6vw, 88px); align-items: start; }
+    .howto h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 2.3vw, 2rem); line-height: 1.05; letter-spacing: -.015em; margin-bottom: 18px; }
+    .howto p { color: var(--soft-b); line-height: 1.7; max-width: 36em; margin-bottom: 16px; }
+    .steps { list-style: none; display: grid; gap: 14px; }
+    .steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; align-items: start; font-size: .95rem; line-height: 1.55; color: var(--soft-b); }
+    .steps li b { color: var(--tinte); }
+    .steps .n { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: var(--gelb); color: var(--tinte); font-family: var(--display); font-weight: 800; font-size: 1rem; }
+    kbd { display: inline-block; padding: 1px 7px; border: 1.5px solid var(--linie-b); font-family: var(--text); font-size: .82em; font-weight: 700; color: var(--tinte); background: var(--hell); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .gal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .gal figure { position: relative; cursor: zoom-in; overflow: hidden; background: var(--karte); }
+    .gal img { width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; transition: transform .5s var(--ease); }
+    .gal figure:hover img { transform: scale(1.03); }
+    .gal figcaption { position: absolute; left: 0; bottom: 0; padding: 8px 12px; background: var(--tinte); color: var(--weiss); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .hint-box { margin-top: 24px; padding: 18px 22px; border-left: 4px solid var(--gelb); background: var(--hell); font-size: .9rem; line-height: 1.6; color: var(--soft-b); max-width: 60em; }
+    @media (max-width: 980px) {
+      .howto { grid-template-columns: 1fr; }
+      .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 700px) {
+      .viewer { height: calc(80svh - var(--nav-h)); min-height: 380px; }
+      .viewer-note { display: none; }
+      .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gal { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="cube-logo.png" alt="The Cube – Padelarena Wehr" width="1400" height="424" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#news" class="active">News</a></li>
+        <li><a href="index.html#about">Über uns</a></li>
+        <li><a href="index.html#booking">Buchen</a></li>
+        <li><a href="index.html#pricing">Mitgliedschaft</a></li>
+        <li><a href="index.html#training">Training</a></li>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="index.html#liga">Liga</a></li>
+        <li><a href="index.html#gallery">Galerie</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="index.html#contact">Kontakt</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" rel="noopener" class="nav-cta">Jetzt buchen →</a>
+      </div>
+      <div class="nav-hamburger" role="button" tabindex="0" aria-label="Menü"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+
+
+  <!-- ═══ MOBILE MENU ═══ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#news" class="active" onclick="closeMobile()">News</a>
+    <a href="index.html#about" onclick="closeMobile()">Über uns</a>
+    <a href="index.html#booking" onclick="closeMobile()">Buchen</a>
+    <a href="index.html#pricing" onclick="closeMobile()">Mitgliedschaft</a>
+    <a href="index.html#training" onclick="closeMobile()">Training</a>
+    <a href="index.html#events" onclick="closeMobile()">Events</a>
+    <a href="index.html#liga" onclick="closeMobile()">Liga</a>
+    <a href="index.html#gallery" onclick="closeMobile()">Galerie</a>
+    <a href="shop.html" onclick="closeMobile()">Shop</a>
+    <a href="index.html#contact" onclick="closeMobile()">Kontakt</a>
+    <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" rel="noopener" class="mobile-cta" onclick="closeMobile()">Jetzt buchen →</a>
+  </div>
+
+  <!-- ═══ 3D-MODELL ═══ -->
+  <main class="viewer" id="modell">
+    <iframe src="neue-halle-modell.html" title="Interaktives 3D-Modell der neuen Padelhalle" allowfullscreen allow="fullscreen"></iframe>
+    <div class="viewer-note">Visualisierung nach aktuellem Planungsstand · Änderungen vorbehalten</div>
+    <a class="viewer-more" href="#fakten">Mehr zur Halle ▼</a>
+  </main>
+
+  <!-- ═══ FAKTEN ═══ -->
+  <section class="sec sec--white" id="fakten">
+    <div class="wrap">
+      <div class="head">
+        <div class="label">Neue Halle · 3D-Modell</div>
+        <h1 class="title">Der neue Cube – schon jetzt begehbar</h1>
+        <p class="sub">Oben kannst du die geplante Indoor-Halle drehen, von innen anschauen und im Rundgang durchlaufen – vom Haupteingang über die Courts bis auf die Zuschauergalerie.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="num">35 × 38 m</div><div class="what"><strong>Hallenfläche</strong>Satteldach, 10 m an den Außenwänden, 12 m am First</div></div>
+        <div class="fact"><div class="num">4 Courts</div><div class="what"><strong>Indoor-Padel</strong>3 Doppel-Courts (10 × 20 m) und 1 Einzel-Court (6 × 20 m)</div></div>
+        <div class="fact"><div class="num">Galerie</div><div class="what"><strong>Zuschauerbereich im Obergeschoss</strong>mit Blick auf alle Courts, darunter Lounge und Theke</div></div>
+        <div class="fact"><div class="num">Lounge</div><div class="what"><strong>Treffpunkt</strong>Theke, Sitzplätze und Eichenboden direkt neben den Courts</div></div>
+        <div class="fact"><div class="num">Umkleiden</div><div class="what"><strong>Komfort</strong>Umkleiden mit Duschen für Damen und Herren, barrierefreies WC</div></div>
+        <div class="fact"><div class="num">365 Tage</div><div class="what"><strong>Ganzjährig Padel</strong>bei jedem Wetter – zusätzlich zu den beiden Außencourts</div></div>
+      </div>
+
+      <div class="howto">
+        <div>
+          <h3>So bedienst du das Modell</h3>
+          <ol class="steps">
+            <li><span class="n">1</span><span><b>Ansicht wählen</b> – oben links im Menü gibt es fertige Blickwinkel: Außenansichten, Vogelperspektive ohne Dach, Innenansichten und den Grundriss.</span></li>
+            <li><span class="n">2</span><span><b>Frei drehen</b> – Ziehen dreht das Modell, Scrollen oder Zwei-Finger-Zoom zoomt, rechte Maustaste verschiebt.</span></li>
+            <li><span class="n">3</span><span><b>Rundgang starten</b> – du stehst im Haupteingang. Umsehen durch Ziehen, gehen mit <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> oder den Pfeiltasten, am Handy mit dem Steuerkreuz. Die Treppe führt dich auf die Galerie. <kbd>Esc</kbd> beendet den Rundgang.</span></li>
+            <li><span class="n">4</span><span><b>Dach aus, Nacht, Vollbild</b> – das Dach lässt sich ausblenden, die Halle bei Nacht zeigen und das Modell bildschirmfüllend öffnen.</span></li>
+          </ol>
+        </div>
+        <div>
+          <h3>Was du siehst</h3>
+          <p>Das Modell zeigt die geplante Halle auf dem Cube-Gelände am Stadionweg – mit den beiden bestehenden Außencourts und der Tennishalle daneben. Innen sind die vier Courts, die Zuschauergalerie, Lounge und Theke sowie Umkleiden und Duschen so angelegt, wie es die aktuellen Pläne vorsehen.</p>
+          <p>Farben, Möbel und Details sind eine Visualisierung – bis zur Fertigstellung kann sich noch einiges ändern. Sobald es Neuigkeiten gibt, erfährst du es zuerst in den News.</p>
+          <div class="cta-row">
+            <a href="index.html#news" class="btn btn-tinte">Benachrichtigen lassen</a>
+            <a href="index.html#news" class="btn btn-line-b">← Zurück zu den News</a>
+          </div>
+        </div>
+      </div>
+      <div class="hint-box">Das Modell lädt eine 3D-Bibliothek (ca. 1 MB) und läuft im Browser am Computer, Tablet und Handy. Auf älteren Geräten hilft die Einstellung „Qualität: schnell" im Menü.</div>
+    </div>
+  </section>
+
+  <!-- ═══ BILDER ═══ -->
+  <section class="sec sec--blue" id="bilder">
+    <div class="wrap">
+      <div class="head">
+        <div class="label">Visualisierungen</div>
+        <h2 class="title">Einblicke in die neue Halle</h2>
+        <p class="sub">Bilder aus dem 3D-Modell – zum Vergrößern antippen.</p>
+      </div>
+      <div class="gal">
+        <figure onclick="openLb(0)"><img src="neue-halle-01-eingang.jpg" alt="Haupteingang Ost – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Haupteingang Ost</figcaption></figure>
+        <figure onclick="openLb(1)"><img src="neue-halle-02-nordost.jpg" alt="Ansicht Nordost – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Ansicht Nordost</figcaption></figure>
+        <figure onclick="openLb(2)"><img src="neue-halle-03-nacht.jpg" alt="Eingang bei Nacht – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Eingang bei Nacht</figcaption></figure>
+        <figure onclick="openLb(3)"><img src="neue-halle-04-innen.jpg" alt="Innen · Eingang – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Innen · Eingang</figcaption></figure>
+        <figure onclick="openLb(4)"><img src="neue-halle-05-galerie.jpg" alt="Zuschauergalerie – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Zuschauergalerie</figcaption></figure>
+        <figure onclick="openLb(5)"><img src="neue-halle-06-lounge.jpg" alt="Lounge & Theke – Visualisierung der neuen Padelhalle" width="1600" height="900" loading="lazy" /><figcaption>Lounge & Theke</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox multi" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()" role="button" aria-label="Schließen">&times;</span>
+    <span class="lightbox-prev" onclick="shiftImg(-1)" role="button" aria-label="Vorheriges Bild">&#8249;</span>
+    <img class="lightbox-img" id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Visualisierung groß" />
+    <span class="lightbox-next" onclick="shiftImg(1)" role="button" aria-label="Nächstes Bild">&#8250;</span>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-claim">Padel. Leidenschaft. Community.</div>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="cube-logo.png" alt="" width="1400" height="424" loading="lazy" />
+          <div class="fname">The Cube – Padelarena Wehr</div>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Startseite</a>
+          <a href="index.html#contact">Kontakt</a>
+          <a href="https://playtomic.com/clubs/the-cube-padelarena-wehratal" target="_blank" rel="noopener">Playtomic</a>
+          <a href="shop.html">Shop</a>
+          <a href="https://www.instagram.com/the.cube_padelarena.wehr" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-copy">
+        <span>© 2026 The Cube – Padelarena Wehr. Alle Rechte vorbehalten.</span>
+        <span><a href="index.html#impressum">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Navigation: Menü + Zustand beim Scrollen ── */
+    const hamburger = document.querySelector('.nav-hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', function () {
+      this.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    hamburger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+    function closeMobile() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 30);
+    }, { passive: true });
+
+    /* ── Rundgang im Modell: Overlays der Seite ausblenden (Nachricht aus dem iframe) ── */
+    window.addEventListener('message', e => {
+      if (e.data && e.data.cube === 'walk') document.querySelector('.viewer').classList.toggle('walking', !!e.data.on);
+    });
+
+    /* ── Lightbox für die Visualisierungen ── */
+    const GAL = ['neue-halle-01-eingang.jpg','neue-halle-02-nordost.jpg','neue-halle-03-nacht.jpg','neue-halle-04-innen.jpg','neue-halle-05-galerie.jpg','neue-halle-06-lounge.jpg'];
+    let lbIdx = 0;
+    function openLb(i) { lbIdx = i; document.getElementById('lightboxImg').src = GAL[i]; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function shiftImg(d) { lbIdx = (lbIdx + d + GAL.length) % GAL.length; document.getElementById('lightboxImg').src = GAL[lbIdx]; }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft') shiftImg(-1); if (e.key === 'ArrowRight') shiftImg(1);
+    });
+  </script>
+</body>
+</html>
