@@ -463,6 +463,30 @@
     .impressum-box p { font-size: .96rem; line-height: 1.7; margin-bottom: 6px; color: var(--soft-b); }
     .impressum-box a { color: var(--blau); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
+    /* ── ABO-WARTELISTE ── */
+    .pricing-full { border: 2px solid var(--tinte); padding: 13px 15px 12px; margin-bottom: 16px; font-size: .84rem; line-height: 1.5; }
+    .pricing-full strong { display: block; font-size: .74rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 4px; }
+    .featured .pricing-full { border-color: var(--gelb); }
+    .featured .pricing-full strong { color: var(--gelb); }
+    .pricing-card:has(.pricing-full) .pricing-features { margin-bottom: 22px; }
+    .warte-box { max-width: 560px; }
+    .warte-box h2 { font-size: clamp(2rem, 6vw, 2.6rem); margin-bottom: 14px; }
+    .warte-box .warte-intro { margin-bottom: 26px; }
+    .warte-abos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .warte-abos label { display: block; margin: 0; cursor: pointer; letter-spacing: 0; text-transform: none; }
+    .warte-abos input { position: absolute; opacity: 0; width: 1px; height: 1px; padding: 0; }
+    .warte-abos span { display: block; border: 2px solid var(--tinte); padding: 13px 12px; text-align: center; font-size: .95rem; font-weight: 700; transition: background-color .18s, color .18s; }
+    .warte-abos input:checked + span { background: var(--blau); border-color: var(--blau); color: var(--weiss); }
+    .warte-abos input:focus-visible + span { outline: 3px solid var(--blau); outline-offset: 2px; }
+    .warte-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .warte-box p.warte-legal { font-size: .8rem; line-height: 1.55; margin: 14px 0 0; }
+    .warte-box p.warte-err { display: none; margin: 14px 0 0; padding: 12px 14px; border: 2px solid #b3261e; color: #b3261e; font-size: .9rem; font-weight: 600; }
+    .warte-box p.warte-err.show { display: block; }
+    .warte-done { display: none; }
+    .warte-box.done form, .warte-box.done .warte-intro { display: none; }
+    .warte-box.done .warte-done { display: block; }
+    .warte-done p { margin-bottom: 22px; }
+
     /* Einblend-Verzögerungen */
     .coach-card:nth-child(2) .reveal-img::after, .gallery-item:nth-child(2)::after { transition-delay: .12s; }
     .coach-card:nth-child(3) .reveal-img::after, .gallery-item:nth-child(3)::after { transition-delay: .24s; }
@@ -884,7 +908,8 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg> <span data-i18n="plan2_f2">Max. 4 aktive Buchungen gleichzeitig</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg> <span data-i18n="plan2_f3">14 Tage im Voraus buchbar</span></li>
           </ul>
-          <a href="#contact" class="btn btn-gelb btn-block" data-i18n="plan2_btn">Mitglied werden</a>
+          <div class="pricing-full"><strong data-i18n="plan_full">Aktuell ausgebucht</strong><span data-i18n="plan_full_note">Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.</span></div>
+          <a href="#pricing" onclick="openWarteliste('Mid Day Abo');return false;" class="btn btn-gelb btn-block" data-i18n="plan2_btn">Auf die Warteliste</a>
         </div>
 
         <!-- ── 3: Premium ── -->
@@ -907,7 +932,8 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg> <span data-i18n="plan3_f2">Max. 4 aktive Buchungen gleichzeitig</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg> <span data-i18n="plan3_f3">14 Tage Buchungsvorlauf</span></li>
           </ul>
-          <a href="#contact" class="btn btn-line-b btn-block" data-i18n="plan3_btn">Jetzt anfragen</a>
+          <div class="pricing-full"><strong data-i18n="plan_full">Aktuell ausgebucht</strong><span data-i18n="plan_full_note">Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.</span></div>
+          <a href="#pricing" onclick="openWarteliste('Premium');return false;" class="btn btn-line-b btn-block" data-i18n="plan3_btn">Auf die Warteliste</a>
         </div>
 
       </div>
@@ -1383,6 +1409,50 @@
     </div>
   </section>
 
+  <!-- ═══ ABO-WARTELISTE MODAL ═══ -->
+  <div class="impressum-overlay" id="warteOverlay" onclick="if(event.target===this)closeWarteliste()">
+    <div class="impressum-box warte-box" id="warteBox" role="dialog" aria-modal="true" aria-labelledby="warteTitle">
+      <button class="impressum-close" onclick="closeWarteliste()" aria-label="Schließen">&times;</button>
+      <h2 id="warteTitle" data-i18n="wl_title">Warteliste</h2>
+      <p class="warte-intro" data-i18n="wl_intro">Mid Day Abo und Premium sind aktuell ausgebucht. Trag dich ein – wir melden uns persönlich bei dir, sobald ein Platz frei wird.</p>
+      <form id="warteForm" onsubmit="submitWarteliste(event)">
+        <div class="form-group">
+          <label data-i18n="wl_abo">Gewünschtes Abo</label>
+          <div class="warte-abos">
+            <label><input type="radio" name="abo" value="Mid Day Abo" required /><span data-i18n="plan2_name">Mid Day Abo</span></label>
+            <label><input type="radio" name="abo" value="Premium" /><span data-i18n="plan3_name">Premium</span></label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i18n="form_fname" for="w-vorname">Vorname</label>
+            <input type="text" id="w-vorname" name="vorname" maxlength="60" autocomplete="given-name" data-i18n-placeholder="form_fname_ph" placeholder="Max" required />
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_lname" for="w-nachname">Nachname</label>
+            <input type="text" id="w-nachname" name="nachname" maxlength="60" autocomplete="family-name" data-i18n-placeholder="form_lname_ph" placeholder="Mustermann" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="form_email" for="w-email">E-Mail</label>
+          <input type="email" id="w-email" name="email" maxlength="160" autocomplete="email" data-i18n-placeholder="form_email_ph" placeholder="max@email.de" required />
+        </div>
+        <div class="form-group">
+          <label data-i18n="wl_phone" for="w-telefon">Telefon (optional)</label>
+          <input type="tel" id="w-telefon" name="telefon" maxlength="40" autocomplete="tel" placeholder="+49 …" />
+        </div>
+        <div class="warte-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <button type="submit" class="btn-submit" data-i18n="wl_btn">Auf die Warteliste setzen →</button>
+        <p class="warte-err" id="warteErr" role="alert" data-i18n="wl_error">Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns an padelarena79664@gmail.com.</p>
+        <p class="warte-legal"><span data-i18n="wl_legal">Wir nutzen deine Angaben nur, um dich wegen deines Abo-Platzes zu kontaktieren.</span> <a href="datenschutz.html" data-i18n="wl_legal_link">Datenschutz</a></p>
+      </form>
+      <div class="warte-done" aria-live="polite">
+        <p data-i18n="wl_done">Du stehst auf der Warteliste. Wir melden uns bei dir, sobald ein Platz frei wird.</p>
+        <button type="button" class="btn-submit" onclick="closeWarteliste()" data-i18n="wl_close">Schließen</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ IMPRESSUM MODAL ═══ -->
   <div class="impressum-overlay" id="impressumOverlay" onclick="if(event.target===this)closeImpressum()">
     <div class="impressum-box">
@@ -1498,11 +1568,17 @@
         plan2_name:'Mid Day Abo', plan_year:'/ Jahr', plan2_desc:'Unter der Woche tagsüber und am Wochenende ganztägig gratis spielen – perfekt für alle mit flexiblen Zeiten.',
         plan2_days:'Mo–Fr', plan_free:'Gratis',
         plan2_f1:'Max. 4 Std. pro Tag', plan2_f2:'Max. 4 aktive Buchungen gleichzeitig', plan2_f3:'14 Tage im Voraus buchbar',
-        plan2_btn:'Mitglied werden',
+        plan2_btn:'Auf die Warteliste',
         plan3_name:'Premium', plan_year2:'/ Jahr', plan3_desc:'Maximale Freiheit – jederzeit gratis spielen, früher buchen.',
         plan3_always:'Jederzeit',
         plan3_f1:'Max. 4 Std. pro Tag', plan3_f2:'Max. 4 aktive Buchungen gleichzeitig', plan3_f3:'14 Tage Buchungsvorlauf',
-        plan3_btn:'Jetzt anfragen',
+        plan3_btn:'Auf die Warteliste',
+        plan_full:'Aktuell ausgebucht', plan_full_note:'Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.',
+        wl_title:'Warteliste', wl_intro:'Mid Day Abo und Premium sind aktuell ausgebucht. Trag dich ein – wir melden uns persönlich bei dir, sobald ein Platz frei wird.',
+        wl_abo:'Gewünschtes Abo', wl_phone:'Telefon (optional)', wl_btn:'Auf die Warteliste setzen →',
+        wl_error:'Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns an padelarena79664@gmail.com.',
+        wl_legal:'Wir nutzen deine Angaben nur, um dich wegen deines Abo-Platzes zu kontaktieren.', wl_legal_link:'Datenschutz',
+        wl_done:'Du stehst auf der Warteliste. Wir melden uns bei dir, sobald ein Platz frei wird.', wl_done_title:'Eingetragen', wl_close:'Schließen',
         events_label:'Events & Turniere', events_title:'Immer was los bei The Cube',
         events_sub:'Von wöchentlichen Social-Spielen bis zu offiziellen Turnieren – hier findest du alle Events auf einen Blick.',
         hours_label:'Öffnungszeiten', hours_daily:'Täglich', hours_cta:'Jetzt buchen →',
@@ -1587,11 +1663,17 @@
         plan2_name:'Mid Day Pass', plan_year:'/ year', plan2_desc:'Play for free on weekdays during the day and all weekend – perfect for flexible schedules.',
         plan2_days:'Mon–Fri', plan_free:'Free',
         plan2_f1:'Max. 4 hrs per day', plan2_f2:'Max. 4 active bookings at once', plan2_f3:'Book 14 days in advance',
-        plan2_btn:'Join now',
+        plan2_btn:'Join the waiting list',
         plan3_name:'Premium', plan_year2:'/ year', plan3_desc:'Maximum freedom – play free anytime and book earlier.',
         plan3_always:'Anytime',
         plan3_f1:'Max. 4 hrs per day', plan3_f2:'Max. 4 active bookings at once', plan3_f3:'14-day advance booking',
-        plan3_btn:'Enquire now',
+        plan3_btn:'Join the waiting list',
+        plan_full:'Currently full', plan_full_note:'We have reached our capacity limit. Join the waiting list and we will get in touch as soon as a place opens up.',
+        wl_title:'Waiting list', wl_intro:'Mid Day Pass and Premium are currently full. Leave your details and we will contact you personally as soon as a place opens up.',
+        wl_abo:'Membership you want', wl_phone:'Phone (optional)', wl_btn:'Join the waiting list →',
+        wl_error:'That did not work. Please try again or write to us at padelarena79664@gmail.com.',
+        wl_legal:'We only use your details to contact you about your membership place.', wl_legal_link:'Privacy policy',
+        wl_done:'You are on the waiting list. We will get in touch as soon as a place opens up.', wl_done_title:'You are on the list', wl_close:'Close',
         events_label:'Events & Tournaments', events_title:'Always something happening at The Cube',
         events_sub:'From weekly social games to official tournaments – find all events at a glance.',
         hours_label:'Opening hours', hours_daily:'Daily', hours_cta:'Book now →',
@@ -1676,11 +1758,17 @@
         plan2_name:'Abono Mid Day', plan_year:'/ año', plan2_desc:'Juega gratis entre semana durante el día y todo el fin de semana – perfecto para horarios flexibles.',
         plan2_days:'Lu–Vi', plan_free:'Gratis',
         plan2_f1:'Máx. 4 horas por día', plan2_f2:'Máx. 4 reservas activas a la vez', plan2_f3:'Reserva con 14 días de antelación',
-        plan2_btn:'Unirse',
+        plan2_btn:'Apuntarme a la lista de espera',
         plan3_name:'Premium', plan_year2:'/ año', plan3_desc:'Máxima libertad – juega gratis siempre y reserva antes.',
         plan3_always:'Siempre',
         plan3_f1:'Máx. 4 horas por día', plan3_f2:'Máx. 4 reservas activas a la vez', plan3_f3:'14 días de antelación',
-        plan3_btn:'Consultar ahora',
+        plan3_btn:'Apuntarme a la lista de espera',
+        plan_full:'Completo por ahora', plan_full_note:'Hemos alcanzado el límite de capacidad. Apúntate a la lista de espera y te avisamos en cuanto quede una plaza libre.',
+        wl_title:'Lista de espera', wl_intro:'El Abono Mid Day y el Premium están completos por ahora. Déjanos tus datos y te contactamos personalmente en cuanto quede una plaza libre.',
+        wl_abo:'Abono deseado', wl_phone:'Teléfono (opcional)', wl_btn:'Apuntarme a la lista de espera →',
+        wl_error:'No ha funcionado. Inténtalo de nuevo o escríbenos a padelarena79664@gmail.com.',
+        wl_legal:'Solo usamos tus datos para contactarte sobre tu plaza de abono.', wl_legal_link:'Privacidad',
+        wl_done:'Estás en la lista de espera. Te avisamos en cuanto quede una plaza libre.', wl_done_title:'Apuntado', wl_close:'Cerrar',
         events_label:'Eventos y Torneos', events_title:'Siempre algo en The Cube',
         events_sub:'Desde partidas sociales semanales hasta torneos oficiales – encuentra todos los eventos de un vistazo.',
         hours_label:'Horario', hours_daily:'Diariamente', hours_cta:'Reservar →',
@@ -1800,6 +1888,81 @@
         btn.disabled = false; btn.textContent = orig;
         alert(t.form_error || 'Senden fehlgeschlagen – bitte schreib uns direkt an padelarena79664@gmail.com.');
       }
+    }
+
+    /* ── ABO-WARTELISTE (Mid Day Abo + Premium ausgebucht) ──
+       1. Weg: Google Apps Script "Cube Shop Bestellmailer" (Zweig typ:'warteliste') – trägt den
+          Eintrag in die Google-Tabelle "The Cube – Abo-Warteliste" ein und schickt die Mail.
+       2. Weg (Fallback, falls das Skript nicht antwortet oder ablehnt): FormSubmit – nur Mail. */
+    const WARTELISTE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxMabZIJaaLQwHD44-aYEqH_Ssg-nfQ7tKrIYzDx2LcqVUBbq_wciEyikwv859p3dpc/exec';
+    const WARTELISTE_TOKEN = 'cube-warteliste-5291';
+    function openWarteliste(abo) {
+      const box = document.getElementById('warteBox');
+      box.classList.remove('done');
+      document.getElementById('warteErr').classList.remove('show');
+      document.getElementById('warteTitle').textContent = translations[currentLang].wl_title;
+      document.querySelectorAll('#warteForm input[name="abo"]').forEach(r => { r.checked = r.value === abo; });
+      document.getElementById('warteOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('w-vorname').focus();
+    }
+    function closeWarteliste() {
+      document.getElementById('warteOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('warteOverlay').classList.contains('active')) closeWarteliste();
+    });
+    async function submitWarteliste(e) {
+      e.preventDefault();
+      const f = e.target;
+      const btn = f.querySelector('.btn-submit');
+      const err = document.getElementById('warteErr');
+      const t = translations[currentLang];
+      const fd = new FormData(f);
+      const done = () => {
+        f.reset();
+        document.getElementById('warteTitle').textContent = t.wl_done_title;
+        document.getElementById('warteBox').classList.add('done');
+      };
+      if (fd.get('website')) { done(); return; }   /* Honeypot: Bots bekommen nur die Erfolgsmeldung */
+      const eintrag = {
+        typ: 'warteliste', token: WARTELISTE_TOKEN,
+        abo: fd.get('abo'),
+        vorname: String(fd.get('vorname')).trim(), nachname: String(fd.get('nachname')).trim(),
+        email: String(fd.get('email')).trim(), telefon: String(fd.get('telefon') || '').trim(),
+        sprache: currentLang,
+      };
+      const datum = new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'medium', timeStyle: 'short' });
+      err.classList.remove('show');
+      btn.disabled = true; btn.textContent = '…';
+      try {
+        let ok = false;
+        if (WARTELISTE_ENDPOINT) {
+          try {
+            const res = await fetch(WARTELISTE_ENDPOINT, { method: 'POST', body: JSON.stringify(eintrag) });
+            ok = (await res.json()).ok === true;
+          } catch (scriptErr) { ok = false; }
+        }
+        if (!ok) {
+          const res = await fetch('https://formsubmit.co/ajax/' + ORDER_EMAIL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              _subject: 'Abo-Warteliste: ' + eintrag.abo + ' – ' + eintrag.vorname + ' ' + eintrag.nachname,
+              _template: 'table', _captcha: 'false',
+              Abo: eintrag.abo, Name: eintrag.vorname + ' ' + eintrag.nachname, Datum: datum,
+              'E-Mail': eintrag.email, Telefon: eintrag.telefon || '–',
+              Hinweis: 'Ersatzweg per Mail – bitte in der Tabelle „The Cube – Abo-Warteliste“ prüfen und ggf. von Hand nachtragen.',
+            }),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+        }
+        done();
+      } catch (sendErr) {
+        err.classList.add('show');
+      }
+      btn.disabled = false; btn.textContent = t.wl_btn;
     }
 
     /* Newsletter-Anmeldung → FormSubmit */
