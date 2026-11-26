@@ -469,6 +469,9 @@
     .featured .pricing-full { border-color: var(--gelb); }
     .featured .pricing-full strong { color: var(--gelb); }
     .pricing-card:has(.pricing-full) .pricing-features { margin-bottom: 22px; }
+    .pricing-card.warte { background: var(--hell); }
+    .pricing-card.warte .pricing-annual, .pricing-card.warte .price-slots, .pricing-card.warte .pricing-features { opacity: .55; }
+    .warte-tag { position: absolute; top: 0; right: 0; background: var(--tinte); color: var(--weiss); padding: 8px 12px 7px; font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; line-height: 1; }
     .warte-box { max-width: 560px; }
     .warte-box h2 { font-size: clamp(2rem, 6vw, 2.6rem); margin-bottom: 14px; }
     .warte-box .warte-intro { margin-bottom: 26px; }
@@ -880,8 +883,8 @@
         </div>
 
         <!-- ── 2: Mid Day Abo ── -->
-        <div class="pricing-card featured">
-          <div class="featured-badge" data-i18n="plan_popular">Beliebteste Wahl</div>
+        <div class="pricing-card warte">
+          <div class="warte-tag" data-i18n="plan_wait_tag">Nur Warteliste</div>
           <div class="pricing-name" data-i18n="plan2_name">Mid Day Abo</div>
           <div class="pricing-annual">
             <span class="currency">€</span>
@@ -909,11 +912,12 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg> <span data-i18n="plan2_f3">14 Tage im Voraus buchbar</span></li>
           </ul>
           <div class="pricing-full"><strong data-i18n="plan_full">Aktuell ausgebucht</strong><span data-i18n="plan_full_note">Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.</span></div>
-          <a href="#pricing" onclick="openWarteliste('Mid Day Abo');return false;" class="btn btn-gelb btn-block" data-i18n="plan2_btn">Auf die Warteliste</a>
+          <a href="#pricing" onclick="openWarteliste('Mid Day Abo');return false;" class="btn btn-line-b btn-block" data-i18n="plan2_btn">Auf die Warteliste</a>
         </div>
 
         <!-- ── 3: Premium ── -->
-        <div class="pricing-card">
+        <div class="pricing-card warte">
+          <div class="warte-tag" data-i18n="plan_wait_tag">Nur Warteliste</div>
           <div class="pricing-name" data-i18n="plan3_name">Premium</div>
           <div class="pricing-annual">
             <span class="currency">€</span>
@@ -1573,7 +1577,7 @@
         plan3_always:'Jederzeit',
         plan3_f1:'Max. 4 Std. pro Tag', plan3_f2:'Max. 4 aktive Buchungen gleichzeitig', plan3_f3:'14 Tage Buchungsvorlauf',
         plan3_btn:'Auf die Warteliste',
-        plan_full:'Aktuell ausgebucht', plan_full_note:'Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.',
+        plan_wait_tag:'Nur Warteliste', plan_full:'Aktuell ausgebucht', plan_full_note:'Das Kapazitätslimit ist erreicht. Trag dich auf die Warteliste ein – wir melden uns, sobald ein Platz frei wird.',
         wl_title:'Warteliste', wl_intro:'Mid Day Abo und Premium sind aktuell ausgebucht. Trag dich ein – wir melden uns persönlich bei dir, sobald ein Platz frei wird.',
         wl_abo:'Gewünschtes Abo', wl_phone:'Telefon (optional)', wl_btn:'Auf die Warteliste setzen →',
         wl_error:'Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns an padelarena79664@gmail.com.',
@@ -1668,7 +1672,7 @@
         plan3_always:'Anytime',
         plan3_f1:'Max. 4 hrs per day', plan3_f2:'Max. 4 active bookings at once', plan3_f3:'14-day advance booking',
         plan3_btn:'Join the waiting list',
-        plan_full:'Currently full', plan_full_note:'We have reached our capacity limit. Join the waiting list and we will get in touch as soon as a place opens up.',
+        plan_wait_tag:'Waiting list only', plan_full:'Currently full', plan_full_note:'We have reached our capacity limit. Join the waiting list and we will get in touch as soon as a place opens up.',
         wl_title:'Waiting list', wl_intro:'Mid Day Pass and Premium are currently full. Leave your details and we will contact you personally as soon as a place opens up.',
         wl_abo:'Membership you want', wl_phone:'Phone (optional)', wl_btn:'Join the waiting list →',
         wl_error:'That did not work. Please try again or write to us at padelarena79664@gmail.com.',
@@ -1763,7 +1767,7 @@
         plan3_always:'Siempre',
         plan3_f1:'Máx. 4 horas por día', plan3_f2:'Máx. 4 reservas activas a la vez', plan3_f3:'14 días de antelación',
         plan3_btn:'Apuntarme a la lista de espera',
-        plan_full:'Completo por ahora', plan_full_note:'Hemos alcanzado el límite de capacidad. Apúntate a la lista de espera y te avisamos en cuanto quede una plaza libre.',
+        plan_wait_tag:'Solo lista de espera', plan_full:'Completo por ahora', plan_full_note:'Hemos alcanzado el límite de capacidad. Apúntate a la lista de espera y te avisamos en cuanto quede una plaza libre.',
         wl_title:'Lista de espera', wl_intro:'El Abono Mid Day y el Premium están completos por ahora. Déjanos tus datos y te contactamos personalmente en cuanto quede una plaza libre.',
         wl_abo:'Abono deseado', wl_phone:'Teléfono (opcional)', wl_btn:'Apuntarme a la lista de espera →',
         wl_error:'No ha funcionado. Inténtalo de nuevo o escríbenos a padelarena79664@gmail.com.',
